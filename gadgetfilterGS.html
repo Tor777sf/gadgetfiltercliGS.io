@@ -6,42 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Sheet CSV</title>
 
-  <!--  LIBRERIAS -->
+  <!-- LIBRERIAS -->
   <!-- Bulma CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
 
-<!-- Popper.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+  <!-- WhatsApp Click to Chat JS -->
+  <script src="https://cdn.jsdelivr.net/npm/whatsapp-click-to-chat/dist/index.min.js"></script>
 
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<!-- WhatsApp Click to Chat JS -->
-<script src="https://cdn.jsdelivr.net/npm/whatsapp-click-to-chat/dist/index.min.js"></script>
+  <!-- Popper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 
-<!-- PapaParse JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <!-- PapaParse JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
   <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 
-<!-- PDFLib JS -->
-<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+  <!-- PDFLib JS -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
 
-<!-- jsPDF JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <!-- FIN  LIBRERIAS -->
+  <!-- jsPDF JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <!-- FIN LIBRERIAS -->
   
-  <!--  DISEÑO Y ESTRUCTURA WEB--> 
+  <!-- DISEÑO Y ESTRUCTURA WEB--> 
   <style>
     /* Coloca aquí el bloque de estilos CSS */
     .shopping-item {
@@ -72,165 +72,102 @@
 </head>
 <body>
   
-  <!--  DISEÑO Y ESTRUCTURA WEB-->
+  <!-- DISEÑO Y ESTRUCTURA WEB-->
   
-<!-- Nueva sección para la lista de compra -->
-<div id="shoppingList">
-  <h2>Lista de Compra</h2>
-  <ul id="shoppingItems">
-    <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
-  </ul>
-  <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
-  <button id="whatsappButton">Compartir por WhatsApp</button>
-  <button id="downloadPDFButton">Descargar PDF</button>
-
-</div>
+  <!-- Nueva sección para la lista de compra -->
+  <div id="shoppingList">
+    <h2>Lista de Compra</h2>
+    <ul id="shoppingItems">
+      <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
+    </ul>
+    <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
+    <button id="whatsappButton">Compartir por WhatsApp</button>
+    <button id="downloadPDFButton">Descargar PDF</button>
+  </div>
   
-<table id="myDataTable" class="display">
-  <!-- DataTable content will be dynamically generated here -->
-</table>
+  <table id="myDataTable" class="display">
+    <!-- DataTable content will be dynamically generated here -->
+  </table>
 
-  <!--  FIN DISEÑO Y ESTRUCTURA WEB-->
+  <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
 
-<script>
-  
-   // <!--  DISEÑO Y ESTRUCTURA WEB-->
-      
-  $(document).ready(function () {
-   // Descargar y parsear el archivo CSV
-    Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
-      download: true,
-      header: true,
-      dynamicTyping: true,
-      complete: function (results) {
-        // Crear DataTable
-        var dataTable = $('#myDataTable').DataTable({
-          data: results.data,
-          columns: Object.keys(results.data[0]).map(function(key) {
-            return { data: key, title: key };
-          }),
-          columnDefs: [
-            {
-              targets: 10,
-              render: function (data, type, row) {
-                // Personalizar renderizado para la columna con enlaces no vacíos
-                return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
+  <script>
+    // DISEÑO Y ESTRUCTURA WEB
+    $(document).ready(function () {
+      // Descargar y parsear el archivo CSV
+      Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
+        download: true,
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          // Crear DataTable
+          var dataTable = $('#myDataTable').DataTable({
+            data: results.data,
+            columns: Object.keys(results.data[0]).map(function(key) {
+              return { data: key, title: key };
+            }),
+            columnDefs: [
+              {
+                targets: 10,
+                render: function (data, type, row) {
+                  // Personalizar renderizado para la columna con enlaces no vacíos
+                  return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
+                }
               }
-            }
-          ]
-        });
+            ]
+          });
+        }
+      });
 
-//////////////////////////////////////////////////////// 
+      // Función para formatear la lista de compra para WhatsApp
+      function formatShoppingListForWhatsApp() {
+        let formattedList = '*📋 Lista de Compra:*\n\n';
+        // Añadir código para formatear la lista de compra
+        return formattedList;
+      }
 
+      // Función para formatear la lista de compra para el PDF
+      function formatShoppingListForPDF() {
+        let formattedList = 'Lista de Compra:\n\n';
+        // Añadir código para formatear la lista de compra
+        return formattedList;
+      }
 
-        AQUI...
-        
+      // Descargar PDF al hacer clic en el botón "Descargar PDF"
+      $('#downloadPDFButton').on('click', async function () {
+        try {
+          // Añadir código para descargar PDF
+        } catch (error) {
+          alert('Error al crear/descargar el PDF: ' + error.message);
+        }
+      });
 
-//////////////////////////////////////////////// ...
-//   inicio botones Whatsapp y pdf
+      // Función para compartir en WhatsApp al hacer clic en el botón
+      $('#whatsappButton').on('click', function () {
+        try {
+          // Añadir código para compartir en WhatsApp
+        } catch (error) {
+          alert('Error al compartir en WhatsApp: ' + error.message);
+        }
+      });
+    });
+    // FIN DE INTERACTUAR CON EL USUARIO
+  </script>
 
-// Función para formatear la lista de compra para WhatsApp
-function formatShoppingListForWhatsApp() {
-  let formattedList = '*📋 Lista de Compra:*\n\n';
-  for (let i = 0; i < shoppingList.length; i++) {
-    const item = shoppingList[i];
-    formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
-    formattedList += '─────────────────────────────\n'; // Línea decorativa
-  }
-  formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
-
-  // Agregar enlace al GIF
-  const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
-  formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
-
-  return formattedList;
-}
-
-// Función para formatear la lista de compra para el PDF
-function formatShoppingListForPDF() {
-  let formattedList = 'Lista de Compra:\n\n';
-  for (let i = 0; i < shoppingList.length; i++) {
-    const item = shoppingList[i];
-    formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n`;
-    //formattedList += '─────────────────────────────\n'; // Línea decorativa
-  }
-  formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}`;
-
-  return formattedList;
-}
-
-// Descargar PDF al hacer clic en el botón "Descargar PDF"
-$('#downloadPDFButton').on('click', async function () {
-  try {
-    // Crear el objeto PDF en blanco
-    const pdfDoc = await PDFLib.PDFDocument.create();
-
-    // Agregar una nueva página al PDF
-    const page = pdfDoc.addPage();
-
-    // Establecer el tamaño y la posición del texto
-    const textSize = 12;
-    const textX = 20;
-    const textY = 750;
-
-    // Obtener la lista de compra formateada para PDF
-    const formattedListForPDF = formatShoppingListForPDF();
-
-    // Agregar texto a la página utilizando la fuente predeterminada
-    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
-
-    // Guardar el PDF como un blob
-    const pdfBytes = await pdfDoc.save();
-
-    // Crear el enlace de descarga para el PDF
-    const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
-    downloadLink.download = 'Lista_de_Compra.pdf';
-
-    // Simular un clic en el enlace para abrir la ventana de descarga
-    downloadLink.click();
-  } catch (error) {
-    alert('Error al crear/descargar el PDF: ' + error.message);
-  }
-});
-
-// Función para compartir en WhatsApp al hacer clic en el botón
-$('#whatsappButton').on('click', function () {
-  try {
-    // Obtener la lista de compra formateada para WhatsApp
-    const formattedListForWhatsApp = formatShoppingListForWhatsApp();
-
-    // Abrir WhatsApp con el mensaje
-    const whatsappLink = 'whatsapp://send?text=' + encodeURIComponent(formattedListForWhatsApp);
-
-    // Redirigir a la aplicación de WhatsApp o abrir en una nueva ventana
-    window.open(whatsappLink, '_blank');
-  } catch (error) {
-    alert('Error al compartir en WhatsApp: ' + error.message);
-  }
-});
-// fin botones Whatsapp y pdf
-
-
- 
-  });
-    //--  FIN DE INTERACTUAR CON EL USUARIO--
-</script>
-      
-  <!--  DISEÑO Y ESTRUCTURA WEB-->   
-<!-- Modal -->
-<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="quantityModalLabel">Detalles del Producto</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="quantityForm">
-          <div class="form-group">
+  <!-- DISEÑO Y ESTRUCTURA WEB-->
+  <!-- Modal -->
+  <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="quantityModalLabel">Detalles del Producto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="quantityForm">
+            <div class="form-group">
             <label for="descriptionInput">Descripción:</label>
             <input type="text" class="form-control" id="descriptionInput" >
           </div>
@@ -257,7 +194,8 @@ $('#whatsappButton').on('click', function () {
 </div>
 <!-- Modal fin -->
   
-  <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
+<!-- FIN DISEÑO Y ESTRUCTURA WEB-->
   
 </body>
-  </html>
+</html>
+
