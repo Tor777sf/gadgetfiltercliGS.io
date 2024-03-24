@@ -1,5 +1,4 @@
 <!--segundo nivel 2.5-->
-Cliente-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -121,188 +120,13 @@ Cliente-->
           ]
         });
 
- 
+//////////////////////////////////////////////////////// 
 
-        // Nueva lista de compra
-        var shoppingList = [];
-        var totalPurchase = 0;
+
+        AQUI...
         
- // <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
-        
-// ...
 
-        //-----INTERACTUA CON EL USUARIO-----
-// Agregar evento clic para generar lista de compra
-///$('#myDataTable tbody').on('click', 'tr', function () {
-        
-// Capturar el evento clic del campo de precio para habilitar la edición y permitir solo números
-//$('#priceInput').click(function() {
-    //$(this).removeAttr('readonly');
-//}); 
-
-// Validar que solo se ingresen números durante la edición del precio
-$('#priceInput').on('input', function() {
-    var sanitized = $(this).val().replace(/[^0-9.]/g, '');
-    $(this).val(sanitized);
-});
-
-// Capturar el valor del precio antes de la edición
-//var previousPrice;
-
-//$('#priceInput').focus(function() {
-   // previousPrice = $(this).val();
-//});
-
-
-    // Al perder el enfoque del campo de precio, verificar y ajustar la cantidad si es necesario
-$('#priceInput').change(function() {
-    var newPrice = $(this).val();
-
-    // Verificar si el nuevo precio es menor que el precio anterior
-    if (parseFloat(newPrice) < parseFloat(previousPrice)) {
-        var quantity = $('#quantityInput').val(); // Obtener la cantidad ingresada
-        if (quantity && !isNaN(quantity) && parseFloat(quantity) > 0) {
-            // Calcular la nueva cantidad
-            var newQuantity = (parseFloat(quantity) / parseFloat(previousPrice)) * parseFloat(newPrice);
-     
-            $('#quantityInput').val(newQuantity); //.toFixed(6) Actualizar el campo de cantidad
-        }
-    }
-    // Si el nuevo precio es mayor o igual que el precio anterior
-    else {
-        var newQuantity = parseFloat(newPrice) / parseFloat(previousPrice);
-        $('#quantityInput').val(newQuantity); //.toFixed(6) Actualizar el campo de cantidad
-    }
-
-    // Bloquear la escritura en el campo de cantidad
-   // $('#quantityInput').attr('readonly', true);
-
-    // Volver a establecer el campo de precio como de solo lectura
-    //$(this).attr('readonly', true);
-});
-
-  
-// Variable para almacenar la configuración inicial del modal
-var initialModalSettings = {
-    description: "",
-    quantity: "1",
-    price: "0.00",
-   // readonly: false
-};
-
-// Capturar el evento clic al seleccionar un ítem en la tabla
-$('#myDataTable tbody').on('click', 'tr', function () {
-    try {
-        var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
-
-        // Verificar si la descripción del producto está definida
-        if (data && data.DESCRIPCION) {
-            // Mostrar el formulario modal
-            $('#quantityModal').modal('show');
-
-            // Actualizar campos del modal con datos de la fila
-            try {
-                if (data.DESCRIPCION.toLowerCase() === '.p') {
-                  // Si la descripción es igual a '.p'
-                     $('#descriptionInput').focus();
-                    //  $('#descriptionInput').select();
-
-                    initialModalSettings = {
-                        description: "",
-                        quantity: "1",
-                        price: "0.00",
-                        //readonly: false
-                    };
-                      
-                      
-                } else {
-                    // Si no contiene '.p', establecer la descripción y otros campos normalmente
-                    initialModalSettings = {
-                        description: data.DESCRIPCION,
-                        quantity: "1",
-                        //price: data.Total() || 'Precio no disponoble';
-                        price: parseFloat(data.Total.replace(',', '.')) || 'Precio no disponible'
-                        //var price = parseFloat(data.Total.replace(',', '.'));
- 
-                      //readonly: false
-                    };
-                }
-                
-                // Restaurar la configuración inicial del modal
-                $('#descriptionInput').val(initialModalSettings.description);
-                $('#quantityInput').val(initialModalSettings.quantity);
-                $('#priceInput').val(initialModalSettings.price).attr('readonly', initialModalSettings.readonly);
-
-                var imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
-                if (imageLink) {
-                    // Mostrar la imagen en el modal
-                    $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
-                } else {
-                    $('#imageContainer').html('Imagen no disponible');
-                }
-            } catch (error) {
-                alert('Error al actualizar los campos del modal: ' + error.message);
-            }
-        } else {
-            alert('Descripción del producto no definida. Intente de nuevo.');
-        }
-    } catch (error) {
-        alert('Error al procesar el clic en la tabla: ' + error.message);
-    }
-});
-
-// Definir la variable previousPrice fuera del alcance de los eventos
-var previousPrice;
-
-// Capturar el evento mostrado del modal
-$('#quantityModal').on('shown.bs.modal', function () {
-    $('#quantityInput').attr('readonly', false);
-    $('#priceInput').attr('readonly', false);
-
-    // Llenar previousPrice solo cuando se muestra el modal
-    previousPrice = $('#priceInput').val();
-});
-
-
-
-// Capturar el evento clic del botón "Agregar" en el formulario modal
-$('#addQuantityBtn').off('click').on('click', function () {
-    try {
-        var quantity = $('#quantityInput').val(); // Obtener la cantidad ingresada
-        var price = previousPrice; // Obtener el precio
-        if (!quantity || isNaN(quantity) || quantity <= 0) {
-             quantity = 0;
-         }
-
-        if (!price || isNaN(price) || price < 0) {
-          price = 0.00;
-        }
-
-        // La cantidad y el precio son válidos, procede con el proceso de agregar a la lista de compra
-        var totalItem = parseFloat(price) * parseFloat(quantity);
-
-        totalPurchase += totalItem;
-
-        shoppingList.push({
-            producto: $('#descriptionInput').val(),
-            cantidad: quantity.toFixed(6),
-            precio: parseFloat(price), // Usar el precio original, no el precio modificado
-            total: totalItem.toFixed(2),
-        });
-
-        updateShoppingList();
-
-        $('#quantityModal').modal('hide'); // Ocultar el formulario modal
-    } catch (error) {
-        alert('Error al agregar la cantidad: ' + error.message);
-    }
-});
-
-//:: fin Agregar evento clic para generar lista de compra
-        
-// .
-
-// ...
+//////////////////////////////////////////////// ...
 //   inicio botones Whatsapp y pdf
 
 // Función para formatear la lista de compra para WhatsApp
@@ -463,11 +287,15 @@ $('#whatsappButton').on('click', function () {
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data
-        
-         fin -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" id="addQuantityBtn">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal fin -->
   
   <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
   
 </body>
-</html>
+  </html>
