@@ -212,45 +212,7 @@ $('#whatsappButton').on('click', function () {
 // fin botones Whatsapp y pdf
 
 
-          // Agregar evento cuando el modal se muestre
-
-  
-            $('#quantityModal').on('shown.bs.modal', function () {
-            // Establecer el valor predeterminado en 1
-            $('#quantityInput').val('1');
-            
-            // Seleccionar todo el texto en el campo de cantidad
-            $('#quantityInput').select();
-        });
-        // fin agregar evento modal
-        
-        
-        // Función para actualizar la lista de compra en la interfaz
-        function updateShoppingList() {
-          var shoppingItems = $('#shoppingItems');
-          var totalPurchaseElement = $('#totalPurchase');
-
-          // Limpiar lista de compra
-          shoppingItems.empty();
-
-          // Construir y agregar nuevos elementos a la lista de compra
-          for (var i = 0; i < shoppingList.length; i++) {
-            var item = shoppingList[i];
-            var listItem = '<li class="shopping-item">' +
-               '<span class="item-quantity">' + item.cantidad + 'x</span>' +
-               '<span class="item-description">' + item.producto + '</span>' +
-               '<span class="item-total">Total: $' + item.total + '</span>' +
-               '</li>';
-
-            shoppingItems.append(listItem);
-          }//fin for
-
-          // Actualizar el total de la compra global
-          totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
-        }
-        //fin actualizar la lista compras
-      }
-    });
+ 
   });
     //--  FIN DE INTERACTUAR CON EL USUARIO--
 </script>
