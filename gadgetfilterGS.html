@@ -155,21 +155,21 @@
   </script>
 
   <!-- DISEÑO Y ESTRUCTURA WEB-->
-  <!-- Modal -->
-  <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="quantityModalLabel">Detalles del Producto</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="quantityForm">
-            <div class="form-group">
+<!-- Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailsModalLabel">Detalles del Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="detailsForm">
+          <div class="form-group">
             <label for="descriptionInput">Descripción:</label>
-            <input type="text" class="form-control" id="descriptionInput" >
+            <input type="text" class="form-control" id="descriptionInput">
           </div>
           <div class="form-group">
             <label for="quantityInput">Cantidad:</label>
@@ -187,12 +187,13 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary" id="addQuantityBtn">Agregar</button>
+        <button type="submit" class="btn btn-primary" id="addDetailsBtn">Agregar</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal fin -->
+
   
 <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
   
