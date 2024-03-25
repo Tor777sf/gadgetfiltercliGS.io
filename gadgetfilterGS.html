@@ -171,12 +171,13 @@ function selectTableElement() {
       var rowData = $(this).find('td').map(function() {
         return $(this).text().trim();
       }).get();
-      return rowData;
+      showModalAndLoadFields(rowData); // Llamar a la función para mostrar el modal y cargar los campos
     } catch (error) {
-      throw new Error('Error al seleccionar el elemento de la tabla: ' + error.message);
+      alert('Error al seleccionar el elemento de la tabla: ' + error.message);
     }
   });
 }
+
 
 // Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
@@ -227,7 +228,6 @@ function initializeProcess() {
   }
 }
 
-// Inicialización al cargar el documento
 
 
 
