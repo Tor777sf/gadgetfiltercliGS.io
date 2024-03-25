@@ -92,66 +92,84 @@
   <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
 
   <script>
-    // DISEÑO Y ESTRUCTURA WEB
-    $(document).ready(function () {
-      // Descargar y parsear el archivo CSV
-      Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
-        download: true,
-        header: true,
-        dynamicTyping: true,
-        complete: function (results) {
-          // Crear DataTable
-          var dataTable = $('#myDataTable').DataTable({
-            data: results.data,
-            columns: Object.keys(results.data[0]).map(function(key) {
-              return { data: key, title: key };
-            }),
-            columnDefs: [
-              {
-                targets: 10,
-                render: function (data, type, row) {
-                  // Personalizar renderizado para la columna con enlaces no vacíos
-                  return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
-                }
-              }
-            ]
-          });
-        }
+    // Función de inicialización para el DataTable
+function initDataTable() {
+  Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
+    download: true,
+    header: true,
+    dynamicTyping: true,
+    complete: function (results) {
+      var dataTable = $('#myDataTable').DataTable({
+        data: results.data,
+        columns: Object.keys(results.data[0]).map(function(key) {
+          return { data: key, title: key };
+        }),
+        columnDefs: [
+          {
+            targets: 10,
+            render: function (data, type, row) {
+              return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
+            }
+          }
+        ]
       });
+    }
+  });
+}
 
-      // Función para formatear la lista de compra para WhatsApp
-      function formatShoppingListForWhatsApp() {
-        let formattedList = '*📋 Lista de Compra:*\n\n';
-        // Añadir código para formatear la lista de compra
-        return formattedList;
-      }
+// Función de inicialización para la lista de compra
+function initShoppingList() {
+  $('#downloadPDFButton').on('click', function () {
+    try {
+      var doc = new jsPDF();
+      doc.text(formatShoppingListForPDF(), 10, 10);
+      doc.save('lista_de_compra.pdf');
+    } catch (error) {
+      alert('Error al crear/descargar el PDF: ' + error.message);
+    }
+  });
 
-      // Función para formatear la lista de compra para el PDF
-      function formatShoppingListForPDF() {
-        let formattedList = 'Lista de Compra:\n\n';
-        // Añadir código para formatear la lista de compra
-        return formattedList;
-      }
+  $('#whatsappButton').on('click', function () {
+    try {
+      var message = formatShoppingListForWhatsApp();
+      var whatsappURL = 'https://wa.me/?text=' + encodeURIComponent(message);
+      window.open(whatsappURL, '_blank');
+    } catch (error) {
+      alert('Error al compartir en WhatsApp: ' + error.message);
+    }
+  });
+}
 
-      // Descargar PDF al hacer clic en el botón "Descargar PDF"
-      $('#downloadPDFButton').on('click', async function () {
-        try {
-          // Añadir código para descargar PDF
-        } catch (error) {
-          alert('Error al crear/descargar el PDF: ' + error.message);
-        }
-      });
+// Función para formatear la lista de compra para WhatsApp
+function formatShoppingListForWhatsApp() {
+  let formattedList = '*📋 Lista de Compra:*\n\n';
+  $('#shoppingItems li').each(function() {
+    var quantity = $(this).find('.item-quantity').text();
+    var description = $(this).find('.item-description').text();
+    var total = $(this).find('.item-total').text();
+    formattedList += `${quantity} x ${description}: ${total}\n`;
+  });
+  return formattedList;
+}
 
-      // Función para compartir en WhatsApp al hacer clic en el botón
-      $('#whatsappButton').on('click', function () {
-        try {
-          // Añadir código para compartir en WhatsApp
-        } catch (error) {
-          alert('Error al compartir en WhatsApp: ' + error.message);
-        }
-      });
-    });
-    // FIN DE INTERACTUAR CON EL USUARIO
+// Función para formatear la lista de compra para el PDF
+function formatShoppingListForPDF() {
+  let formattedList = 'Lista de Compra:\n\n';
+  $('#shoppingItems li').each(function() {
+    var quantity = $(this).find('.item-quantity').text();
+    var description = $(this).find('.item-description').text();
+    var total = $(this).find('.item-total').text();
+    formattedList += `${quantity} x ${description}: ${total}\n`;
+  });
+  return formattedList;
+}
+
+// Inicialización al cargar el documento
+$(document).ready(function () {
+  initDataTable();
+  initShoppingList();
+});
+
   </script>
 
   <!-- DISEÑO Y ESTRUCTURA WEB-->
