@@ -180,31 +180,18 @@ function selectTableElement() {
 
 
 // Función para mostrar la imagen del campo ENLACES en el modal
-///function showImageInModal(rowData) {
-///  try {
-    ///var imageHtml = rowData[10]; // Obtener el HTML de la celda
-    
-    // Verificar si imageHtml ya es una URL de imagen directa
-  ///  var imageUrl = $(imageHtml).attr('src');
-    
-    ///if (!imageUrl) {
-      // Si no es una URL de imagen directa, buscar la etiqueta <img> en el HTML
-    ///  imageUrl = $(imageHtml).find('img').attr('src');
-    ///}
-    
- ///   if (imageUrl) {
-    ///  $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
-  ///  } else {
-     /// $('#imageContainer').html('');
-    ///  alert('No se encontró una URL de imagen en la celda.');
-    ///}
- /// } catch (error) {
-    ///alert('Error al mostrar la imagen en el modal: ' + error.message);
-///  }
-///}
+// Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
   try {
-    var imageUrl = rowData[10]; // Obtener la URL de la imagen de la celda
+    var imageHtml = rowData[10]; // Obtener el HTML de la celda
+    
+    // Verificar si imageHtml ya es una URL de imagen directa
+    var imageUrl = $(imageHtml).attr('src');
+    
+    if (!imageUrl) {
+      // Si no es una URL de imagen directa, buscar la etiqueta <img> en el HTML
+      imageUrl = $(imageHtml).find('img').attr('src');
+    }
     
     if (imageUrl) {
       $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
