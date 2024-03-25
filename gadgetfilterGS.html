@@ -182,7 +182,7 @@ function selectTableElement() {
 // Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
   try {
-    var imageUrl = rowData[3]; // Índice del campo ENLACES en rowData
+    var imageUrl = rowData[10]; // Índice del campo ENLACES en rowData
     
     if (imageUrl) {
       $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
@@ -197,9 +197,9 @@ function showImageInModal(rowData) {
 // Función para mostrar el modal y cargar los campos
 function showModalAndLoadFields(rowData) {
   try {
-    var description = rowData[0];
+    var description = rowData[1];
     var quantity = rowData[1];
-    var price = rowData[2];
+    var price = rowData[9];
     
     if (description.toLowerCase() === "xp") {
       $('#descriptionInput').val('');
