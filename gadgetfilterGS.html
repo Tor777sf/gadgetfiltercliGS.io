@@ -181,7 +181,6 @@ function selectTableElement() {
 
 // Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
-
   try {
     var imageHtml = rowData[10]; // Obtener el HTML de la celda
     
@@ -198,6 +197,7 @@ function showImageInModal(rowData) {
     alert('Error al mostrar la imagen en el modal: ' + error.message);
   }
 }
+
 
 // Función para mostrar el modal y cargar los campos
 function showModalAndLoadFields(rowData) {
