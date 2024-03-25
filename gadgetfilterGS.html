@@ -182,7 +182,10 @@ function selectTableElement() {
 // Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
   try {
-    var imageUrl = rowData[10]; // Índice del campo ENLACES en rowData
+    var imageHtml = rowData[10]; // Obtener el HTML de la celda
+    
+    // Buscar la etiqueta <img> en el HTML
+    var imageUrl = $(imageHtml).attr('src');
     
     if (imageUrl) {
       $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
@@ -190,7 +193,7 @@ function showImageInModal(rowData) {
       $('#imageContainer').html('');
     }
   } catch (error) {
-    throw new Error('Error al mostrar la imagen en el modal: ' + error.message);
+    alert('Error al mostrar la imagen en el modal: ' + error.message);
   }
 }
 
