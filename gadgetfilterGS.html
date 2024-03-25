@@ -204,10 +204,7 @@ function selectTableElement() {
 ///}
 function showImageInModal(rowData) {
   try {
-    var imageHtml = rowData[10]; // Obtener el HTML de la celda
-    
-    // Extraer la URL de la imagen del HTML de la celda utilizando expresiones regulares
-    var imageUrl = extractImageUrl(imageHtml);
+    var imageUrl = rowData[10]; // Obtener la URL de la imagen de la celda
     
     if (imageUrl) {
       $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
@@ -220,22 +217,6 @@ function showImageInModal(rowData) {
   }
 }
 
-function extractImageUrl(html) {
-  try {
-    // Expresión regular para extraer la URL de la imagen de una etiqueta <img>
-    var imgRegex = /<img.*?src=['"](.*?)['"]/;
-    var match = html.match(imgRegex);
-    if (match && match.length > 1) {
-      return match[1]; // Devolver la URL de la imagen
-    } else {
-      alert('No se encontró una URL de imagen en la celda.');
-      return null; // Devolver null si no se encontró ninguna URL de imagen
-    }
-  } catch (error) {
-    alert('Error al extraer la URL de la imagen: ' + error.message);
-    return null; // Devolver null en caso de error
-  }
-}
 
 
 
