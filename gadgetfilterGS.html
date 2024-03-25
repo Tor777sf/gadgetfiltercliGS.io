@@ -163,11 +163,80 @@ function formatShoppingListForPDF() {
   });
   return formattedList;
 }
+///////////////////////////////
+// Función para seleccionar un elemento de la tabla
+function selectTableElement() {
+  $('#myDataTable').on('click', 'tr', function() {
+    try {
+      var rowData = $(this).find('td').map(function() {
+        return $(this).text().trim();
+      }).get();
+      return rowData;
+    } catch (error) {
+      throw new Error('Error al seleccionar el elemento de la tabla: ' + error.message);
+    }
+  });
+}
 
+// Función para mostrar la imagen del campo ENLACES en el modal
+function showImageInModal(rowData) {
+  try {
+    var imageUrl = rowData[3]; // Índice del campo ENLACES en rowData
+    
+    if (imageUrl) {
+      $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
+    } else {
+      $('#imageContainer').html('');
+    }
+  } catch (error) {
+    throw new Error('Error al mostrar la imagen en el modal: ' + error.message);
+  }
+}
+
+// Función para mostrar el modal y cargar los campos
+function showModalAndLoadFields(rowData) {
+  try {
+    var description = rowData[0];
+    var quantity = rowData[1];
+    var price = rowData[2];
+    
+    if (description.toLowerCase() === "xp") {
+      $('#descriptionInput').val('');
+      $('#quantityInput').val(1);
+      $('#priceInput').val('$0.00');
+    } else {
+      $('#descriptionInput').val(description);
+      $('#quantityInput').val(1);
+      $('#priceInput').val(price);
+    }
+    
+    showImageInModal(rowData); // Mostrar la imagen en el modal
+    
+    $('#detailsModal').modal('show');
+  } catch (error) {
+    throw new Error('Error al mostrar el modal y cargar los campos: ' + error.message);
+  }
+}
+
+// Función principal para inicializar el proceso
+function initializeProcess() {
+  try {
+    selectTableElement();
+  } catch (error) {
+    alert('Error al inicializar el proceso: ' + error.message);
+  }
+}
+
+// Inicialización al cargar el documento
+
+
+
+//////////////////////::::::::::::::::
 // Inicialización al cargar el documento
 $(document).ready(function () {
   initDataTable();
   initShoppingList();
+  initializeProcess();// a dar clic enun item
 });
 
   </script>
