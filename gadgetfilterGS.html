@@ -178,9 +178,9 @@ function selectTableElement() {
 
 // Función para mostrar la imagen del campo ENLACES en el modal
 
-function showImageInModal(rowData) {
+function showImageInModal(data,rowData) {
   try {
-    var imageLink = rowData.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
+    var imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
     alert("Valor de imageLink: " + imageLink); // Agregar alerta para mostrar el valor de imageLink
     
     if (imageLink) {
