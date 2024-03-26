@@ -16,9 +16,6 @@
   <!-- DataTables CSS -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
-  <!-- WhatsApp Click to Chat JS -->
-  <script src="https://cdn.jsdelivr.net/npm/whatsapp-click-to-chat/dist/index.min.js"></script>
-
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -181,17 +178,10 @@ function selectTableElement() {
 
 // Función para mostrar la imagen del campo ENLACES en el modal
 // Función para mostrar la imagen del campo ENLACES en el modal
+// Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
   try {
-    var imageHtml = rowData[10]; // Obtener el HTML de la celda
-    
-    // Verificar si imageHtml ya es una URL de imagen directa
-    var imageUrl = $(imageHtml).attr('src');
-    
-    if (!imageUrl) {
-      // Si no es una URL de imagen directa, buscar la etiqueta <img> en el HTML
-      imageUrl = $(imageHtml).find('img').attr('src');
-    }
+    var imageUrl = rowData[10]; // Obtener la URL de la imagen directamente de la fila de datos
     
     if (imageUrl) {
       $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
@@ -203,8 +193,6 @@ function showImageInModal(rowData) {
     alert('Error al mostrar la imagen en el modal: ' + error.message);
   }
 }
-
-
 
 
 //--------------------&&&&&---------
