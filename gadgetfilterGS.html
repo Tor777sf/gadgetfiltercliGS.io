@@ -187,11 +187,11 @@ function showImageInModal(data,rowData) {
       // Mostrar la imagen en el modal después de un pequeño retraso
       setTimeout(function() {
         $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
-        $('#detailsModal').modal('show');
+
       }, 100); // Esperar 100 milisegundos antes de mostrar el modal
     } else {
       $('#imageContainer').html('Imagen no disponible');
-      $('#detailsModal').modal('show');
+      
     }
   } catch (error) {
     alert('Error al mostrar la imagen en el modal: ' + error.message);
