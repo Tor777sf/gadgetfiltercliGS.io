@@ -165,9 +165,8 @@ function formatShoppingListForPDF() {
 function selectTableElement() {
   $('#myDataTable').on('click', 'tr', function() {
     try {
-      var rowData = $(this).find('td').map(function() {
-        return $(this).text().trim();
-      }).get();
+      var rowData = dataTable.row(this).data();
+
       showModalAndLoadFields(rowData); // Llamar a la función para mostrar el modal y cargar los campos
     } catch (error) {
       alert('Error al seleccionar el elemento de la tabla: ' + error.message);
@@ -177,26 +176,22 @@ function selectTableElement() {
 
 
 // Función para mostrar la imagen del campo ENLACES en el modal
+function showImageInModal(rowData) {
+    try {
+        var imageLink = rowData.ENLACES; // Obtener el enlace de la imagen directamente de los datos de la fila
+        if (imageLink) {
+            // Mostrar la imagen en el modal
+            $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
 
-function showImageInModal(data,rowData) {
-  try {
-    var imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
-    alert("Valor de imageLink: " + imageLink); // Agregar alerta para mostrar el valor de imageLink
-    
-    if (imageLink) {
-      // Mostrar la imagen en el modal después de un pequeño retraso
-      setTimeout(function() {
-        $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+        } else {
+            $('#imageContainer').html('Imagen no disponible');
 
-      }, 100); // Esperar 100 milisegundos antes de mostrar el modal
-    } else {
-      $('#imageContainer').html('Imagen no disponible');
-      
+        }
+    } catch (error) {
+        alert('Error al mostrar la imagen en el modal: ' + error.message);
     }
-  } catch (error) {
-    alert('Error al mostrar la imagen en el modal: ' + error.message);
-  }
 }
+
 
 
 
