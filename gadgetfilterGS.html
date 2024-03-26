@@ -221,7 +221,7 @@ function showModalAndLoadFields(rowData) {
       $('#priceInput').val(price);
     }
     
-    showImageInModal(rowData); // Mostrar la imagen en el modal
+    showImageInModal(data,rowData); // Mostrar la imagen en el modal
     
     $('#detailsModal').modal('show');
   } catch (error) {
