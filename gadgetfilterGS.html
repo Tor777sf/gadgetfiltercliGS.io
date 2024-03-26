@@ -1,44 +1,43 @@
-<!--segundo nivel 2.5-->
+<!--segundo nivel 2.4-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Sheet CSV</title>
+<!-- Bulma CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
-  <!-- LIBRERIAS -->
-  <!-- Bulma CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
-  <!-- Popper.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<!-- WhatsApp Click to Chat JS -->
+<script src="https://cdn.jsdelivr.net/npm/whatsapp-click-to-chat/dist/index.min.js"></script>
 
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 
-  <!-- PapaParse JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<!-- PapaParse JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 
-  <!-- PDFLib JS -->
-  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+<!-- PDFLib JS -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
 
-  <!-- jsPDF JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <!-- FIN LIBRERIAS -->
-  
-  <!-- DISEÑO Y ESTRUCTURA WEB--> 
+<!-- jsPDF JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
   <style>
     /* Coloca aquí el bloque de estilos CSS */
     .shopping-item {
@@ -64,217 +63,343 @@
       text-align: right;
     }
   </style>
-  <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
-  
+
 </head>
 <body>
-  
-  <!-- DISEÑO Y ESTRUCTURA WEB-->
-  
-  <!-- Nueva sección para la lista de compra -->
-  <div id="shoppingList">
-    <h2>Lista de Compra</h2>
-    <ul id="shoppingItems">
-      <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
-    </ul>
-    <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
-    <button id="whatsappButton">Compartir por WhatsApp</button>
-    <button id="downloadPDFButton">Descargar PDF</button>
-  </div>
-  
-  <table id="myDataTable" class="display">
-    <!-- DataTable content will be dynamically generated here -->
-  </table>
 
-  <!-- FIN DISEÑO Y ESTRUCTURA WEB-->
+<!-- Nueva sección para la lista de compra -->
+<div id="shoppingList">
+  <h2>Lista de Compra</h2>
+  <ul id="shoppingItems">
+    <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
+  </ul>
+  <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
+  <button id="whatsappButton">Compartir por WhatsApp</button>
+  <button id="downloadPDFButton">Descargar PDF</button>
 
-  <script>
-    // Función de inicialización para el DataTable
-function initDataTable() {
-  Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
-    download: true,
-    header: true,
-    dynamicTyping: true,
-    complete: function (results) {
-      var dataTable = $('#myDataTable').DataTable({
-        data: results.data,
-        columns: Object.keys(results.data[0]).map(function(key) {
-          return { data: key, title: key };
-        }),
-        columnDefs: [
-          {
-            targets: 10,
-            render: function (data, type, row) {
-              return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
+</div>
+  
+<table id="myDataTable" class="display">
+  <!-- DataTable content will be dynamically generated here -->
+</table>
+
+
+
+<script>
+  $(document).ready(function () {
+   // Descargar y parsear el archivo CSV
+    Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
+      download: true,
+      header: true,
+      dynamicTyping: true,
+      complete: function (results) {
+        // Crear DataTable
+        var dataTable = $('#myDataTable').DataTable({
+          data: results.data,
+          columns: Object.keys(results.data[0]).map(function(key) {
+            return { data: key, title: key };
+          }),
+          columnDefs: [
+            {
+              targets: 10,
+              render: function (data, type, row) {
+                // Personalizar renderizado para la columna con enlaces no vacíos
+                return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
+              }
             }
-          }
-        ]
-      });
-    }
-  });
-}
+          ]
+        });
 
-// Función de inicialización para la lista de compra
-function initShoppingList() {
-  $('#downloadPDFButton').on('click', function () {
-    try {
-      var doc = new jsPDF();
-      doc.text(formatShoppingListForPDF(), 10, 10);
-      doc.save('lista_de_compra.pdf');
-    } catch (error) {
-      alert('Error al crear/descargar el PDF: ' + error.message);
-    }
-  });
+ 
 
-  $('#whatsappButton').on('click', function () {
-    try {
-      var message = formatShoppingListForWhatsApp();
-      var whatsappURL = 'https://wa.me/?text=' + encodeURIComponent(message);
-      window.open(whatsappURL, '_blank');
-    } catch (error) {
-      alert('Error al compartir en WhatsApp: ' + error.message);
+        // Nueva lista de compra
+        var shoppingList = [];
+        var totalPurchase = 0;
+
+// ...
+
+// Agregar evento clic para generar lista de compra
+///$('#myDataTable tbody').on('click', 'tr', function () {
+///  var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
+
+  // Verificar si la descripción del producto está definida
+///  if (data && data.DESCRIPCION) {
+    // Pedir al usuario ingresar la cantidad
+///    var quantity = prompt('Ingrese la cantidad para "' + data.DESCRIPCION + '":', 1);
+
+    
+ ///   if (quantity !== null && !isNaN(quantity) && quantity > 0) {
+      // Calcular el total por producto y por línea
+    ///  var totalItem = parseFloat(data.Total) * parseInt(quantity);
+    ///  totalPurchase += totalItem;
+
+      // Agregar a la lista de compra y mostrar el total
+    ///  shoppingList.push({
+    ///    producto: data.DESCRIPCION,
+     ///   cantidad: quantity,
+    ///    total: totalItem.toFixed(2)
+     /// });
+
+      // Actualizar la lista de compra y el total global en la interfaz
+   ///   updateShoppingList();
+ ///   } else {
+    ///  alert('Cantidad no válida. Intente de nuevo.');
+  ///  }
+///  } else {
+ ///   alert('Descripción del producto no definida. Intente de nuevo.');
+///  }
+///});
+// fin evento clic para generar lista de compra
+        
+// Capturar el evento clic del campo de precio para habilitar la edición y permitir solo números
+$('#priceInput').click(function() {
+    $(this).removeAttr('readonly');
+}); 
+
+// Validar que solo se ingresen números durante la edición del precio
+$('#priceInput').on('input', function() {
+    var sanitized = $(this).val().replace(/[^0-9.]/g, '');
+    $(this).val(sanitized);
+});
+
+// Capturar el valor del precio antes de la edición
+var previousPrice;
+
+$('#priceInput').focus(function() {
+    previousPrice = $(this).val();
+});
+
+// Al perder el enfoque del campo de precio, verificar y ajustar la cantidad si es necesario
+$('#priceInput').change(function() {
+    var newPrice = $(this).val();
+
+    // Verificar si el nuevo precio es menor que el precio anterior
+    if (parseFloat(newPrice) < parseFloat(previousPrice)) {
+        var quantity = $('#quantityInput').val(); // Obtener la cantidad ingresada
+        if (quantity && !isNaN(quantity) && parseFloat(quantity) > 0) {
+            // Calcular la nueva cantidad
+            var newQuantity = (parseFloat(quantity) / parseFloat(previousPrice)) * parseFloat(newPrice);
+     
+     $('#quantityInput').val(newQuantity.toFixed(2)); // Actualizar el campo de cantidad
+        
+        }
     }
-  });
-}
+
+    // Volver a establecer el campo de precio como de solo lectura
+    $(this).attr('readonly', true);
+});
+
+// Capturar el evento clic al seleccionar un ítem en la tabla
+$('#myDataTable tbody').on('click', 'tr', function () {
+    try {
+        var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
+
+        // Verificar si la descripción del producto está definida
+        if (data && data.DESCRIPCION) {
+            // Mostrar el formulario modal
+            $('#quantityModal').modal('show');
+
+            // Actualizar campos del modal con datos de la fila
+            try {
+                $('#priceInput').val(parseFloat(data.Total) || 'Precio no disponible'); // Usar el encabezado correcto para el precio
+                var imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
+                if (imageLink) {
+                    // Mostrar la imagen en el modal
+                    $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+                } else {
+                    $('#imageContainer').html('Imagen no disponible');
+                }
+            } catch (error) {
+                alert('Error al actualizar los campos del modal: ' + error.message);
+            }
+
+            // Capturar el evento clic del botón "Agregar" en el formulario modal
+            $('#addQuantityBtn').off('click').on('click', function () {
+                try {
+                    var quantity = $('#quantityInput').val(); // Obtener la cantidad ingresada
+                    var price = $('#priceInput').val(); // Obtener el precio
+                    if (!quantity || isNaN(quantity) || quantity <= 0 || !price || isNaN(price) || price <= 0) {
+                        alert('La cantidad y el precio deben ser números positivos.');
+                        return;
+                    }
+
+                    // La cantidad y el precio son válidos, procede con el proceso de agregar a la lista de compra
+                    //var totalItem = parseFloat(price) * parseInt(quantity);
+                    var totalItem = parseFloat(price) * parseFloat(quantity);
+
+                    totalPurchase += totalItem;
+
+                    shoppingList.push({
+                        producto: data.DESCRIPCION,
+                        cantidad: quantity,
+                        precio: previousPrice, // Agregar el precio modificado a la lista de compras
+                        total: totalItem.toFixed(2),
+                    });
+
+                    updateShoppingList();
+
+                    $('#quantityModal').modal('hide'); // Ocultar el formulario modal
+                } catch (error) {
+                    alert('Error al agregar la cantidad: ' + error.message);
+                }
+            });
+        } else {
+            alert('Descripción del producto no definida. Intente de nuevo.');
+        }
+    } catch (error) {
+        alert('Error al procesar el clic en la tabla: ' + error.message);
+    }
+});
+
+
+//:: fin Agregar evento clic para generar lista de compra
+        
+// .
+
+// ...
+//   inicio botones Whatsapp y pdf
 
 // Función para formatear la lista de compra para WhatsApp
 function formatShoppingListForWhatsApp() {
   let formattedList = '*📋 Lista de Compra:*\n\n';
-  $('#shoppingItems li').each(function() {
-    var quantity = $(this).find('.item-quantity').text();
-    var description = $(this).find('.item-description').text();
-    var total = $(this).find('.item-total').text();
-    formattedList += `${quantity} x ${description}: ${total}\n`;
-  });
+  for (let i = 0; i < shoppingList.length; i++) {
+    const item = shoppingList[i];
+    formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
+    formattedList += '─────────────────────────────\n'; // Línea decorativa
+  }
+  formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
+
+  // Agregar enlace al GIF
+  const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
+  formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
+
   return formattedList;
 }
 
 // Función para formatear la lista de compra para el PDF
 function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
-  $('#shoppingItems li').each(function() {
-    var quantity = $(this).find('.item-quantity').text();
-    var description = $(this).find('.item-description').text();
-    var total = $(this).find('.item-total').text();
-    formattedList += `${quantity} x ${description}: ${total}\n`;
-  });
+  for (let i = 0; i < shoppingList.length; i++) {
+    const item = shoppingList[i];
+    formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n`;
+    //formattedList += '─────────────────────────────\n'; // Línea decorativa
+  }
+  formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}`;
+
   return formattedList;
 }
-///////////////////////////////
-// Función para seleccionar un elemento de la tabla
-function selectTableElement() {
-  $('#myDataTable').on('click', 'tr', function() {
-    try {
-      var rowData = $(this).find('td').map(function() {
-        return $(this).text().trim();
-      }).get();
-      showModalAndLoadFields(rowData); // Llamar a la función para mostrar el modal y cargar los campos
-    } catch (error) {
-      alert('Error al seleccionar el elemento de la tabla: ' + error.message);
-    }
-  });
-}
 
-
-// Función para mostrar la imagen del campo ENLACES en el modal
-
-function showImageInModal(rowData) {
+// Descargar PDF al hacer clic en el botón "Descargar PDF"
+$('#downloadPDFButton').on('click', async function () {
   try {
-    var imageLink = rowData.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
-    alert("Valor de imageLink: " + imageLink); // Agregar alerta para mostrar el valor de imageLink
-    
-    if (imageLink) {
-      // Mostrar la imagen en el modal después de un pequeño retraso
-      setTimeout(function() {
-        $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
-        $('#detailsModal').modal('show');
-      }, 100); // Esperar 100 milisegundos antes de mostrar el modal
-    } else {
-      $('#imageContainer').html('Imagen no disponible');
-      $('#detailsModal').modal('show');
-    }
+    // Crear el objeto PDF en blanco
+    const pdfDoc = await PDFLib.PDFDocument.create();
+
+    // Agregar una nueva página al PDF
+    const page = pdfDoc.addPage();
+
+    // Establecer el tamaño y la posición del texto
+    const textSize = 12;
+    const textX = 20;
+    const textY = 750;
+
+    // Obtener la lista de compra formateada para PDF
+    const formattedListForPDF = formatShoppingListForPDF();
+
+    // Agregar texto a la página utilizando la fuente predeterminada
+    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+
+    // Guardar el PDF como un blob
+    const pdfBytes = await pdfDoc.save();
+
+    // Crear el enlace de descarga para el PDF
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
+    downloadLink.download = 'Lista_de_Compra.pdf';
+
+    // Simular un clic en el enlace para abrir la ventana de descarga
+    downloadLink.click();
   } catch (error) {
-    alert('Error al mostrar la imagen en el modal: ' + error.message);
+    alert('Error al crear/descargar el PDF: ' + error.message);
   }
-}
-
-
-
-
-//--------------------&&&&&---------
-
-
-// Función para mostrar el modal y cargar los campos
-function showModalAndLoadFields(rowData) {
-  try {
-    var description = rowData[1];
-    var quantity = rowData[1];
-    var price = rowData[9];
-    
-    if (description.toLowerCase() === "xp") {
-      $('#descriptionInput').val('');
-      $('#quantityInput').val(1);
-      $('#priceInput').val('$0.00');
-    } else {
-      $('#descriptionInput').val(description);
-      $('#quantityInput').val(1);
-      $('#priceInput').val(price);
-    }
-    
-    showImageInModal(rowData); // Mostrar la imagen en el modal
-    
-    $('#detailsModal').modal('show');
-  } catch (error) {
-    throw new Error('Error al mostrar el modal y cargar los campos: ' + error.message);
-  }
-}
-
-// Función principal para inicializar el proceso
-function initializeProcess() {
-  try {
-    selectTableElement();
-  } catch (error) {
-    alert('Error al inicializar el proceso: ' + error.message);
-  }
-}
-
-
-
-
-//////////////////////::::::::::::::::
-// Inicialización al cargar el documento
-$(document).ready(function () {
-  initDataTable();
-  initShoppingList();
-  initializeProcess();// a dar clic enun item
 });
 
-  </script>
+// Función para compartir en WhatsApp al hacer clic en el botón
+$('#whatsappButton').on('click', function () {
+  try {
+    // Obtener la lista de compra formateada para WhatsApp
+    const formattedListForWhatsApp = formatShoppingListForWhatsApp();
 
-  <!-- DISEÑO Y ESTRUCTURA WEB-->
+    // Abrir WhatsApp con el mensaje
+    const whatsappLink = 'whatsapp://send?text=' + encodeURIComponent(formattedListForWhatsApp);
+
+    // Redirigir a la aplicación de WhatsApp o abrir en una nueva ventana
+    window.open(whatsappLink, '_blank');
+  } catch (error) {
+    alert('Error al compartir en WhatsApp: ' + error.message);
+  }
+});
+// fin botones Whatsapp y pdf
+
+
+          // Agregar evento cuando el modal se muestre
+            $('#quantityModal').on('shown.bs.modal', function () {
+            // Establecer el valor predeterminado en 1
+            $('#quantityInput').val('1');
+            
+            // Seleccionar todo el texto en el campo de cantidad
+            $('#quantityInput').select();
+        });
+        // fin agregar evento modal
+        
+        
+        // Función para actualizar la lista de compra en la interfaz
+        function updateShoppingList() {
+          var shoppingItems = $('#shoppingItems');
+          var totalPurchaseElement = $('#totalPurchase');
+
+          // Limpiar lista de compra
+          shoppingItems.empty();
+
+          // Construir y agregar nuevos elementos a la lista de compra
+          for (var i = 0; i < shoppingList.length; i++) {
+            var item = shoppingList[i];
+            var listItem = '<li class="shopping-item">' +
+               '<span class="item-quantity">' + item.cantidad + 'x</span>' +
+               '<span class="item-description">' + item.producto + '</span>' +
+               '<span class="item-total">Total: $' + item.total + '</span>' +
+               '</li>';
+
+            shoppingItems.append(listItem);
+          }//fin for
+
+          // Actualizar el total de la compra global
+          totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
+        }
+        //fin actualizar la lista compras
+      }
+    });
+  });
+</script>
 <!-- Modal -->
-<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detailsModalLabel">Detalles del Producto</h5>
+        <h5 class="modal-title" id="quantityModalLabel">Detalles del Producto</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="detailsForm">
-          <div class="form-group">
-            <label for="descriptionInput">Descripción:</label>
-            <input type="text" class="form-control" id="descriptionInput">
-          </div>
+        <form id="quantityForm">
           <div class="form-group">
             <label for="quantityInput">Cantidad:</label>
             <input type="number" class="form-control" id="quantityInput" value="1" required>
           </div>
           <div class="form-group">
             <label for="priceInput">Precio:</label>
-            <input type="text" class="form-control" id="priceInput">
+            <input type="text" class="form-control" id="priceInput" readonly>
           </div>
           <div class="form-group">
             <label for="imageInput">Imagen:</label>
@@ -284,16 +409,12 @@ $(document).ready(function () {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary" id="addDetailsBtn">Agregar</button>
+        <button type="submit" class="btn btn-primary" id="addQuantityBtn">Agregar</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal fin -->
 
-  
-<!-- FIN DISEÑO Y ESTRUCTURA WEB-->
-  
 </body>
 </html>
-
