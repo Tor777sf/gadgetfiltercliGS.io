@@ -179,18 +179,19 @@ function selectTableElement() {
 // Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
   try {
-    var imageUrl = rowData[11]; // Obtener la URL de la imagen directamente de la fila de datos
+    var imageLink = rowData.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
     
-    if (imageUrl) {
-      $('#imageContainer').html('<img src="' + imageUrl + '" alt="Imagen del producto" style="max-width: 100%;">');
+    if (imageLink) {
+      // Mostrar la imagen en el modal
+      $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
     } else {
-      $('#imageContainer').html('');
-      alert('No se encontró una URL de imagen en la celda.');
+      $('#imageContainer').html('Imagen no disponible');
     }
   } catch (error) {
     alert('Error al mostrar la imagen en el modal: ' + error.message);
   }
 }
+
 
 
 //--------------------&&&&&---------
