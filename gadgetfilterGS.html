@@ -180,6 +180,7 @@ function selectTableElement() {
 function showImageInModal(rowData) {
   try {
     var imageLink = rowData.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
+    alert("Valor de imageLink: " + imageLink); // Agregar alerta para mostrar el valor de imageLink
     
     if (imageLink) {
       // Mostrar la imagen en el modal
@@ -191,6 +192,7 @@ function showImageInModal(rowData) {
     alert('Error al mostrar la imagen en el modal: ' + error.message);
   }
 }
+
 
 
 
