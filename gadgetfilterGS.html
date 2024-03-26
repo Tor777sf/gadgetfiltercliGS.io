@@ -178,15 +178,20 @@ function selectTableElement() {
 
 // Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
+function showImageInModal(rowData) {
   try {
     var imageLink = rowData.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
     alert("Valor de imageLink: " + imageLink); // Agregar alerta para mostrar el valor de imageLink
     
     if (imageLink) {
-      // Mostrar la imagen en el modal
-      $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+      // Mostrar la imagen en el modal después de un pequeño retraso
+      setTimeout(function() {
+        $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+        $('#detailsModal').modal('show');
+      }, 100); // Esperar 100 milisegundos antes de mostrar el modal
     } else {
       $('#imageContainer').html('Imagen no disponible');
+      $('#detailsModal').modal('show');
     }
   } catch (error) {
     alert('Error al mostrar la imagen en el modal: ' + error.message);
