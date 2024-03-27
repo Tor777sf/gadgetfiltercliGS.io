@@ -170,6 +170,8 @@ $('#myDataTable tbody').on('click', 'tr', function () {
             // Actualizar campos del modal con datos de la fila
             try {
                 $('#priceInput').val(parseFloat(data.Total) || 'Precio no disponible'); // Usar el encabezado correcto para el precio
+                $('#descriptionInput').val(data.DESCRIPCION);
+            
                 var imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
                 if (imageLink) {//si el dato es un link de imagen
                     // Mostrar la imagen en el modal
