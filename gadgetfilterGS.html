@@ -118,38 +118,6 @@
 
 // ...
 
-// Agregar evento clic para generar lista de compra
-///$('#myDataTable tbody').on('click', 'tr', function () {
-///  var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
-
-  // Verificar si la descripción del producto está definida
-///  if (data && data.DESCRIPCION) {
-    // Pedir al usuario ingresar la cantidad
-///    var quantity = prompt('Ingrese la cantidad para "' + data.DESCRIPCION + '":', 1);
-
-    
- ///   if (quantity !== null && !isNaN(quantity) && quantity > 0) {
-      // Calcular el total por producto y por línea
-    ///  var totalItem = parseFloat(data.Total) * parseInt(quantity);
-    ///  totalPurchase += totalItem;
-
-      // Agregar a la lista de compra y mostrar el total
-    ///  shoppingList.push({
-    ///    producto: data.DESCRIPCION,
-     ///   cantidad: quantity,
-    ///    total: totalItem.toFixed(2)
-     /// });
-
-      // Actualizar la lista de compra y el total global en la interfaz
-   ///   updateShoppingList();
- ///   } else {
-    ///  alert('Cantidad no válida. Intente de nuevo.');
-  ///  }
-///  } else {
- ///   alert('Descripción del producto no definida. Intente de nuevo.');
-///  }
-///});
-// fin evento clic para generar lista de compra
         
 // Capturar el evento clic del campo de precio para habilitar la edición y permitir solo números
 $('#priceInput').click(function() {
@@ -186,7 +154,7 @@ $('#priceInput').change(function() {
     }
 
     // Volver a establecer el campo de precio como de solo lectura
-    $(this).attr('readonly', true);
+    //$(this).attr('readonly', true);
 });
 
 // Capturar el evento clic al seleccionar un ítem en la tabla
@@ -395,11 +363,11 @@ $('#whatsappButton').on('click', function () {
         <form id="quantityForm">
           <div class="form-group">
             <label for="quantityInput">Cantidad:</label>
-            <input type="number" class="form-control" id="quantityInput" value="1" required>
+            <input type="number" class="form-control" id="quantityInput" value="1">
           </div>
           <div class="form-group">
             <label for="priceInput">Precio:</label>
-            <input type="text" class="form-control" id="priceInput" readonly>
+            <input type="text" class="form-control" id="priceInput">
           </div>
           <div class="form-group">
             <label for="imageInput">Imagen:</label>
