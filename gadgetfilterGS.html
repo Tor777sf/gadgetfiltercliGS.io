@@ -158,29 +158,38 @@ $('#priceInput').change(function() {
 });
 
 // Capturar el evento clic al seleccionar un ítem en la tabla
+// Capturar el evento clic al seleccionar un ítem en la tabla
 $('#myDataTable tbody').on('click', 'tr', function () {
     try {
         var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
 
         // Verificar si la descripción del producto está definida
-        if (data && data.DESCRIPCION) {//si tiene datos
+        if (data && data.DESCRIPCION) {
             // Mostrar el formulario modal
             $('#quantityModal').modal('show');
 
-            // Actualizar campos del modal con datos de la fila
-            try {
-                $('#priceInput').val(parseFloat(data.Total) || 'Precio no disponible'); // Usar el encabezado correcto para el precio
+            // Verificar si la descripción del producto es "xp" (sin diferenciar mayúsculas y minúsculas)
+            var descripcion = data.DESCRIPCION.toLowerCase(); // Convertir la descripción a minúsculas
+            var precio = 0.00; // Precio por defecto
+            var imageLink = ""; // Enlace de la imagen por defecto
+
+            if (descripcion === "xp") {
+                // Si la descripción es "xp", establecer la descripción, el precio y la imagen como vacíos
+                $('#descriptionInput').val("");
+                $('#priceInput').val("0.00");
+                $('#imageContainer').html(""); // Limpiar el contenedor de imagen
+            } else {
+                // Si la descripción no es "xp", establecer la descripción y el precio según los datos de la fila
                 $('#descriptionInput').val(data.DESCRIPCION);
-            
-                var imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
-                if (imageLink) {//si el dato es un link de imagen
-                    // Mostrar la imagen en el modal
-                    $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
-                } else {
-                    $('#imageContainer').html('Imagen no disponible');
-                }
-            } catch (error) {
-                alert('Error al actualizar los campos del modal: ' + error.message);
+                $('#priceInput').val(parseFloat(data.Total) || 'Precio no disponible');
+                imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
+            }
+
+            if (imageLink) {
+                // Mostrar la imagen en el modal
+                $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+            } else {
+                $('#imageContainer').html('Imagen no disponible');
             }
 
             // Capturar el evento clic del botón "Agregar" en el formulario modal
@@ -194,9 +203,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
                     }
 
                     // La cantidad y el precio son válidos, procede con el proceso de agregar a la lista de compra
-                    //var totalItem = parseFloat(price) * parseInt(quantity);
                     var totalItem = parseFloat(price) * parseFloat(quantity);
-
                     totalPurchase += totalItem;
 
                     shoppingList.push({
@@ -220,6 +227,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
         alert('Error al procesar el clic en la tabla: ' + error.message);
     }
 });
+
 
 
 //:: fin Agregar evento clic para generar lista de compra
