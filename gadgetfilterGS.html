@@ -163,7 +163,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
         var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
 
         // Verificar si la descripción del producto está definida
-        if (data && data.DESCRIPCION) {
+        if (data && data.DESCRIPCION) {//si tiene datos
             // Mostrar el formulario modal
             $('#quantityModal').modal('show');
 
@@ -171,7 +171,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
             try {
                 $('#priceInput').val(parseFloat(data.Total) || 'Precio no disponible'); // Usar el encabezado correcto para el precio
                 var imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
-                if (imageLink) {
+                if (imageLink) {//si el dato es un link de imagen
                     // Mostrar la imagen en el modal
                     $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
                 } else {
@@ -362,12 +362,18 @@ $('#whatsappButton').on('click', function () {
       <div class="modal-body">
         <form id="quantityForm">
           <div class="form-group">
-            <label for="quantityInput">Cantidad:</label>
-            <input type="number" class="form-control" id="quantityInput" value="1">
+            <label for="descriptionInput">Descripción:</label>
+            <textarea class="form-control" id="descriptionInput" rows="3"></textarea>
           </div>
-          <div class="form-group">
-            <label for="priceInput">Precio:</label>
-            <input type="text" class="form-control" id="priceInput">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="quantityInput">Cantidad:</label>
+              <input type="number" class="form-control" id="quantityInput" value="1">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="priceInput">Precio:</label>
+              <input type="text" class="form-control" id="priceInput">
+            </div>
           </div>
           <div class="form-group">
             <label for="imageInput">Imagen:</label>
