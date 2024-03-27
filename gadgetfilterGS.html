@@ -115,7 +115,20 @@ function initDataTable() {
       // Ahora la tabla está inicializada y asignada a la variable dataTable
       // Puedes usar dataTable en otras partes del código
     //  selectTableElement(dataTable);
-    
+
+      // Función para seleccionar un elemento de la tabla
+function selectTableElement(dataTable) {
+  $('#myDataTable').on('click', 'tr', function() {
+    try {
+      var rowData = dataTable.row(this).data();
+
+      showModalAndLoadFields(rowData); // Llamar a la función para mostrar el modal y cargar los campos
+    } catch (error) {
+      alert('Error al seleccionar el elemento de la tabla: ' + error.message);
+    }
+  });
+}
+//-----------------------------
     }
   });
 }
@@ -167,19 +180,9 @@ function formatShoppingListForPDF() {
   return formattedList;
 }
 ///////////////////////////////
-// Función para seleccionar un elemento de la tabla
-function selectTableElement() {
-  $('#myDataTable').on('click', 'tr', function() {
-    try {
-      var rowData = dataTable.row(this).data();
 
-      showModalAndLoadFields(rowData); // Llamar a la función para mostrar el modal y cargar los campos
-    } catch (error) {
-      alert('Error al seleccionar el elemento de la tabla: ' + error.message);
-    }
-  });
-}
-
+    
+//:::::::::::::::::::::::::::::::::::
 
 // Función para mostrar la imagen del campo ENLACES en el modal
 function showImageInModal(rowData) {
