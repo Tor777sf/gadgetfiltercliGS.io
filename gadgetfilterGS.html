@@ -114,7 +114,7 @@ function initDataTable() {
       });
       // Ahora la tabla está inicializada y asignada a la variable dataTable
       // Puedes usar dataTable en otras partes del código
-      selectTableElement(dataTable);
+    //  selectTableElement(dataTable);
     
     }
   });
@@ -168,7 +168,7 @@ function formatShoppingListForPDF() {
 }
 ///////////////////////////////
 // Función para seleccionar un elemento de la tabla
-function selectTableElement(dataTable) {
+function selectTableElement() {
   $('#myDataTable').on('click', 'tr', function() {
     try {
       var rowData = dataTable.row(this).data();
