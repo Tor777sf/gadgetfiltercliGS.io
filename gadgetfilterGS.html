@@ -394,8 +394,10 @@ $('#whatsappButton').on('click', function () {
             var listItem = '<li class="shopping-item">' +
                '<span class="item-quantity">' + item.cantidad + 'x</span>' +
                '<span class="item-description">' + item.producto + '</span>' +
+               '<span class="item-price">Precio: $' + item.precio + '</span>' +
                '<span class="item-total">Total: $' + item.total + '</span>' +
                '</li>';
+
 
             shoppingItems.append(listItem);
           }//fin for
