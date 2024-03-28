@@ -119,10 +119,12 @@
 // ...
 
         
-// Capturar el evento clic del campo de precio para habilitar la edición y permitir solo números
 $('#priceInput').click(function() {
+    // Seleccionar todo el texto dentro del campo de entrada
+    $(this).select();
+    // Eliminar la propiedad 'readonly'
     $(this).removeAttr('readonly');
-}); 
+});
 
 // Validar que solo se ingresen números durante la edición del precio
 $('#priceInput').on('input', function() {
@@ -132,10 +134,11 @@ $('#priceInput').on('input', function() {
 
 // Capturar el valor del precio antes de la edición
 var previousPrice;
-
-$('#priceInput').focus(function() {
-    previousPrice = $(this).val();
-});
+var nuevoProducto;
+        
+//$('#priceInput').focus(function() {
+  //  previousPrice = $(this).val();
+//});
 
 // Al perder el enfoque del campo de precio, verificar y ajustar la cantidad si es necesario
 $('#priceInput').change(function() {
@@ -199,12 +202,17 @@ $('#myDataTable tbody').on('click', 'tr', function () {
                 $('#descriptionInput').val("");
                 $('#priceInput').val("0.00");
                 $('#imageContainer').html(""); // Limpiar el contenedor de imagen
+                previousPrice = 0;
+                nuevoProducto="si";
+
             } else {
                 // Si la descripción no es "xp", establecer la descripción y el precio según los datos de la fila
                 $('#descriptionInput').val(data.DESCRIPCION);
                 // Verificar si el precio es 0, mostrar "0.00", de lo contrario, mostrar el precio formateado con dos decimales
                 $('#priceInput').val(precio === 0 ? '0.00' : precio.toFixed(2));
                 imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
+                previousPrice = data.Total;
+                nuevoProducto="no";
             }
 
             if (imageLink) {
