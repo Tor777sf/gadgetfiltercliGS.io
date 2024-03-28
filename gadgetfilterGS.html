@@ -1,4 +1,4 @@
-<!--segundo nivel 2.6-->
+<!--segundo nivel 2.4-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -169,14 +169,6 @@ $('#priceInput').change(function() {
     //$(this).attr('readonly', true);
 });
 
-// Al cambiar el valor del cuadro de texto cantidad del modal, verificar si ha sido editado
-$('#quantityInput').change(function() {
-    // Verificar si el producto es "no" y si la cantidad ha sido editada
-    if (nuevoProducto === "no") {
-        // Establecer el valor del campo de precio como previousPrice
-        $('#priceInput').val(previousPrice);
-    }
-});
 
     
 // Convertir precio a número con punto decimal
@@ -255,15 +247,12 @@ $('#myDataTable tbody').on('click', 'tr', function () {
                     var totalItem = parseFloat(price) * parseFloat(quantity);
                     totalPurchase += totalItem;
 
-                    
-                        shoppingList.push({
-                        producto: $('#descriptionInput').val(), // Obtener el valor del campo de descripción
+                    shoppingList.push({
+                        producto: data.DESCRIPCION,
                         cantidad: quantity,
                         precio: previousPrice, // Agregar el precio modificado a la lista de compras
                         total: totalItem.toFixed(2),
-                             }
-
-                         });
+                    });
 
                     updateShoppingList();
 
