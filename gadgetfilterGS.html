@@ -157,7 +157,28 @@ $('#priceInput').change(function() {
     //$(this).attr('readonly', true);
 });
 
-// Capturar el evento clic al seleccionar un ítem en la tabla
+// Convertir precio a número con punto decimal
+function convertirPrecio(precio) {
+    // Verificar si el precio es un número
+    if (!isNaN(precio)) {
+        // Si el precio es un número válido, simplemente devolverlo
+        return parseFloat(precio);
+    } else if (precio.trim() !== '') {
+        // Si el precio no es un número y no está vacío, intentar limpiar y convertirlo
+        // Eliminar cualquier carácter que no sea dígito o punto
+        precio = precio.replace(/[^\d,.]/g, '');
+
+           //precio = precio.replace(/[^\d,.]/g, '');
+      //Reemplasa coma por punto  
+       precio = precio.replace(',', '.');
+        // Convertir el string limpio a número
+        return parseFloat(precio);
+    } else {
+        // Si el precio está vacío, nulo o es 0, devolver 0
+        return 0;
+    }
+}
+
 // Capturar el evento clic al seleccionar un ítem en la tabla
 $('#myDataTable tbody').on('click', 'tr', function () {
     try {
@@ -170,7 +191,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
             // Verificar si la descripción del producto es "xp" (sin diferenciar mayúsculas y minúsculas)
             var descripcion = data.DESCRIPCION.toLowerCase(); // Convertir la descripción a minúsculas
-            var precio = 0.00; // Precio por defecto
+            var precio = convertirPrecio(data.Total); // Convertir el precio a número con punto decimal
             var imageLink = ""; // Enlace de la imagen por defecto
 
             if (descripcion === "xp") {
@@ -181,7 +202,8 @@ $('#myDataTable tbody').on('click', 'tr', function () {
             } else {
                 // Si la descripción no es "xp", establecer la descripción y el precio según los datos de la fila
                 $('#descriptionInput').val(data.DESCRIPCION);
-                $('#priceInput').val(parseFloat(data.Total) || 'Precio no disponible');
+                // Verificar si el precio es 0, mostrar "0.00", de lo contrario, mostrar el precio formateado con dos decimales
+                $('#priceInput').val(precio === 0 ? '0.00' : precio.toFixed(2));
                 imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
             }
 
@@ -227,7 +249,6 @@ $('#myDataTable tbody').on('click', 'tr', function () {
         alert('Error al procesar el clic en la tabla: ' + error.message);
     }
 });
-
 
 
 //:: fin Agregar evento clic para generar lista de compra
