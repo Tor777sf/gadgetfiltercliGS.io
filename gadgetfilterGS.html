@@ -142,17 +142,26 @@ var nuevoProducto;
 
 // Al perder el enfoque del campo de precio, verificar y ajustar la cantidad si es necesario
 $('#priceInput').change(function() {
-    var newPrice = $(this).val();
+    // Verificar el valor de nuevoProducto
+    if (nuevoProducto === "si") {
+        // No hacer nada si nuevoProducto es "si"
+        return;
+    } else if (nuevoProducto === "no") {
+        var newPrice = parseFloat($(this).val());
 
-    // Verificar si el nuevo precio es menor que el precio anterior
-    if (parseFloat(newPrice) < parseFloat(previousPrice)) {
-        var quantity = $('#quantityInput').val(); // Obtener la cantidad ingresada
-        if (quantity && !isNaN(quantity) && parseFloat(quantity) > 0) {
-            // Calcular la nueva cantidad
-            var newQuantity = (parseFloat(quantity) / parseFloat(previousPrice)) * parseFloat(newPrice);
-     
-     $('#quantityInput').val(newQuantity.toFixed(2)); // Actualizar el campo de cantidad
-        
+        // Verificar si el nuevo precio es menor o igual que el precio anterior
+        if (newPrice <= parseFloat(previousPrice)) {
+            var quantity = parseFloat($('#quantityInput').val()); // Obtener la cantidad ingresada
+            if (!isNaN(quantity) && quantity > 0) {
+                // Calcular la nueva cantidad
+                var newQuantity = (quantity / parseFloat(previousPrice)) * newPrice;
+
+                $('#quantityInput').val(newQuantity.toFixed(2)); // Actualizar el campo de cantidad
+            }
+        } else {
+            // Si el nuevo precio es mayor o igual que el precio anterior
+            // Establecer la cantidad como el nuevo precio dividido por el precio anterior
+            $('#quantityInput').val((newPrice / parseFloat(previousPrice)).toFixed(2));
         }
     }
 
@@ -160,6 +169,8 @@ $('#priceInput').change(function() {
     //$(this).attr('readonly', true);
 });
 
+
+    
 // Convertir precio a número con punto decimal
 function convertirPrecio(precio) {
     // Verificar si el precio es un número
