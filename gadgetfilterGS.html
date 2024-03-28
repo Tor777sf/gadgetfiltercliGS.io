@@ -256,11 +256,12 @@ $('#myDataTable tbody').on('click', 'tr', function () {
                     totalPurchase += totalItem;
 
                     shoppingList.push({
-                        producto: data.DESCRIPCION,
-                        cantidad: quantity,
-                        precio: previousPrice, // Agregar el precio modificado a la lista de compras
-                        total: totalItem.toFixed(2),
+                    producto: $('#descriptionInput').val(), // Obtener el valor del campo de descripción
+                    cantidad: quantity,
+                    precio: previousPrice, // Agregar el precio modificado a la lista de compras
+                    total: totalItem.toFixed(2),
                     });
+
 
                     updateShoppingList();
 
