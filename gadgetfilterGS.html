@@ -230,7 +230,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
                 // Verificar si el precio es 0, mostrar "0.00", de lo contrario, mostrar el precio formateado con dos decimales
                 $('#priceInput').val(precio === 0 ? '0.00' : precio.toFixed(2));
                 imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
-                previousPrice = data.Total;
+                previousPrice = $('#priceInput').val();
                 nuevoProducto="no";
             }
 
