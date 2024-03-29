@@ -408,7 +408,44 @@ $('#whatsappButton').on('click', function () {
         //fin actualizar la lista compras
 //:::;;;;;;;;;;;;codigo modal edicion::::::::::':':::
 
-        
+    // Agregar controlador de eventos clic a cada elemento de la lista de compras
+    $('.shopping-item').click(function() {
+        // Obtener los datos del elemento clicado
+        var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
+        var descripcion = $(this).find('.item-description').text().trim();
+        var precio = $(this).find('.item-price').text().trim().replace('Precio: $', ''); // Eliminar 'Precio: $'
+        var total = $(this).find('.item-total').text().trim().replace('Total: $', ''); // Eliminar 'Total: $'
+
+        // Llenar el modal con los datos del elemento clicado
+        $('#editItemModal').modal('show'); // Mostrar el modal
+        $('#editDescription').val(descripcion);
+        $('#editQuantity').val(cantidad);
+        $('#editPrice').val(precio);
+        $('#editTotal').val(total);
+
+        // Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
+        $('#saveChangesBtn').click(function() {
+            // Actualizar los datos del elemento de la lista de compras con los valores editados
+            $(this).closest('.shopping-item').find('.item-quantity').text($('#editQuantity').val() + 'x');
+            $(this).closest('.shopping-item').find('.item-description').text($('#editDescription').val());
+            $(this).closest('.shopping-item').find('.item-price').text('Precio: $' + $('#editPrice').val());
+            $(this).closest('.shopping-item').find('.item-total').text('Total: $' + $('#editTotal').val());
+
+            // Ocultar el modal después de guardar los cambios
+            $('#editItemModal').modal('hide');
+        });
+
+        // Agregar controlador de eventos clic al botón "Borrar" del modal
+        $('#deleteItemBtn').click(function() {
+            // Eliminar el elemento de la lista de compras
+            $(this).closest('.shopping-item').remove();
+
+            // Ocultar el modal después de borrar el elemento
+            $('#editItemModal').modal('hide');
+        });
+    });
+      
+  
 
 //::::::::::::;;;;fin codigo modal edicion:::::::::::
       }
