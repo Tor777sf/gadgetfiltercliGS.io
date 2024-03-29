@@ -417,7 +417,7 @@ $('#whatsappButton').on('click', function () {
     // Agregar controlador de eventos clic al contenedor de la lista de compras
     $('#shoppingItems').on('click', '.shopping-item', function() {
       // Evitar la propagación del evento de clic para evitar efectos no deseados
-        event.stopPropagation();
+        
       
         // Obtener los datos del elemento clicado
         var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
@@ -446,8 +446,13 @@ $('#whatsappButton').on('click', function () {
 
         // Agregar controlador de eventos clic al botón "Borrar" del modal
         $('#deleteItemBtn').off('click').on('click', function() {
-            // Eliminar el elemento de la lista de compras
-            $(this).closest('.shopping-item').remove();
+            //event.stopPropagation();
+          // Eliminar el elemento de la lista de compras
+          ///  $(this).closest('.shopping-item').remove();
+          // Eliminar el elemento de la lista de compras
+        var shoppingItem = $('.shopping-item.active'); // Obtener el elemento activo
+        shoppingItem.remove();
+
 
             // Ocultar el modal después de borrar el elemento
             $('#editItemModal').modal('hide');
