@@ -86,6 +86,12 @@
 
 
 <script>
+  // Capturar errores de JavaScript y mostrarlos en una alerta
+window.onerror = function(message, source, lineno, colno, error) {
+    alert("Error: " + message + "\n" + "File: " + source + "\n" + "Line: " + lineno);
+    return true; // Evitar que el navegador muestre su propio mensaje de error en la consola
+};
+  
   $(document).ready(function () {
    // Descargar y parsear el archivo CSV
     Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
