@@ -1,4 +1,4 @@
-<!--segundo nivel 2.4-->
+<!--segundo nivel 2.8-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -406,55 +406,9 @@ $('#whatsappButton').on('click', function () {
           totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
         }
         //fin actualizar la lista compras
-
-  //:::::::::::::::::::modal edicion:::::::::::::
-
-    // Agregar controlador de eventos clic a cada elemento de la lista de compras
-   /// $('.shopping-item').click(function() {
-        // Obtener los datos del elemento clicado
-    ///    var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
-     ///   var descripcion = $(this).find('.item-description').text().trim();
-   ///    var precio = $(this).find('.item-price').text().trim().replace('Precio: $', ''); // Eliminar 'Precio: $'
-      ///  var total = $(this).find('.item-total').text().trim().replace('Total: $', ''); // Eliminar 'Total: $'
-
-        // Llenar el modal con los datos del elemento clicado
-    ///    $('#editItemModal').modal('show'); // Mostrar el modal
-   ///     $('#editDescription').val(descripcion);
-    ///    $('#editQuantity').val(cantidad);
-   ///     $('#editPrice').val(precio);
-  ///      $('#editTotal').val(total);
-
-        // Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
-    ///    $('#saveChangesBtn').click(function() {
-            // Actualizar los datos del elemento de la lista de compras con los valores editados
-      ///      $(this).closest('.shopping-item').find('.item-quantity').text($('#editQuantity').val() + 'x');
-     ///       $(this).closest('.shopping-item').find('.item-description').text($('#editDescription').val());
-       ///     $(this).closest('.shopping-item').find('.item-price').text('Precio: $' + $('#editPrice').val());
-      ///      $(this).closest('.shopping-item').find('.item-total').text('Total: $' + $('#editTotal').val());
-
-            // Ocultar el modal después de guardar los cambios
-     ///       $('#editItemModal').modal('hide');
-     ///   });
-
-        // Agregar controlador de eventos clic al botón "Borrar" del modal
-    ///    $('#deleteItemBtn').click(function() {
-            // Eliminar el elemento de la lista de compras
-    ///        $(this).closest('.shopping-item').remove();
-
-            // Ocultar el modal después de borrar el elemento
-        ///    $('#editItemModal').modal('hide');
-    ///    });
-///    });
-                                                                       }
-
-
-//::::::::::::::::::Fin modal Edicion::::::::::
-
-        
-      }//results
-    });//papaparse
-  });//document
-
+      }
+    });
+  });
 </script>
 <!-- Modal -->
 <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
@@ -496,46 +450,6 @@ $('#whatsappButton').on('click', function () {
   </div>
 </div>
 <!-- Modal fin -->
-  
-<!-- Nuevo Modal para Edición de Elementos -->
-<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editItemModalLabel">Editar Elemento de Lista de Compras</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Formulario de Edición de Elemento -->
-        <form id="editItemForm">
-          <div class="form-group">
-            <label for="editDescription">Descripción:</label>
-            <textarea class="form-control" id="editDescription" rows="3"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="editQuantity">Cantidad:</label>
-            <input type="number" class="form-control" id="editQuantity">
-          </div>
-          <div class="form-group">
-            <label for="editPrice">Precio:</label>
-            <input type="text" class="form-control" id="editPrice">
-          </div>
-          <div class="form-group">
-            <label for="editTotal">Total:</label>
-            <input type="text" class="form-control" id="editTotal">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" id="deleteItemBtn">Borrar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="saveChangesBtn">Guardar Cambios</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal edicion fin -->
+
 </body>
 </html>
