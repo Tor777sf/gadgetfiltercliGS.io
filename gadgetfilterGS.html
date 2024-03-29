@@ -407,9 +407,9 @@ $('#whatsappButton').on('click', function () {
         }
         //fin actualizar la lista compras
 //:::;;;;;;;;;;;;codigo modal edicion::::::::::':::    
-        
-    // Agregar controlador de eventos clic a cada elemento de la lista de compras
-    $(document).on('click', '.shopping-item', function() {
+       
+    // Agregar controlador de eventos clic al contenedor de la lista de compras
+    $('#shoppingItems').on('click', '.shopping-item', function() {
         // Obtener los datos del elemento clicado
         var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
         var descripcion = $(this).find('.item-description').text().trim();
@@ -444,7 +444,9 @@ $('#whatsappButton').on('click', function () {
             $('#editItemModal').modal('hide');
         });
     });
-  
+             
+                      
+
 
   
 
