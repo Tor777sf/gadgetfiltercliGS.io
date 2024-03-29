@@ -406,10 +406,10 @@ $('#whatsappButton').on('click', function () {
           totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
         }
         //fin actualizar la lista compras
-//:::;;;;;;;;;;;;codigo modal edicion::::::::::':':::
-
+//:::;;;;;;;;;;;;codigo modal edicion::::::::::':::    
+        
     // Agregar controlador de eventos clic a cada elemento de la lista de compras
-    $('shoppingItems').click(function() {
+    $(document).on('click', '.shopping-item', function() {
         // Obtener los datos del elemento clicado
         var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
         var descripcion = $(this).find('.item-description').text().trim();
@@ -424,7 +424,7 @@ $('#whatsappButton').on('click', function () {
         $('#editTotal').val(total);
 
         // Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
-        $('#saveChangesBtn').click(function() {
+        $('#saveChangesBtn').off('click').on('click', function() {
             // Actualizar los datos del elemento de la lista de compras con los valores editados
             $(this).closest('.shopping-item').find('.item-quantity').text($('#editQuantity').val() + 'x');
             $(this).closest('.shopping-item').find('.item-description').text($('#editDescription').val());
@@ -436,7 +436,7 @@ $('#whatsappButton').on('click', function () {
         });
 
         // Agregar controlador de eventos clic al botón "Borrar" del modal
-        $('#deleteItemBtn').click(function() {
+        $('#deleteItemBtn').off('click').on('click', function() {
             // Eliminar el elemento de la lista de compras
             $(this).closest('.shopping-item').remove();
 
@@ -444,7 +444,8 @@ $('#whatsappButton').on('click', function () {
             $('#editItemModal').modal('hide');
         });
     });
-      
+  
+
   
 
 //::::::::::::;;;;fin codigo modal edicion:::::::::::
