@@ -416,6 +416,9 @@ $('#whatsappButton').on('click', function () {
        
     // Agregar controlador de eventos clic al contenedor de la lista de compras
     $('#shoppingItems').on('click', '.shopping-item', function() {
+      // Evitar la propagación del evento de clic para evitar efectos no deseados
+        event.stopPropagation();
+      
         // Obtener los datos del elemento clicado
         var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
         var descripcion = $(this).find('.item-description').text().trim();
