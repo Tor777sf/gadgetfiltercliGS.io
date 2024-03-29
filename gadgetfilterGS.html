@@ -409,7 +409,7 @@ $('#whatsappButton').on('click', function () {
 //:::;;;;;;;;;;;;codigo modal edicion::::::::::':':::
 
     // Agregar controlador de eventos clic a cada elemento de la lista de compras
-    $('.shopping-item').click(function() {
+    $('.shoppingItems').click(function() {
         // Obtener los datos del elemento clicado
         var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
         var descripcion = $(this).find('.item-description').text().trim();
