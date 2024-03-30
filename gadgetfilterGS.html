@@ -513,20 +513,46 @@ $('#whatsappButton').on('click', function () {
         $('#editPrice').val(precio);
         $('#editTotal').val(total);
     });
-
+//------&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&_
     // Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
-    $('#saveChangesBtn').on('click', function() {
+  ///  $('#saveChangesBtn').on('click', function() {
         // Actualizar los datos del elemento de la lista de compras con los valores editados
-        var shoppingItem = $('.shopping-item.active');
-        shoppingItem.find('.item-quantity').text($('#editQuantity').val() + 'x');
-        shoppingItem.find('.item-description').text($('#editDescription').val());
-        shoppingItem.find('.item-price').text('Precio: $' + $('#editPrice').val());
-        shoppingItem.find('.item-total').text('Total: $' + $('#editTotal').val());
+  ///      var shoppingItem = $('.shopping-item.active');
+   ///     shoppingItem.find('.item-quantity').text($('#editQuantity').val() + 'x');
+    ///    shoppingItem.find('.item-description').text($('#editDescription').val());
+    ///    shoppingItem.find('.item-price').text('Precio: $' + $('#editPrice').val());
+    ///    shoppingItem.find('.item-total').text('Total: $' + $('#editTotal').val());
+
+        // Ocultar el modal después de guardar los cambios
+   ///     $('#editItemModal').modal('hide');
+   /// });
+//-------&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+// Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
+$('#saveChangesBtn').on('click', function() {
+    // Obtener el índice del elemento activo en la lista de compras
+    var index = $('.shopping-item').index($('.shopping-item.active'));
+    
+    // Verificar si se ha seleccionado un elemento
+    if (index >= 0) {
+        // Actualizar los datos del elemento correspondiente en shoppingList
+        shoppingList[index].cantidad = $('#editQuantity').val();
+        shoppingList[index].producto = $('#editDescription').val();
+        shoppingList[index].precio = $('#editPrice').val();
+        shoppingList[index].total = $('#editTotal').val();
+
+        // Actualizar la lista de compras en la interfaz
+        updateShoppingList();
 
         // Ocultar el modal después de guardar los cambios
         $('#editItemModal').modal('hide');
-    });
+    } else {
+        // Mostrar mensaje de error si no se seleccionó ningún elemento
+        alert('Por favor, selecciona un elemento de la lista de compras.');
+    }
+});
 
+
+//-------&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
         
         // Agregar controlador de eventos clic al botón "Borrar" del modal
