@@ -387,62 +387,62 @@ $('#whatsappButton').on('click', function () {
         
         
         // Función para actualizar la lista de compra en la interfaz
-     ///   function updateShoppingList() {
-      ///    var shoppingItems = $('#shoppingItems');
-      ///    var totalPurchaseElement = $('#totalPurchase');
+        function updateShoppingList() {
+          var shoppingItems = $('#shoppingItems');
+          var totalPurchaseElement = $('#totalPurchase');
 
           // Limpiar lista de compra
-       ///   shoppingItems.empty();
+          shoppingItems.empty();
 
           // Construir y agregar nuevos elementos a la lista de compra
-        ///  for (var i = 0; i < shoppingList.length; i++) {
-       ///     var item = shoppingList[i];
-        ///    var listItem = '<li class="shopping-item">' +
-          ///     '<span class="item-quantity">' + item.cantidad + 'x</span>' +
-          ///     '<span class="item-description">' + item.producto + '</span>' +
-           ///    '<span class="item-price">Precio: $' + item.precio + '</span>' +
-            ///   '<span class="item-total">Total: $' + item.total + '</span>' +
-            ///   '</li>';
+          for (var i = 0; i < shoppingList.length; i++) {
+            var item = shoppingList[i];
+            var listItem = '<li class="shopping-item">' +
+               '<span class="item-quantity">' + item.cantidad + 'x</span>' +
+               '<span class="item-description">' + item.producto + '</span>' +
+               '<span class="item-price">Precio: $' + item.precio + '</span>' +
+               '<span class="item-total">Total: $' + item.total + '</span>' +
+               '</li>';
 
 
-        ///    shoppingItems.append(listItem);
-     ///     }//fin for
+            shoppingItems.append(listItem);
+          }//fin for
 
           // Actualizar el total de la compra global
-      ///    totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
-       /// }
+          totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
+        }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // Array para mantener un registro de los elementos eliminados
-var deletedItems = [];
+///var deletedItems = [];
 
 // Función para actualizar la lista de compra en la interfaz
-function updateShoppingList() {
-  var shoppingItems = $('#shoppingItems');
-  var totalPurchaseElement = $('#totalPurchase');
+///function updateShoppingList() {
+ /// var shoppingItems = $('#shoppingItems');
+///  var totalPurchaseElement = $('#totalPurchase');
 
   // Limpiar lista de compra
-  shoppingItems.empty();
+///  shoppingItems.empty();
 
   // Construir y agregar nuevos elementos a la lista de compra
-  for (var i = 0; i < shoppingList.length; i++) {
-    var item = shoppingList[i];
+///  for (var i = 0; i < shoppingList.length; i++) {
+  ///  var item = shoppingList[i];
 
     // Verificar si el elemento está en la lista de elementos eliminados
-    if (!deletedItems.includes(item)) {
-      var listItem = '<li class="shopping-item">' +
-        '<span class="item-quantity">' + item.cantidad + 'x</span>' +
-        '<span class="item-description">' + item.producto + '</span>' +
-        '<span class="item-price">Precio: $' + item.precio + '</span>' +
-        '<span class="item-total">Total: $' + item.total + '</span>' +
-        '</li>';
+ ///   if (!deletedItems.includes(item)) {
+   ///   var listItem = '<li class="shopping-item">' +
+   ///     '<span class="item-quantity">' + item.cantidad + 'x</span>' +
+     ///   '<span class="item-description">' + item.producto + '</span>' +
+      ///  '<span class="item-price">Precio: $' + item.precio + '</span>' +
+      ///  '<span class="item-total">Total: $' + item.total + '</span>' +
+      ///  '</li>';
 
-      shoppingItems.append(listItem);
-    }
-  }
+     /// shoppingItems.append(listItem);
+    ///}
+ /// }
 
   // Actualizar el total de la compra global
-  totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
-}
+///  totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
+///}
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -580,20 +580,20 @@ function updateShoppingList() {
    /// });
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // Agregar controlador de eventos clic al botón "Borrar" del modal
-   $('#deleteItemBtn').on('click', function() {
+$('#deleteItemBtn').on('click', function() {
     // Obtener el elemento activo de la lista de compras
     var shoppingItem = $('.shopping-item.active');
     
     // Verificar si se ha seleccionado un elemento
     if (shoppingItem.length > 0) {
-        // Obtener el índice del elemento en shoppingList
-        var index = $('.shopping-item').index(shoppingItem);
-
-        // Eliminar el elemento de la lista de compras
-        shoppingItem.remove();
-
-        // Agregar el elemento eliminado al array de elementos eliminados
-        deletedItems.push(shoppingList[index]);
+        // Copiar todos los elementos excepto el seleccionado
+        var updatedList = $('#shoppingItems').find('.shopping-item').not(shoppingItem);
+        
+        // Limpiar la lista de compras
+        $('#shoppingItems').empty();
+        
+        // Pegar la lista actualizada
+        $('#shoppingItems').append(updatedList);
 
         // Ocultar el modal después de borrar el elemento
         $('#editItemModal').modal('hide');
@@ -602,6 +602,7 @@ function updateShoppingList() {
         alert('Por favor, selecciona un elemento de la lista de compras.');
     }
 });
+
 
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
