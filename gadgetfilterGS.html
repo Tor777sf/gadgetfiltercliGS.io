@@ -415,29 +415,44 @@ $('#whatsappButton').on('click', function () {
 //:::;;;;;;;;;;;;codigo modal edicion::::::::::':::    
        
 
+    
     // Agregar controlador de eventos input al campo de cantidad
     $('#editQuantity').on('input', function() {
-        // Filtrar los caracteres no numéricos
+        // Filtrar los caracteres no numéricos, excepto el primer punto decimal y eliminar los adicionales
         $(this).val(function(index, value) {
-            return value.replace(/\D/g, '');
+            // Remover todos los caracteres no numéricos, excepto el primer punto decimal
+            value = value.replace(/[^\d.]/g, '');
+            // Remover todos los puntos decimales adicionales
+            value = value.replace(/(\..*)\./g, '$1');
+            return value;
         });
     });
 
     // Agregar controlador de eventos input al campo de precio
     $('#editPrice').on('input', function() {
-        // Filtrar los caracteres no numéricos
+        // Filtrar los caracteres no numéricos, excepto el primer punto decimal y eliminar los adicionales
         $(this).val(function(index, value) {
-            return value.replace(/\D/g, '');
+            // Remover todos los caracteres no numéricos, excepto el primer punto decimal
+            value = value.replace(/[^\d.]/g, '');
+            // Remover todos los puntos decimales adicionales
+            value = value.replace(/(\..*)\./g, '$1');
+            return value;
         });
     });
 
     // Agregar controlador de eventos input al campo de total
     $('#editTotal').on('input', function() {
-        // Filtrar los caracteres no numéricos
+        // Filtrar los caracteres no numéricos, excepto el primer punto decimal y eliminar los adicionales
         $(this).val(function(index, value) {
-            return value.replace(/\D/g, '');
+            // Remover todos los caracteres no numéricos, excepto el primer punto decimal
+            value = value.replace(/[^\d.]/g, '');
+            // Remover todos los puntos decimales adicionales
+            value = value.replace(/(\..*)\./g, '$1');
+            return value;
         });
     });
+ 
+
                                  
 
     // Agregar controlador de eventos clic al contenedor de la lista de compras
