@@ -579,21 +579,22 @@ $('#whatsappButton').on('click', function () {
       ///  }
    /// });
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // Agregar controlador de eventos clic al botón "Borrar" del modal
+   
+        // Agregar controlador de eventos clic al botón "Borrar" del modal
 $('#deleteItemBtn').on('click', function() {
     // Obtener el elemento activo de la lista de compras
     var shoppingItem = $('.shopping-item.active');
     
     // Verificar si se ha seleccionado un elemento
     if (shoppingItem.length > 0) {
-        // Copiar todos los elementos excepto el seleccionado
-        var updatedList = $('#shoppingItems').find('.shopping-item').not(shoppingItem);
-        
-        // Limpiar la lista de compras
-        $('#shoppingItems').empty();
-        
-        // Pegar la lista actualizada
-        $('#shoppingItems').append(updatedList);
+        // Obtener el índice del elemento en shoppingList
+        var index = $('.shopping-item').index(shoppingItem);
+
+        // Eliminar el elemento de shoppingList
+        shoppingList.splice(index, 1);
+
+        // Actualizar la lista de compras en la interfaz
+        updateShoppingList();
 
         // Ocultar el modal después de borrar el elemento
         $('#editItemModal').modal('hide');
@@ -602,7 +603,6 @@ $('#deleteItemBtn').on('click', function() {
         alert('Por favor, selecciona un elemento de la lista de compras.');
     }
 });
-
 
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
