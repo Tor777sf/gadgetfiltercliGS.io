@@ -415,6 +415,31 @@ $('#whatsappButton').on('click', function () {
 //:::;;;;;;;;;;;;codigo modal edicion::::::::::':::    
        
 
+    // Agregar controlador de eventos input al campo de cantidad
+    $('#editQuantity').on('input', function() {
+        // Filtrar los caracteres no numéricos
+        $(this).val(function(index, value) {
+            return value.replace(/\D/g, '');
+        });
+    });
+
+    // Agregar controlador de eventos input al campo de precio
+    $('#editPrice').on('input', function() {
+        // Filtrar los caracteres no numéricos
+        $(this).val(function(index, value) {
+            return value.replace(/\D/g, '');
+        });
+    });
+
+    // Agregar controlador de eventos input al campo de total
+    $('#editTotal').on('input', function() {
+        // Filtrar los caracteres no numéricos
+        $(this).val(function(index, value) {
+            return value.replace(/\D/g, '');
+        });
+    });
+                                 
+
     // Agregar controlador de eventos clic al contenedor de la lista de compras
     $('#shoppingItems').on('click', '.shopping-item', function() {
         // Remover la clase 'active' de todos los elementos de la lista de compras
