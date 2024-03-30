@@ -411,41 +411,7 @@ $('#whatsappButton').on('click', function () {
           // Actualizar el total de la compra global
           totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
         }
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Array para mantener un registro de los elementos eliminados
-///var deletedItems = [];
 
-// Función para actualizar la lista de compra en la interfaz
-///function updateShoppingList() {
- /// var shoppingItems = $('#shoppingItems');
-///  var totalPurchaseElement = $('#totalPurchase');
-
-  // Limpiar lista de compra
-///  shoppingItems.empty();
-
-  // Construir y agregar nuevos elementos a la lista de compra
-///  for (var i = 0; i < shoppingList.length; i++) {
-  ///  var item = shoppingList[i];
-
-    // Verificar si el elemento está en la lista de elementos eliminados
- ///   if (!deletedItems.includes(item)) {
-   ///   var listItem = '<li class="shopping-item">' +
-   ///     '<span class="item-quantity">' + item.cantidad + 'x</span>' +
-     ///   '<span class="item-description">' + item.producto + '</span>' +
-      ///  '<span class="item-price">Precio: $' + item.precio + '</span>' +
-      ///  '<span class="item-total">Total: $' + item.total + '</span>' +
-      ///  '</li>';
-
-     /// shoppingItems.append(listItem);
-    ///}
- /// }
-
-  // Actualizar el total de la compra global
-///  totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
-///}
-
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         
         //fin actualizar la lista compras
@@ -561,27 +527,10 @@ $('#whatsappButton').on('click', function () {
         $('#editItemModal').modal('hide');
     });
 
-    // Agregar controlador de eventos clic al botón "Borrar" del modal
-  ///  $('#deleteItemBtn').on('click', function() {
-        // Obtener el elemento activo de la lista de compras
-       /// var shoppingItem = $('.shopping-item.active');
+
         
-        // Verificar si se ha seleccionado un elemento
-      ///  if (shoppingItem.length > 0) {
-            // Eliminar el elemento de la lista de compras
-          ///  shoppingItem.remove();
-            
-            // Ocultar el modal después de borrar el elemento
-          ///  $('#editItemModal').modal('hide');
-      ///  } else {
-            // Mostrar mensaje de error si no se seleccionó ningún elemento
-       ///     alert('Por favor, selecciona un elemento de la lista de compras.');
-      ///  }
-   /// });
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   
         // Agregar controlador de eventos clic al botón "Borrar" del modal
-$('#deleteItemBtn').on('click', function() {
+    $('#deleteItemBtn').on('click', function() {
     // Obtener el elemento activo de la lista de compras
     var shoppingItem = $('.shopping-item.active');
     
@@ -605,8 +554,7 @@ $('#deleteItemBtn').on('click', function() {
 });
 
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-               
+    
 
 
   
