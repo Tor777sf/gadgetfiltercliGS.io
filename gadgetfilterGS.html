@@ -415,6 +415,34 @@ $('#whatsappButton').on('click', function () {
 //:::;;;;;;;;;;;;codigo modal edicion::::::::::':::    
        
 
+        
+    // Agregar controlador de eventos blur al campo de cantidad
+    $('#editQuantity').on('blur', function() {
+        // Obtener los valores actuales de cantidad y precio
+        var cantidad = parseFloat($(this).val());
+        var precio = parseFloat($('#editPrice').val());
+
+        // Verificar si ambos valores son numéricos
+        if (!isNaN(cantidad) && !isNaN(precio)) {
+            // Calcular el total y actualizar el campo correspondiente
+            $('#editTotal').val((cantidad * precio).toFixed(2));
+        }
+    });
+
+    // Agregar controlador de eventos blur al campo de precio
+    $('#editPrice').on('blur', function() {
+        // Obtener los valores actuales de cantidad y precio
+        var cantidad = parseFloat($('#editQuantity').val());
+        var precio = parseFloat($(this).val());
+
+        // Verificar si ambos valores son numéricos
+        if (!isNaN(cantidad) && !isNaN(precio)) {
+            // Calcular el total y actualizar el campo correspondiente
+            $('#editTotal').val((cantidad * precio).toFixed(2));
+        }
+    });
+                          
+
     
     
     // Agregar controlador de eventos input al campo de cantidad
