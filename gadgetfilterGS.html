@@ -384,37 +384,72 @@ $('#whatsappButton').on('click', function () {
             $('#quantityInput').select();
         });
         // fin agregar evento modal
-        
+
+  //9999999999999999999999999999999999999999
         
         // Función para actualizar la lista de compra en la interfaz
-        function updateShoppingList() {
-          var shoppingItems = $('#shoppingItems');
-          var totalPurchaseElement = $('#totalPurchase');
+      ///  function updateShoppingList() {
+        ///  var shoppingItems = $('#shoppingItems');
+         /// var totalPurchaseElement = $('#totalPurchase');
 
           // Limpiar lista de compra
-          shoppingItems.empty();
+        ///  shoppingItems.empty();
 
           // Construir y agregar nuevos elementos a la lista de compra
-          for (var i = 0; i < shoppingList.length; i++) {
-            var item = shoppingList[i];
-            var listItem = '<li class="shopping-item">' +
-               '<span class="item-quantity">' + item.cantidad + 'x</span>' +
-               '<span class="item-description">' + item.producto + '</span>' +
-               '<span class="item-price">Precio: $' + item.precio + '</span>' +
-               '<span class="item-total">Total: $' + item.total + '</span>' +
-               '</li>';
+       ///   for (var i = 0; i < shoppingList.length; i++) {
+          ///  var item = shoppingList[i];
+            ///var listItem = '<li class="shopping-item">' +
+           ///    '<span class="item-quantity">' + item.cantidad + 'x</span>' +
+            ///   '<span class="item-description">' + item.producto + '</span>' +
+            ///   '<span class="item-price">Precio: $' + item.precio + '</span>' +
+           ///    '<span class="item-total">Total: $' + item.total + '</span>' +
+              /// '</li>';
 
 
-            shoppingItems.append(listItem);
-          }//fin for
+         ///   shoppingItems.append(listItem);
+       ///   }//fin for
 
           // Actualizar el total de la compra global
-          totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
-        }
+      ///    totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
+     ///   }
 
 
         
         //fin actualizar la lista compras
+
+  //99999999999999999999999999999999999999
+
+   // Función para actualizar la lista de compra en la interfaz
+function updateShoppingList() {
+    var shoppingItems = $('#shoppingItems');
+    var totalPurchaseElement = $('#totalPurchase');
+
+    // Limpiar lista de compra
+    shoppingItems.empty();
+
+    // Construir y agregar nuevos elementos a la lista de compra
+    for (var i = 0; i < shoppingList.length; i++) {
+        var item = shoppingList[i];
+        var listItem = '<li class="shopping-item">' +
+            '<span class="item-quantity">' + item.cantidad + 'x</span>' +
+            '<span class="item-description">' + item.producto + '</span>' +
+            '<span class="item-price">Precio: $' + item.precio + '</span>' +
+            '<span class="item-total">Total: $' + item.total + '</span>' +
+            '</li>';
+
+        shoppingItems.append(listItem);
+    }//fin for
+
+    // Actualizar el total de la compra global
+    var totalPurchase = 0;
+    for (var i = 0; i < shoppingList.length; i++) {
+        totalPurchase += parseFloat(shoppingList[i].total);
+    }
+    totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
+}   
+        
+  //99999999999999999999999999999999000000
+        
 //:::;;;;;;;;;;;;codigo modal edicion::::::::::':::    
        
 
@@ -513,21 +548,8 @@ $('#whatsappButton').on('click', function () {
         $('#editPrice').val(precio);
         $('#editTotal').val(total);
     });
-//------&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&_
-    // Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
-  ///  $('#saveChangesBtn').on('click', function() {
-        // Actualizar los datos del elemento de la lista de compras con los valores editados
-  ///      var shoppingItem = $('.shopping-item.active');
-   ///     shoppingItem.find('.item-quantity').text($('#editQuantity').val() + 'x');
-    ///    shoppingItem.find('.item-description').text($('#editDescription').val());
-    ///    shoppingItem.find('.item-price').text('Precio: $' + $('#editPrice').val());
-    ///    shoppingItem.find('.item-total').text('Total: $' + $('#editTotal').val());
 
-        // Ocultar el modal después de guardar los cambios
-   ///     $('#editItemModal').modal('hide');
-   /// });
-//-------&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-// Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
+        // Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
 $('#saveChangesBtn').on('click', function() {
     // Obtener el índice del elemento activo en la lista de compras
     var index = $('.shopping-item').index($('.shopping-item.active'));
@@ -552,7 +574,6 @@ $('#saveChangesBtn').on('click', function() {
 });
 
 
-//-------&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
         
         // Agregar controlador de eventos clic al botón "Borrar" del modal
