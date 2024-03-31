@@ -440,12 +440,14 @@ function updateShoppingList() {
         shoppingItems.append(listItem);
     }//fin for
 
-    // Actualizar el total de la compra global
-    var totalPurchase = 0;
-    for (var i = 0; i < shoppingList.length; i++) {
-        totalPurchase += parseFloat(shoppingList[i].total);
-    }
-    totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
+// Actualizar el total de la compra global
+var totalPurchase = 0;
+for (var i = 0; i < shoppingList.length; i++) {
+    // Obtener el total del elemento actual en la lista de compras
+    var totalItem = parseFloat(shoppingList[i].total.replace('$', '')); // Eliminar el signo '$' antes de convertir a flotante
+    totalPurchase += totalItem;
+}
+totalPurchaseElement.text('$' + totalPurchase.toFixed(2)); // Agregar el signo '$' al total de la compra global
 }   
         
   //99999999999999999999999999999999000000
