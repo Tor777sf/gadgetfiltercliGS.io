@@ -98,26 +98,51 @@ window.onerror = function(message, source, lineno, colno, error) {
       download: true,
       header: true,
       dynamicTyping: true,
-      complete: function (results) {
-        // Crear DataTable
-        var dataTable = $('#myDataTable').DataTable({
+  //###############################################
+    complete: function (results) {
+    // Crear DataTable
+     var dataTable = $('#myDataTable').DataTable({
           data: results.data,
-          columns: Object.keys(results.data[0]).map(function(key) {
-            return { data: key, title: key };
-          }),
+          columns: [
+              { data: 'DESCRIPCION', title: 'DESCRIPCION' }, // Columna 1: DESCRIPCION
+              { data: 'PRECIO', title: 'PRECIO' }, // Columna 9: PRECIO
+              { data: 'IMAGENES', title: 'IMAGENES' } // Columna 10: IMAGENES
+          ],
           columnDefs: [
-            {
-              targets: 10,
-              render: function (data, type, row) {
+              {
+                  targets: [2], // Índice de la columna 10
+                  render: function (data, type, row) {
+                    // Personalizar renderizado para la columna 10 con enlaces no vacíos
+                    return data && data !== "" ? '<img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" />' : "";
+                }
+            }
+        ]
+    });
+
+
+      
+  //################################################    
+      
+    ///  complete: function (results) {
+        // Crear DataTable
+     ///   var dataTable = $('#myDataTable').DataTable({
+      ///    data: results.data,
+     ///     columns: Object.keys(results.data[0]).map(function(key) {
+      ///      return { data: key, title: key };
+      ///    }),
+     ///     columnDefs: [
+       ///     {
+      ///        targets: 10,
+     ///         render: function (data, type, row) {
                 // Personalizar renderizado para la columna con enlaces no vacíos
-              return data && data !== "" ? '<img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" />' : "";
+        ///      return data && data !== "" ? '<img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" />' : "";
 
               //  return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
-              }
-            }
-          ]
-        });
-
+       ///       }
+      ///      }
+     ///     ]
+    ///    });
+//######################################################
  
 
         // Nueva lista de compra
