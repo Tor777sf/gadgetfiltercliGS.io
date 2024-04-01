@@ -190,14 +190,28 @@ window.onerror = function(message, source, lineno, colno, error) {
 };
 
 
-  // Obtener la sección de shoppingItems
+  // Función debounce para limitar la frecuencia de ejecución
+function debounce(func, wait) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            func.apply(context, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Obtener la sección de shoppingItems
 var shoppingItems = document.getElementById("shoppingItems");
 
 // Obtener la posición vertical inicial de la página
 var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
-// Escuchar el evento de desplazamiento
-window.addEventListener("scroll", function() {
+// Escuchar el evento de desplazamiento con debounce
+window.addEventListener("scroll", debounce(function() {
     // Obtener la nueva posición de desplazamiento
     var newScrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -211,7 +225,8 @@ window.addEventListener("scroll", function() {
 
     // Actualizar la posición de desplazamiento
     scrollPos = newScrollPos;
-});
+}, 100)); // Ajusta el tiempo de espera según sea necesario (en milisegundos)
+
 
 
   
