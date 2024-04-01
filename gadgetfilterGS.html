@@ -135,7 +135,7 @@
     border-radius: 0%; /* Establecer el radio para crear un borde circular */
     overflow: hidden; /* Ocultar cualquier contenido que sobresalga del borde circular */
 }
-//* Estilos para la lista de compra */
+/* Estilos para la lista de compra */
 .lista-de-compra {
     position: fixed; /* Fijar la posición */
     top: 0; /* Pegar la lista en la parte superior */
@@ -148,13 +148,12 @@
 
 /* Estilos para la sección de shoppingItems */
 .shopping-items {
-    /* Agregar estilos necesarios */
-    transition: margin-top 0.3s ease; /* Agregar una transición suave */
+    display: none; /* Ocultar la lista de ítems por defecto */
 }
 
 /* Estilos para mostrar la sección de shoppingItems al deslizar hacia arriba */
 .shopping-items.mostrar {
-    margin-top: 100px; /* Mostrar la sección de shoppingItems */
+    display: block; /* Mostrar la lista de ítems */
 }
 
 
@@ -213,6 +212,7 @@ window.addEventListener("scroll", function() {
     // Actualizar la posición de desplazamiento
     scrollPos = newScrollPos;
 });
+
 
   
   $(document).ready(function () {
