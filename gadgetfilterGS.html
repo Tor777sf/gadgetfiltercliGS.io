@@ -77,14 +77,20 @@
     #myDataTable td:nth-child(2) {
       color: red; /* Color rojo para el texto de la columna de precio */
     }
-    /* Estilos para la parte interior de la tabla DataTable */
-     .dataTables_wrapper .dataTables_empty {
-     background-color: #f0f0f0; /* Color de fondo para la parte interior */
-     color: #333; /* Color del texto */
-     font-size: 18px; /* Tamaño del texto */
-     text-align: center; /* Centrar el texto */
-     padding: 20px; /* Espaciado interno */
-   }
+/* Estilos para la parte interior de la tabla DataTable */
+.dataTables_wrapper .dataTables_empty {
+  background-color: #f0f0f0; /* Color de fondo para la parte interior */
+  color: #333; /* Color del texto */
+  font-size: 18px; /* Tamaño del texto */
+  text-align: center; /* Centrar el texto */
+  padding: 20px; /* Espaciado interno */
+}
+
+/* Estilos para las filas de la tabla DataTable */
+#myDataTable tbody tr {
+  background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%); /* Efecto de esfumado vertical */
+}
+
 
   /* Estilos alternados para filas de la tabla DataTable */
    #myDataTable tbody tr:nth-child(odd) {
