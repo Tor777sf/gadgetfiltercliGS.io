@@ -101,6 +101,20 @@
      background-color: #ffffff; /* Color de fondo para las filas pares */
    }
 
+    /* Estilos para las filas de la tabla DataTable */
+  #myDataTable tbody tr {
+  animation: fadeInRow 0.5s ease; /* Agregar animación de desvanecimiento */
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeInRow {
+  from {
+    opacity: 0; /* Comienza con opacidad cero (invisible) */
+  }
+  to {
+    opacity: 1; /* Termina con opacidad completa (visible) */
+  }
+}
   </style>
 
 </head>
