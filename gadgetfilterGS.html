@@ -135,15 +135,26 @@
     border-radius: 0%; /* Establecer el radio para crear un borde circular */
     overflow: hidden; /* Ocultar cualquier contenido que sobresalga del borde circular */
 }
-/* Estilos para la lista de compra */
-    .lista-de-compra {
+//* Estilos para la lista de compra */
+.lista-de-compra {
     position: fixed; /* Fijar la posición */
-    top: 0px; /* Dejar espacio para el encabezado de la DataTable */
+    top: 0; /* Pegar la lista en la parte superior */
     width: 100%; /* Ajustar el ancho al 100% del contenedor */
     background-color: #fff; /* Color de fondo opcional */
     padding: 10px; /* Espacio interno opcional */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra opcional */
     z-index: 1000; /* Asegurar que la lista esté por encima del contenido */
+}
+
+/* Estilos para la sección de shoppingItems */
+.shopping-items {
+    /* Agregar estilos necesarios */
+    transition: margin-top 0.3s ease; /* Agregar una transición suave */
+}
+
+/* Estilos para mostrar la sección de shoppingItems al deslizar hacia arriba */
+.shopping-items.mostrar {
+    margin-top: 100px; /* Mostrar la sección de shoppingItems */
 }
 
 
@@ -155,7 +166,9 @@
 <!-- Nueva sección para la lista de compra -->
 <div id="shoppingList" class="lista-de-compra">
     <h2>Lista de Compra</h2>
-    <ul id="shoppingItems">
+    
+    <ul id="shoppingItems" class="shopping-items">
+ 
         <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
     </ul>
     <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
@@ -176,6 +189,31 @@ window.onerror = function(message, source, lineno, colno, error) {
     alert("Error: " + message + "\n" + "File: " + source + "\n" + "Line: " + lineno);
     return true; // Evitar que el navegador muestre su propio mensaje de error en la consola
 };
+
+
+  // Obtener la sección de shoppingItems
+var shoppingItems = document.getElementById("shoppingItems");
+
+// Obtener la posición vertical inicial de la página
+var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+// Escuchar el evento de desplazamiento
+window.addEventListener("scroll", function() {
+    // Obtener la nueva posición de desplazamiento
+    var newScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Si la nueva posición de desplazamiento es menor que la posición anterior, mostrar la sección de shoppingItems
+    if (newScrollPos < scrollPos) {
+        shoppingItems.classList.add("mostrar");
+    } else {
+        // Si la nueva posición de desplazamiento es mayor que la posición anterior, ocultar la sección de shoppingItems
+        shoppingItems.classList.remove("mostrar");
+    }
+
+    // Actualizar la posición de desplazamiento
+    scrollPos = newScrollPos;
+});
+
   
   $(document).ready(function () {
    // Descargar y parsear el archivo CSV
