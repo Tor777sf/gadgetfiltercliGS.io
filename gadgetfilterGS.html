@@ -217,9 +217,11 @@ window.addEventListener("scroll", debounce(function() {
 
     // Si la nueva posición de desplazamiento es menor que la posición anterior, mostrar la sección de shoppingItems
     if (newScrollPos < scrollPos) {
+        alert("Desplazamiento hacia la izquierda. Mostrando la sección de shoppingItems.");
         shoppingItems.classList.add("mostrar");
     } else {
         // Si la nueva posición de desplazamiento es mayor que la posición anterior, ocultar la sección de shoppingItems
+        alert("Desplazamiento hacia la derecha. Ocultando la sección de shoppingItems.");
         shoppingItems.classList.remove("mostrar");
     }
 
