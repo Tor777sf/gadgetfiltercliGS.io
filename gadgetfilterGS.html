@@ -618,8 +618,10 @@ function updateShoppingList() {
     var totalPurchaseElement = $('#totalPurchase');
 
     // Limpiar lista de compra
-    shoppingItems.empty();
+    //shoppingItems.empty();
+    $('.shopping-item').remove();
 
+  
     // Construir y agregar nuevos elementos a la lista de compra
     for (var i = 0; i < shoppingList.length; i++) {
         var item = shoppingList[i];
