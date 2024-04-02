@@ -151,7 +151,7 @@
     display: none; /* Ocultar la lista de ítems por defecto */
 }
 
-/* Estilos para mostrar la sección de shoppingItems al deslizar hacia arriba */
+/* Estilos para mostrar la sección de shoppingItems al deslizar horizontalmente */
 .shopping-items.mostrar {
     display: block; /* Mostrar la lista de ítems */
 }
@@ -190,7 +190,7 @@ window.onerror = function(message, source, lineno, colno, error) {
 };
 
 
-  // Función debounce para limitar la frecuencia de ejecución
+// Función debounce para limitar la frecuencia de ejecución
 function debounce(func, wait) {
     var timeout;
     return function() {
@@ -207,13 +207,13 @@ function debounce(func, wait) {
 // Obtener la sección de shoppingItems
 var shoppingItems = document.getElementById("shoppingItems");
 
-// Obtener la posición vertical inicial de la página
-var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+// Obtener la posición horizontal inicial de la página
+var scrollPos = window.pageXOffset || document.documentElement.scrollLeft;
 
-// Escuchar el evento de desplazamiento con debounce
+// Escuchar el evento de desplazamiento horizontal con debounce
 window.addEventListener("scroll", debounce(function() {
-    // Obtener la nueva posición de desplazamiento
-    var newScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+    // Obtener la nueva posición de desplazamiento horizontal
+    var newScrollPos = window.pageXOffset || document.documentElement.scrollLeft;
 
     // Si la nueva posición de desplazamiento es menor que la posición anterior, mostrar la sección de shoppingItems
     if (newScrollPos < scrollPos) {
@@ -223,7 +223,7 @@ window.addEventListener("scroll", debounce(function() {
         shoppingItems.classList.remove("mostrar");
     }
 
-    // Actualizar la posición de desplazamiento
+    // Actualizar la posición de desplazamiento horizontal
     scrollPos = newScrollPos;
 }, 700)); // Ajusta el tiempo de espera según sea necesario (en milisegundos)
 
