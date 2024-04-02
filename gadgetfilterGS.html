@@ -235,10 +235,16 @@ window.addEventListener("scroll", debounce(function() {
 // Obtén el enlace de mostrar/ocultar ítems
 var toggleItemsLink = document.getElementById("toggleItemsLink");
 
+// Bandera para controlar si se está interactuando con el enlace
+var isInteracting = false;
+
 // Agrega un evento de clic al enlace
-toggleItemsLink.addEventListener("click", function(event) {
+toggleItemsLink.addEventListener("mousedown", function(event) {
     // Evita que el enlace ejecute su comportamiento predeterminado
     event.preventDefault();
+    
+    // Activa la bandera de interacción
+    isInteracting = true;
     
     // Alternar la clase "mostrar" en la lista de compras
     shoppingItems.classList.toggle("mostrar");
@@ -250,6 +256,21 @@ toggleItemsLink.addEventListener("click", function(event) {
         toggleItemsLink.textContent = "Mostrar ítems";
     }
 });
+
+// Agrega un evento de clic al enlace
+toggleItemsLink.addEventListener("mouseup", function(event) {
+    // Desactiva la bandera de interacción
+    isInteracting = false;
+});
+
+// Agrega un evento de clic al enlace
+toggleItemsLink.addEventListener("click", function(event) {
+    // Evita que el enlace ejecute su comportamiento predeterminado si se está arrastrando
+    if (isInteracting) {
+        event.preventDefault();
+    }
+});
+
 
   
   $(document).ready(function () {
