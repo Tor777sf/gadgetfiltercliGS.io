@@ -170,22 +170,50 @@
 <body>
 
 <div id="container">
+<div id="container">
     
-       <div style="height: 60px;"></div>
+    <div style="height: 60px;"></div>
 
     <!-- Nueva sección para la lista de compra -->
     <div id="shoppingList" class="lista-de-compra">
         <h2>Lista de Compra</h2>
         <!-- Enlace para mostrar/ocultar ítems -->
-    <a href="#" id="toggleItemsLink">Mostrar ítems</a>
+        <a href="#" id="toggleItemsLink">Mostrar ítems</a>
+
+        <div id="documentOptions">
+            <!-- Opciones de documento: Nota de Venta, Cotización, Nota de Pedido, Lista de Compra -->
+            <label for="documentType">Tipo de Documento:</label>
+            <select id="documentType" name="documentType">
+                <option value="notaVenta">Nota de Venta</option>
+                <option value="cotizacion">Cotización</option>
+                <option value="notaPedido">Nota de Pedido</option>
+                <option value="listaCompra">Lista de Compra</option>
+            </select>
+        </div>
 
         <ul id="shoppingItems" class="shopping-items">
+            <!-- Campos de entrada para cliente, dirección y celular -->
+            <li>
+                <label for="clientName">Cliente:</label>
+                <input type="text" id="clientName" name="clientName">
+            </li>
+            <li>
+                <label for="clientAddress">Dirección:</label>
+                <input type="text" id="clientAddress" name="clientAddress">
+            </li>
+            <li>
+                <label for="clientPhone">Celular:</label>
+                <input type="text" id="clientPhone" name="clientPhone">
+            </li>
+
             <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
         </ul>
         <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
         <button id="whatsappButton">Compartir por WhatsApp</button>
         <button id="downloadPDFButton">Descargar PDF</button>
     </div>
+</div>
+
   
    <div style="height: 60px;"></div>
    <table id="myDataTable" class="display">
