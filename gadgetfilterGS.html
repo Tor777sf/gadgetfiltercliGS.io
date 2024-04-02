@@ -155,6 +155,10 @@
 .shopping-items.mostrar {
     display: block; /* Mostrar la lista de ítems */
 }
+#container {
+    display: flex;
+    flex-direction: column;
+}
 
 
   </style>
@@ -162,27 +166,27 @@
 </head>
 <body>
 
-<!-- Nueva sección para la lista de compra -->
-<table id="myDataTable" class="display">
-  <!-- DataTable content will be dynamically generated here -->
-</table>
-  
-  <div id="shoppingList" class="lista-de-compra">
-  <!-- Agrega un enlace para mostrar/ocultar los ítems -->
-<a href="#" id="toggleItemsLink">Mostrar ítems</a>
-  
-  <h2>Lista de Compra</h2>
-    
-    <ul id="shoppingItems" class="shopping-items">
- 
-        <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
-    </ul>
-    <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
-    <button id="whatsappButton">Compartir por WhatsApp</button>
-    <button id="downloadPDFButton">Descargar PDF</button>
+<div id="container">
+    <table id="myDataTable" class="display">
+        <!-- DataTable content will be dynamically generated here -->
+    </table>
+
+    <!-- Nueva sección para la lista de compra -->
+    <div id="shoppingList" class="lista-de-compra">
+        <h2>Lista de Compra</h2>
+        
+        <ul id="shoppingItems" class="shopping-items">
+            <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
+        </ul>
+        <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
+        <button id="whatsappButton">Compartir por WhatsApp</button>
+        <button id="downloadPDFButton">Descargar PDF</button>
+    </div>
+
+    <!-- Enlace para mostrar/ocultar ítems -->
+    <a href="#" id="toggleItemsLink">Mostrar ítems</a>
 </div>
 
-  
 
 
 
