@@ -207,6 +207,9 @@ function debounce(func, wait) {
 // Obtener la sección de shoppingItems
 var shoppingItems = document.getElementById("shoppingItems");
 
+// Obtener el área fija
+var fixedArea = document.querySelector('.lista-de-compra');
+
 // Obtener la posición vertical inicial de la página
 var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -215,23 +218,18 @@ window.addEventListener("scroll", debounce(function(event) {
     // Obtener la nueva posición de desplazamiento
     var newScrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Obtener el área fija
-    var fixedArea = document.querySelector('.lista-de-compra');
-
     // Verificar si el desplazamiento se encuentra dentro del área fija
-    if (event.target === document && fixedArea.contains(event.target)) {
-        // Si la nueva posición de desplazamiento es menor que la posición anterior, mostrar la sección de shoppingItems
-        if (newScrollPos < scrollPos) {
-            shoppingItems.classList.add("mostrar");
-        } else {
-            // Si la nueva posición de desplazamiento es mayor que la posición anterior, ocultar la sección de shoppingItems
-            shoppingItems.classList.remove("mostrar");
-        }
-
-        // Actualizar la posición de desplazamiento
-        scrollPos = newScrollPos;
+    if (newScrollPos > fixedArea.offsetTop) {
+        // Si la nueva posición de desplazamiento es mayor que el inicio del área fija, mostrar la sección de shoppingItems
+        shoppingItems.classList.add("mostrar");
+    } else {
+        // Si la nueva posición de desplazamiento es menor que el inicio del área fija, ocultar la sección de shoppingItems
+        shoppingItems.classList.remove("mostrar");
     }
-}, 100)); // Ajusta el tiempo de espera según sea necesario (en milisegundos)
+
+    // Actualizar la posición de desplazamiento
+    scrollPos = newScrollPos;
+}, 1500)); // Ajusta el tiempo de espera según sea necesario (en milisegundos)
 
   
   $(document).ready(function () {
