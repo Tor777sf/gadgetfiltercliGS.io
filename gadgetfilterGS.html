@@ -149,6 +149,15 @@
 /* Estilos para la sección de shoppingItems */
 .shopping-items {
     display: none; /* Ocultar la lista de ítems por defecto */
+    transition: max-height 0.5s ease-out; /* Animación de transición para la altura */
+    overflow: hidden; /* Ocultar el exceso de contenido cuando está oculto */
+}
+
+/* Estilos para el enlace de Mostrar Ítems */
+#toggleShoppingItems {
+    display: block; /* Convertir enlace en bloque para ocupar todo el ancho */
+    text-align: center; /* Centrar el texto */
+    padding: 10px; /* Espaciado interno */
 }
 
 
@@ -196,8 +205,20 @@ var toggleLink = document.getElementById("toggleShoppingItems");
 // Escuchar el evento de clic en el enlace para alternar la visualización de la lista de ítems
 toggleLink.addEventListener("click", function(e) {
     e.preventDefault(); // Evitar que el enlace haga scroll al tope de la página
+    
     // Alternar la clase 'mostrar' en la sección de shoppingItems
     shoppingItems.classList.toggle("mostrar");
+    
+    // Obtener la altura de la lista de ítems
+    var shoppingItemsHeight = shoppingItems.scrollHeight;
+    
+    // Si la lista de ítems se está mostrando, establecer su altura para animarla
+    if (shoppingItems.classList.contains("mostrar")) {
+        shoppingItems.style.maxHeight = shoppingItemsHeight + "px";
+    } else {
+        // Si la lista de ítems se está ocultando, establecer la altura a 0 para animarla
+        shoppingItems.style.maxHeight = "0";
+    }
 });
 
 
