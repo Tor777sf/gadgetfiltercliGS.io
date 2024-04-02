@@ -188,6 +188,20 @@ window.onerror = function(message, source, lineno, colno, error) {
     alert("Error: " + message + "\n" + "File: " + source + "\n" + "Line: " + lineno);
     return true; // Evitar que el navegador muestre su propio mensaje de error en la consola
 };
+  
+// Obtener el elemento de la datatable
+var dataTable = document.getElementById("myDataTable");
+
+// Escuchar el evento de arrastre sobre la datatable para prevenir la propagación del evento
+dataTable.addEventListener("dragover", function(event) {
+    event.preventDefault(); // Prevenir el comportamiento predeterminado
+    event.stopPropagation(); // Detener la propagación del evento
+});
+
+// Escuchar el evento de desplazamiento sobre la datatable para ocultar la lista de compra
+dataTable.addEventListener("scroll", function() {
+    shoppingItems.classList.remove("mostrar"); // Ocultar la lista de compra
+});
 
 
 // Función debounce para limitar la frecuencia de ejecución
