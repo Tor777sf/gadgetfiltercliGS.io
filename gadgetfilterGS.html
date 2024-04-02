@@ -136,7 +136,6 @@
     overflow: hidden; /* Ocultar cualquier contenido que sobresalga del borde circular */
 }
 /* Estilos para la lista de compra */
-/* Estilos para la lista de compra */
 .lista-de-compra {
     position: fixed; /* Fijar la posición */
     top: 0; /* Pegar la lista en la parte superior */
@@ -151,10 +150,7 @@
 .shopping-items {
     display: none; /* Ocultar la lista de ítems por defecto */
 }
-/* Estilos para el botón de alternar */
-#toggleButtonContainer {
-    margin-bottom: 10px; /* Agregar margen inferior para separar del siguiente contenido */
-}
+
 
   </style>
 
@@ -163,10 +159,10 @@
 
 <!-- Nueva sección para la lista de compra -->
 <div id="shoppingList" class="lista-de-compra">
-    <button id="toggleShoppingItems">Mostrar Ítems</button>
 
   <h2>Lista de Compra</h2>
-   
+   <a href="#" id="toggleShoppingItems">Mostrar Ítems</a>
+
     <ul id="shoppingItems" class="shopping-items">
    
         <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
@@ -194,16 +190,15 @@ window.onerror = function(message, source, lineno, colno, error) {
 // Obtener la sección de shoppingItems
 var shoppingItems = document.getElementById("shoppingItems");
 
-// Obtener el botón para alternar la visualización de la lista de ítems
-var toggleButton = document.getElementById("toggleShoppingItems");
+// Obtener el enlace para alternar la visualización de la lista de ítems
+var toggleLink = document.getElementById("toggleShoppingItems");
 
-// Escuchar el evento de clic en el botón para alternar la visualización de la lista de ítems
-toggleButton.addEventListener("click", function() {
+// Escuchar el evento de clic en el enlace para alternar la visualización de la lista de ítems
+toggleLink.addEventListener("click", function(e) {
+    e.preventDefault(); // Evitar que el enlace haga scroll al tope de la página
     // Alternar la clase 'mostrar' en la sección de shoppingItems
     shoppingItems.classList.toggle("mostrar");
 });
-
-
 
 
   
