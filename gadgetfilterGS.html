@@ -164,7 +164,10 @@
 
 <!-- Nueva sección para la lista de compra -->
 <div id="shoppingList" class="lista-de-compra">
-    <h2>Lista de Compra</h2>
+  <!-- Agrega un enlace para mostrar/ocultar los ítems -->
+<a href="#" id="toggleItemsLink">Mostrar ítems</a>
+  
+  <h2>Lista de Compra</h2>
     
     <ul id="shoppingItems" class="shopping-items">
  
@@ -228,6 +231,25 @@ window.addEventListener("scroll", debounce(function() {
 }, 700)); // Ajusta el tiempo de espera según sea necesario (en milisegundos)
 
 
+  
+// Obtén el enlace de mostrar/ocultar ítems
+var toggleItemsLink = document.getElementById("toggleItemsLink");
+
+// Agrega un evento de clic al enlace
+toggleItemsLink.addEventListener("click", function(event) {
+    // Evita que el enlace ejecute su comportamiento predeterminado
+    event.preventDefault();
+    
+    // Alternar la clase "mostrar" en la lista de compras
+    shoppingItems.classList.toggle("mostrar");
+    
+    // Cambiar el texto del enlace según el estado de la lista de compras
+    if (shoppingItems.classList.contains("mostrar")) {
+        toggleItemsLink.textContent = "Ocultar ítems";
+    } else {
+        toggleItemsLink.textContent = "Mostrar ítems";
+    }
+});
 
   
   $(document).ready(function () {
