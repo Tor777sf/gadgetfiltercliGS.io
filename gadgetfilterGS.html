@@ -163,7 +163,8 @@
     <h2>Lista de Compra</h2>
     
     <ul id="shoppingItems" class="shopping-items">
- 
+   <button id="toggleShoppingItems">Mostrar Ítems</button>
+
         <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
     </ul>
     <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
@@ -186,14 +187,18 @@ window.onerror = function(message, source, lineno, colno, error) {
 };
 
 
-  // Obtener la sección de shoppingItems
+// Obtener la sección de shoppingItems
 var shoppingItems = document.getElementById("shoppingItems");
 
-// Escuchar el evento de clic en la lista de compra
-document.getElementById("shoppingList").addEventListener("click", function() {
+// Obtener el botón para alternar la visualización de la lista de ítems
+var toggleButton = document.getElementById("toggleShoppingItems");
+
+// Escuchar el evento de clic en el botón para alternar la visualización de la lista de ítems
+toggleButton.addEventListener("click", function() {
     // Alternar la clase 'mostrar' en la sección de shoppingItems
     shoppingItems.classList.toggle("mostrar");
 });
+
 
 
 
