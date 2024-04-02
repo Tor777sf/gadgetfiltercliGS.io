@@ -149,15 +149,11 @@
 /* Estilos para la sección de shoppingItems */
 .shopping-items {
     display: none; /* Ocultar la lista de ítems por defecto */
-    transition: max-height 0.5s ease-out; /* Animación de transición para la altura */
-    overflow: hidden; /* Ocultar el exceso de contenido cuando está oculto */
 }
 
-/* Estilos para el enlace de Mostrar Ítems */
-#toggleShoppingItems {
-    display: block; /* Convertir enlace en bloque para ocupar todo el ancho */
-    text-align: center; /* Centrar el texto */
-    padding: 10px; /* Espaciado interno */
+/* Estilos para mostrar la sección de shoppingItems al deslizar hacia arriba */
+.shopping-items.mostrar {
+    display: block; /* Mostrar la lista de ítems */
 }
 
 
@@ -168,12 +164,10 @@
 
 <!-- Nueva sección para la lista de compra -->
 <div id="shoppingList" class="lista-de-compra">
-
-  <h2>Lista de Compra</h2>
-   <a href="#" id="toggleShoppingItems">Mostrar Ítems</a>
-
+    <h2>Lista de Compra</h2>
+    
     <ul id="shoppingItems" class="shopping-items">
-   
+ 
         <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
     </ul>
     <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
@@ -196,30 +190,43 @@ window.onerror = function(message, source, lineno, colno, error) {
 };
 
 
+  // Función debounce para limitar la frecuencia de ejecución
+function debounce(func, wait) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            func.apply(context, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
 // Obtener la sección de shoppingItems
 var shoppingItems = document.getElementById("shoppingItems");
 
-// Obtener el enlace para alternar la visualización de la lista de ítems
-var toggleLink = document.getElementById("toggleShoppingItems");
+// Obtener la posición vertical inicial de la página
+var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
-// Escuchar el evento de clic en el enlace para alternar la visualización de la lista de ítems
-toggleLink.addEventListener("click", function(e) {
-    e.preventDefault(); // Evitar que el enlace haga scroll al tope de la página
-    
-    // Alternar la clase 'mostrar' en la sección de shoppingItems
-    shoppingItems.classList.toggle("mostrar");
-    
-    // Obtener la altura de la lista de ítems
-    var shoppingItemsHeight = shoppingItems.scrollHeight;
-    
-    // Si la lista de ítems se está mostrando, establecer su altura para animarla
-    if (shoppingItems.classList.contains("mostrar")) {
-        shoppingItems.style.maxHeight = shoppingItemsHeight + "px";
+// Escuchar el evento de desplazamiento con debounce
+window.addEventListener("scroll", debounce(function() {
+    // Obtener la nueva posición de desplazamiento
+    var newScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Si la nueva posición de desplazamiento es menor que la posición anterior, mostrar la sección de shoppingItems
+    if (newScrollPos < scrollPos) {
+        shoppingItems.classList.add("mostrar");
     } else {
-        // Si la lista de ítems se está ocultando, establecer la altura a 0 para animarla
-        shoppingItems.style.maxHeight = "0";
+        // Si la nueva posición de desplazamiento es mayor que la posición anterior, ocultar la sección de shoppingItems
+        shoppingItems.classList.remove("mostrar");
     }
-});
+
+    // Actualizar la posición de desplazamiento
+    scrollPos = newScrollPos;
+}, 700)); // Ajusta el tiempo de espera según sea necesario (en milisegundos)
+
 
 
   
