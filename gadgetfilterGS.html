@@ -208,23 +208,21 @@
         <!-- Enlace para mostrar/ocultar ítems -->
         <a href="#" id="toggleItemsLink">Mostrar ítems</a>
 
-        <!-- Campos de entrada para cliente, dirección y celular -->
-        <div id="customerInfo" style="display: none;">
-            <div>
+        <ul id="shoppingItems" class="shopping-items">
+            <!-- Campos de entrada para cliente, dirección y celular -->
+            <li id="customerInfo">
                 <label for="clientName">Cliente:</label>
                 <input type="text" id="clientName" name="clientName">
-            </div>
-            <div>
+            </li>
+            <li id="customerAddress">
                 <label for="clientAddress">Dirección:</label>
                 <input type="text" id="clientAddress" name="clientAddress">
-            </div>
-            <div>
+            </li>
+            <li id="customerPhone">
                 <label for="clientPhone">Celular:</label>
                 <input type="text" id="clientPhone" name="clientPhone">
-            </div>
-        </div>
+            </li>
 
-        <ul id="shoppingItems" class="shopping-items">
             <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
         </ul>
         <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
