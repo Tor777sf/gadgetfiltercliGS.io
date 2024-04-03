@@ -637,8 +637,8 @@ function updateShoppingList() {
         var listItem = '<li class="shopping-item">' +
             '<span class="item-quantity">' + item.cantidad + 'x</span>' +
             '<span class="item-description">' + item.producto + '</span>' +
-            '<span class="item-price">Precio: $' + item.precio + '</span>' +
-            '<span class="item-total">Total: $' + item.total + '</span>' +
+            '<span class="item-price">Precio: S/' + item.precio + '</span>' +
+            '<span class="item-total">Total: S/' + item.total + '</span>' +
             '</li>';
 
         shoppingItems.append(listItem);
@@ -648,10 +648,10 @@ function updateShoppingList() {
 var totalPurchase = 0;
 for (var i = 0; i < shoppingList.length; i++) {
     // Obtener el total del elemento actual en la lista de compras
-    var totalItem = parseFloat(shoppingList[i].total.replace('$', '')); // Eliminar el signo '$' antes de convertir a flotante
+    var totalItem = parseFloat(shoppingList[i].total.replace('S/', '')); // Eliminar el signo '$' antes de convertir a flotante
     totalPurchase += totalItem;
 }
-totalPurchaseElement.text('$' + totalPurchase.toFixed(2)); // Agregar el signo '$' al total de la compra global
+totalPurchaseElement.text('S/' + totalPurchase.toFixed(2)); // Agregar el signo '$' al total de la compra global
 }   
         
   //99999999999999999999999999999999000000
@@ -744,8 +744,8 @@ totalPurchaseElement.text('$' + totalPurchase.toFixed(2)); // Agregar el signo '
         // Obtener los datos del elemento clicado
         var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
         var descripcion = $(this).find('.item-description').text().trim();
-        var precio = $(this).find('.item-price').text().trim().replace('Precio: $', ''); // Eliminar 'Precio: $'
-        var total = $(this).find('.item-total').text().trim().replace('Total: $', ''); // Eliminar 'Total: $'
+        var precio = $(this).find('.item-price').text().trim().replace('Precio: S/', ''); // Eliminar 'Precio: $'
+        var total = $(this).find('.item-total').text().trim().replace('Total: S/', ''); // Eliminar 'Total: $'
 
         // Llenar el modal con los datos del elemento clicado
         $('#editItemModal').modal('show'); // Mostrar el modal
