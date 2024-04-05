@@ -352,7 +352,9 @@ var nuevoProducto;
 $('#priceInput').change(function() {
     // Verificar el valor de nuevoProducto
     if (nuevoProducto === "si") {
-        // No hacer nada si nuevoProducto es "si"
+          //si nuevoProducto es "si"
+         previousPrice = $('#priceInput').val();
+
         return;
     } else if (nuevoProducto === "no") {
         var newPrice = parseFloat($(this).val());
