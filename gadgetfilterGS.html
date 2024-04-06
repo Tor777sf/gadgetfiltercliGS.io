@@ -288,7 +288,8 @@ toggleItemsLink.addEventListener("click", function(event) {
         // Agregar el precio a la descripción
      
       results.data.forEach(function(row) {
-            row.DESCRIPCION = row.DESCRIPCION + '<br>Precio: $' + row.Total;
+         row.DESCRIPCION = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
+        //row.DESCRIPCION = row.DESCRIPCION + '<br>Precio: $' + row.Total;
         });
       //????????????????????????.......???????????
     // Crear DataTable
