@@ -453,13 +453,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
             } else {
                 // Si la descripción no es "xp", establecer la descripción y el precio según los datos de la fila
-                  var descripcion = data.DESCRIPCION; // Obtener la descripción
-
-               // Limpiar la descripción eliminando todo el contenido después de ella (incluyendo palabras y etiquetas HTML)
-               descripcion = descripcion.replace(/<[^>]+>/g, ''); // Eliminar etiquetas HTML
-               descripcion = descripcion.replace(/\b\S+\b/g, ''); // Eliminar cualquier otra palabra
-
-              // Establecer la descripción en el campo correspondiente
+                  var descripcion = $('<div>').html(data.DESCRIPCION).text(); // Obtener la descripción sin HTML
                 $('#descriptionInput').val(descripcion.trim()); // Establecer la descripción en el textarea
 
                 //$('#descriptionInput').val(data.DESCRIPCION);
