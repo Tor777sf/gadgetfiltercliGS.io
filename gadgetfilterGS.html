@@ -284,17 +284,24 @@ toggleItemsLink.addEventListener("click", function(event) {
       dynamicTyping: true,
   //###############################################
     complete: function (results) {
+      //?????????????????????????....????????
+        // Agregar el precio a la descripción
+     
+      results.data.forEach(function(row) {
+            row.DESCRIPCION = row.DESCRIPCION + '<br>Precio: $' + row.Total;
+        });
+      //????????????????????????.......???????????
     // Crear DataTable
      var dataTable = $('#myDataTable').DataTable({
           data: results.data,
           columns: [
               { data: 'DESCRIPCION', title: 'DESCRIPCION' }, // Columna 1: DESCRIPCION
-              { data: 'Total', title: 'PRECIO' }, // Columna 9: PRECIO
+              //{ data: 'Total', title: 'PRECIO' }, // Columna 9: PRECIO
               { data: 'ENLACES', title: 'IMAGENES' } // Columna 10: IMAGENES
           ],
           columnDefs: [
               {
-                  targets: [2], // Índice de la columna 10
+                  targets: [1], // Índice de la columna 10
                   render: function (data, type, row) {
                     // Personalizar renderizado para la columna 10 con enlaces no vacíos
                     return data && data !== "" ? '<img src="' + data + '" alt="Ver Foto" style="height: auto; width: 500px;" />' : "";
