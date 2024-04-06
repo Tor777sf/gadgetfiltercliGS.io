@@ -453,10 +453,15 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
             } else {
                 // Si la descripción no es "xp", establecer la descripción y el precio según los datos de la fila
-                  var descripcion = data.DESCRIPCION.replace(/<br\s*[\/]?>/gi, "\n"); // Reemplazar etiquetas <br> con saltos de línea
-                  descripcion = descripcion.replace(/<[^>]+>/g, ''); // Eliminar otras etiquetas HTML
-                  $('#descriptionInput').val(descripcion); // Establecer el contenido en el textarea
-        
+                  var descripcion = data.DESCRIPCION; // Obtener la descripción
+
+               // Limpiar la descripción eliminando todo el contenido después de ella (incluyendo palabras y etiquetas HTML)
+               descripcion = descripcion.replace(/<[^>]+>/g, ''); // Eliminar etiquetas HTML
+               descripcion = descripcion.replace(/\b\S+\b/g, ''); // Eliminar cualquier otra palabra
+
+              // Establecer la descripción en el campo correspondiente
+                $('#descriptionInput').val(descripcion.trim()); // Establecer la descripción en el textarea
+
                 //$('#descriptionInput').val(data.DESCRIPCION);
                 // Verificar si el precio es 0, mostrar "0.00", de lo contrario, mostrar el precio formateado con dos decimales
                 $('#priceInput').val(precio === 0 ? '0.00' : precio.toFixed(2));
