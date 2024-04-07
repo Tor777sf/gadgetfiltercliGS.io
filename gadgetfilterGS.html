@@ -293,17 +293,16 @@ toggleItemsLink.addEventListener("click", function(event) {
        /// });
       //????????????????????????????????
               // Copiar la descripción original antes de modificarla
-        results.data.forEach(function(row) {
-            row.DESCRIPCION_ORIGINAL = row.DESCRIPCION;
-            // Agregar el precio a la descripción
-            row.DESCRIPCION = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
+                results.data.forEach(function(row) {
+            // Agregar precio a la descripción original
+            row.DESCRIPCION_CON_PRECIO = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
         });
       //????????????????????????.......???????????
     // Crear DataTable
      var dataTable = $('#myDataTable').DataTable({
           data: results.data,
           columns: [
-              { data: 'DESCRIPCION_ORIGINAL', title: 'DESCRIPCION' }, // Columna 1: DESCRIPCION
+              { data: 'DESCRIPCION_CON_PRECIO', title: 'DESCRIPCION' }, // Columna 1: DESCRIPCION
               //{ data: 'Total', title: 'PRECIO' }, // Columna 9: PRECIO
               { data: 'ENLACES', title: 'IMAGENES' } // Columna 10: IMAGENES
           ],
