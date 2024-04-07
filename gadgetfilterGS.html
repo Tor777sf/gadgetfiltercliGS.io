@@ -287,16 +287,23 @@ toggleItemsLink.addEventListener("click", function(event) {
       //?????????????????????????....????????
         // Agregar el precio a la descripción
      
-      results.data.forEach(function(row) {
-         row.DESCRIPCION = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
+      ///results.data.forEach(function(row) {
+      ///  row.DESCRIPCION = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
         //row.DESCRIPCION = row.DESCRIPCION + '<br>Precio: $' + row.Total;
+       /// });
+      //????????????????????????????????
+              // Copiar la descripción original antes de modificarla
+        results.data.forEach(function(row) {
+            row.DESCRIPCION_ORIGINAL = row.DESCRIPCION;
+            // Agregar el precio a la descripción
+            row.DESCRIPCION = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
         });
       //????????????????????????.......???????????
     // Crear DataTable
      var dataTable = $('#myDataTable').DataTable({
           data: results.data,
           columns: [
-              { data: 'DESCRIPCION', title: 'DESCRIPCION' }, // Columna 1: DESCRIPCION
+              { data: 'DESCRIPCION_ORIGINAL', title: 'DESCRIPCION' }, // Columna 1: DESCRIPCION
               //{ data: 'Total', title: 'PRECIO' }, // Columna 9: PRECIO
               { data: 'ENLACES', title: 'IMAGENES' } // Columna 10: IMAGENES
           ],
@@ -453,10 +460,10 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
             } else {
                 // Si la descripción no es "xp", establecer la descripción y el precio según los datos de la fila
-                  var descripcion = $('<div>').html(data.DESCRIPCION).text(); // Obtener la descripción sin HTML
-                $('#descriptionInput').val(descripcion.trim()); // Establecer la descripción en el textarea
+                 // var descripcion = $('<div>').html(data.DESCRIPCION).text(); // Obtener la descripción sin HTML
+                //$('#descriptionInput').val(descripcion.trim()); // Establecer la descripción en el textarea
 
-                //$('#descriptionInput').val(data.DESCRIPCION);
+                $('#descriptionInput').val(data.DESCRIPCION);
                 // Verificar si el precio es 0, mostrar "0.00", de lo contrario, mostrar el precio formateado con dos decimales
                 $('#priceInput').val(precio === 0 ? '0.00' : precio.toFixed(2));
                 imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
