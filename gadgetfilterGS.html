@@ -561,7 +561,9 @@ $('#myDataTable tbody').on('click', 'tr', function () {
       
  function formatShoppingListForWhatsApp() {
  let formattedList = '*📋 Lista de Compra:*\n\n';
-  for (let i = 0; i < shoppingList.length; i++) {
+  formattedList += `\n\n*Nombre del Cliente:* ${clientName}`;
+
+   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     //formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
     formattedList += `🛒 *${item.cantidad}x ${item.producto}* - Precio: _$${item.precio}_ - _Total: _$${item.total}_\n`;
