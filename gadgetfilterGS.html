@@ -523,7 +523,16 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //   inicio botones Whatsapp y pdf
 
 // Función para formatear la lista de compra para WhatsApp
+//wwewwwwwwwwwwwwwwww
+// Función para formatear la lista de compra para WhatsApp
 function formatShoppingListForWhatsApp() {
+  // Obtener los valores de los nuevos campos
+  const clientName = document.getElementById('clientName').value;
+  const clientAddress = document.getElementById('clientAddress').value;
+  const clientPhone = document.getElementById('clientPhone').value;
+  const documentType = document.getElementById('documentType').value;
+  const deliveryOption = document.getElementById('deliveryOption').value;
+
   let formattedList = '*📋 Lista de Compra:*\n\n';
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
@@ -532,13 +541,36 @@ function formatShoppingListForWhatsApp() {
   }
   formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
 
+  // Agregar información del cliente y opciones de entrega
+  formattedList += `\n\n*Información del Cliente:*\nNombre: ${clientName}\nDirección: ${clientAddress}\nTeléfono: ${clientPhone}\nTipo de Documento: ${documentType}\nOpción de Entrega: ${deliveryOption}`;
+
   // Agregar enlace al GIF
   const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
   formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
 
-  return formattedList;
-}
+  // Llamar a la función para enviar la lista de compra
+  sendShoppingList(formattedList);
+  }
 
+
+//wwwwwwwwwwwwwwwwwewwwww
+      
+///  function formatShoppingListForWhatsApp() {
+///  let formattedList = '*📋 Lista de Compra:*\n\n';
+ /// for (let i = 0; i < shoppingList.length; i++) {
+  ///  const item = shoppingList[i];
+ ///   formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
+   /// formattedList += '─────────────────────────────\n'; // Línea decorativa
+///  }
+///  formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
+
+  // Agregar enlace al GIF
+///  const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
+///  formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
+
+///  return formattedList;
+///}
+//wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 // Función para formatear la lista de compra para el PDF
 function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
