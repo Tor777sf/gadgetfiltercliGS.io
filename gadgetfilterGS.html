@@ -563,7 +563,9 @@ $('#myDataTable tbody').on('click', 'tr', function () {
  let formattedList = '*📋 Lista de Compra:*\n\n';
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
-    formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
+    //formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
+    formattedList += `🛒 *${item.cantidad}x ${item.producto}* - Precio: _$${item.precio}_ - _Total: _$${item.total}_\n`;
+
     formattedList += '─────────────────────────────\n'; // Línea decorativa
   }
   formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
