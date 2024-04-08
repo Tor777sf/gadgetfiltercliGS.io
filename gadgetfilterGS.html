@@ -528,11 +528,11 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 // Función para formatear la lista de compra para WhatsApp
 function formatShoppingListForWhatsApp() {
   // Obtener los valores de los campos del formulario
-  const documentType = document.getElementById('documentType').value;
-  const deliveryOption = document.getElementById('deliveryOption').value;
-  const clientName = document.getElementById('clientName').value;
-  const clientAddress = document.getElementById('clientAddress').value;
-  const clientPhone = document.getElementById('clientPhone').value;
+  const documentType = document.getElementById('documentType').val();
+  const deliveryOption = document.getElementById('deliveryOption').val();
+  const clientName = document.getElementById('clientName').val();
+  const clientAddress = document.getElementById('clientAddress').val();
+  const clientPhone = document.getElementById('clientPhone').val();
 
   let formattedList = '*📋 Lista de Compra:*\n\n';
   for (let i = 0; i < shoppingList.length; i++) {
