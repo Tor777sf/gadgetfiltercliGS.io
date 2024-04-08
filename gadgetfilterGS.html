@@ -525,13 +525,14 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 // Función para formatear la lista de compra para WhatsApp
 //wwewwwwwwwwwwwwwwww
 // Función para formatear la lista de compra para WhatsApp
+funct// Función para formatear la lista de compra para WhatsApp
 function formatShoppingListForWhatsApp() {
-  // Obtener los valores de los nuevos campos
+  // Obtener los valores de los campos del formulario
+  const documentType = document.getElementById('documentType').value;
+  const deliveryOption = document.getElementById('deliveryOption').value;
   const clientName = document.getElementById('clientName').value;
   const clientAddress = document.getElementById('clientAddress').value;
   const clientPhone = document.getElementById('clientPhone').value;
-  const documentType = document.getElementById('documentType').value;
-  const deliveryOption = document.getElementById('deliveryOption').value;
 
   let formattedList = '*📋 Lista de Compra:*\n\n';
   for (let i = 0; i < shoppingList.length; i++) {
@@ -547,7 +548,11 @@ function formatShoppingListForWhatsApp() {
   // Agregar enlace al GIF
   const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
   formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
-  }
+
+
+}
+
+
 
 
 //wwwwwwwwwwwwwwwwwewwwww
