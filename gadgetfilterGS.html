@@ -565,6 +565,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
    const selectedOptionText = $('#documentType option:selected').text();
    const fechaHoraActual = new Date().toLocaleString(); // Obtiene la fecha y hora actual en formato local
 
+   const deliveryOption = $('#deliveryOption option:selected').text();  
    // const documentType = $('#documentType').val();
   const deliveryOption = $('#deliveryOption').val();
   const clientName = $('#clientName').val();
@@ -576,7 +577,9 @@ $('#myDataTable tbody').on('click', 'tr', function () {
    formattedList += `*Comprobante:* ${selectedOptionText} - N° ${fechaHoraActual}\n`;
   // formattedList += `*Comprobante:* ${selectedOptionText}\n`;
    //formattedList += `*Comprobante:* ${documentType}*\n`;
-   formattedList += `*Opcion de entrega:* ${deliveryOption}*\n`;
+  // formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
+  formattedList += `*Opción de entrega:* ${selectedOptionText}\n`;
+   //formattedList += `*Opcion de entrega:* ${deliveryOption}*\n`;
    formattedList += `*Nombre del Cliente:* ${clientName}*\n`;
    formattedList += `*Dirección:* ${clientAddress}*\n`;
    formattedList += `*Celular:* ${clientPhone}*\n\n\n`;
