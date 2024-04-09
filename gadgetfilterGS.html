@@ -620,9 +620,9 @@ $('#downloadPDFButton').on('click', async function () {
     // Crear el objeto PDF en blanco
     const pdfDoc = await PDFLib.PDFDocument.create();
    // Establecer el ancho y alto de la página
-   // const pageWidth = 5.5 * PDFLib.cm;
-   // const pageHeight = 11 * PDFLib.cm; // Por ejemplo, un tamaño de página de 11 cm de alto
-  //  const page = pdfDoc.addPage([pageWidth, pageHeight]);
+    const pageWidth = 5.5 * PDFLib.cm;
+    const pageHeight = 11 * PDFLib.cm; // Por ejemplo, un tamaño de página de 11 cm de alto
+    const page = pdfDoc.addPage([pageWidth, pageHeight]);
 
     // Agregar una nueva página al PDF
     const page = pdfDoc.addPage();
