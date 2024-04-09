@@ -663,6 +663,7 @@ function formatShoppingListForPDF() {
 }
       
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
+// Descargar PDF al hacer clic en el botón "Descargar PDF"
 $('#downloadPDFButton').on('click', async function () {
   try {
     // Crear el objeto PDF en blanco
@@ -681,7 +682,7 @@ $('#downloadPDFButton').on('click', async function () {
     const page = pdfDoc.addPage([5.5, pageHeight]);
 
     // Establecer el tamaño y la posición del texto
-    const textSize = pageHeight > 20 ? 20 : pageHeight - 2; // Ajustar el tamaño máximo del texto
+    const textSize = pageHeight > 20 ? 10 : pageHeight - 2; // Ajustar el tamaño máximo del texto
     const textX = 0.5; // Margen izquierdo
     let textY = pageHeight - 1; // Comenzar desde la parte superior de la página
 
@@ -693,13 +694,13 @@ $('#downloadPDFButton').on('click', async function () {
 
     // Establecer el diseño del encabezado
     const headerY = pageHeight - 1; // Posición en la parte superior de la página
-    const headerTextSize = pageHeight > 20 ? 16 : pageHeight - 4; // Ajustar el tamaño máximo del texto del encabezado
+    const headerTextSize = pageHeight > 20 ? 8 : pageHeight - 4; // Ajustar el tamaño máximo del texto del encabezado
     page.drawLine({ start: { x: 0, y: headerY }, end: { x: 5.5, y: headerY }, thickness: 2 });
     page.drawText('Encabezado', { x: 2.75, y: headerY - 0.5, size: headerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
 
     // Establecer el diseño del pie de página
     const footerY = 0; // Posición en la parte inferior de la página
-    const footerTextSize = pageHeight > 20 ? 16 : pageHeight - 4; // Ajustar el tamaño máximo del texto del pie de página
+    const footerTextSize = pageHeight > 20 ? 8 : pageHeight - 4; // Ajustar el tamaño máximo del texto del pie de página
     page.drawLine({ start: { x: 0, y: footerY }, end: { x: 5.5, y: footerY }, thickness: 2 });
     page.drawText('Pie de página', { x: 2.75, y: footerY + 0.5, size: footerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
 
