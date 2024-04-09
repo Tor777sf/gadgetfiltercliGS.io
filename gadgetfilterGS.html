@@ -563,15 +563,18 @@ $('#myDataTable tbody').on('click', 'tr', function () {
  function formatShoppingListForWhatsApp() {
 
    const selectedOptionText = $('#documentType option:selected').text();
-  // const documentType = $('#documentType').val();
+   const fechaHoraActual = new Date().toLocaleString(); // Obtiene la fecha y hora actual en formato local
+
+   // const documentType = $('#documentType').val();
   const deliveryOption = $('#deliveryOption').val();
   const clientName = $('#clientName').val();
   const clientAddress = $('#clientAddress').val();
   const clientPhone = $('#clientPhone').val();
 // clientName = $('#clientName').val();
  let formattedList = '*📋 Lista de Compra:*\n';
-   
-   formattedList += `*Comprobante:* ${selectedOptionText}\n`;
+
+   formattedList += `*Comprobante:* ${selectedOptionText} - N° ${fechaHoraActual}\n`;
+  // formattedList += `*Comprobante:* ${selectedOptionText}\n`;
    //formattedList += `*Comprobante:* ${documentType}*\n`;
    formattedList += `*Opcion de entrega:* ${deliveryOption}*\n`;
    formattedList += `*Nombre del Cliente:* ${clientName}*\n`;
