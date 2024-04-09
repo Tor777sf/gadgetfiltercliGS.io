@@ -671,8 +671,8 @@ $('#downloadPDFButton').on('click', async function () {
     // Obtener la lista de compra formateada para PDF
     const formattedListForPDF = formatShoppingListForPDF();
 
-    // Dividir el texto en líneas
-    const lines = formattedListForPDF.split('\n');
+    // Dividir el texto en líneas solo si es necesario
+    const lines = formattedListForPDF.includes('\n') ? formattedListForPDF.split('\n') : [formattedListForPDF];
 
     // Calcular la altura de la página en función del número de líneas y el tamaño del ticket
     const ticketHeightFactor = 0.5; // Factor para ajustar la altura de la página en función del tamaño del ticket
@@ -682,21 +682,19 @@ $('#downloadPDFButton').on('click', async function () {
     const page = pdfDoc.addPage([5.5, pageHeight]);
 
     // Calcular el tamaño y la posición del texto principal
-    const mainTextSizeFactor = 0.4; // Factor para ajustar el tamaño del texto principal en función del tamaño del ticket
-    const mainTextSize = pageHeight * mainTextSizeFactor;
+    const mainTextSize = 10; // Tamaño de la fuente para el texto principal
     const mainTextX = 0.5; // Margen izquierdo fijo
     let mainTextY = pageHeight - 1; // Comenzar desde la parte superior de la página
 
     // Agregar texto a la página utilizando la fuente predeterminada
     lines.forEach(line => {
-      page.drawText(line, { x: mainTextX, y: mainTextY, size: mainTextSize, lineHeight: mainTextSize });
+      page.drawText(line, { x: mainTextX, y: mainTextY, size: mainTextSize });
       mainTextY -= mainTextSize * 1.2; // Ajustar el espaciado entre líneas
     });
 
     // Calcular el tamaño y la posición del encabezado
-    const headerTextSizeFactor = 0.5; // Factor para ajustar el tamaño del encabezado en función del tamaño del ticket
+    const headerTextSize = 8; // Tamaño de la fuente para el encabezado
     const headerY = pageHeight - 1; // Posición en la parte superior de la página
-    const headerTextSize = pageHeight * headerTextSizeFactor;
     const headerTextX = 2.75; // Ajustar según sea necesario
 
     // Establecer el diseño del encabezado
@@ -704,9 +702,8 @@ $('#downloadPDFButton').on('click', async function () {
     page.drawText('Encabezado', { x: headerTextX, y: headerY - 0.5, size: headerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
 
     // Calcular el tamaño y la posición del pie de página
-    const footerTextSizeFactor = 0.5; // Factor para ajustar el tamaño del pie de página en función del tamaño del ticket
+    const footerTextSize = 8; // Tamaño de la fuente para el pie de página
     const footerY = 0; // Posición en la parte inferior de la página
-    const footerTextSize = pageHeight * footerTextSizeFactor;
     const footerTextX = 2.75; // Ajustar según sea necesario
 
     // Establecer el diseño del pie de página
