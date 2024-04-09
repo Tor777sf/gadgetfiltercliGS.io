@@ -586,11 +586,11 @@ $('#myDataTable tbody').on('click', 'tr', function () {
    for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     //formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
-    formattedList += `🛒 *${item.cantidad}*x *${item.producto}* - Precio: _S/${item.precio}_ - _Total: _S/${item.total}_\n`;
+    formattedList += `🛒 *${item.cantidad}-* *${item.producto}* - Precio: _S/${item.precio}_ - _Total: _S/${item.total}_\n`;
 
     formattedList += '───────────────────────────────────────\n'; // Línea decorativa
   }
-  formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
+  formattedList += `\n💰 *Total de Compra:* _S/${totalPurchase.toFixed(2)}_`;
 
   // Agregar enlace al GIF
   //const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
