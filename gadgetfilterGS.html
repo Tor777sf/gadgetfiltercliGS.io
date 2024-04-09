@@ -668,20 +668,29 @@ $('#downloadPDFButton').on('click', async function () {
     // Crear el objeto PDF en blanco
     const pdfDoc = await PDFLib.PDFDocument.create();
 
+    // Obtener la lista de compra formateada para PDF
+    const formattedListForPDF = formatShoppingListForPDF();
+
+    // Dividir el texto en líneas
+    const lines = formattedListForPDF.split('\n');
+
+    // Calcular la altura de la página en función del número de líneas y el tamaño del ticket
+    const lineHeight = 12; // Altura estimada de una línea de texto
+    const pageHeight = Math.max(750, lines.length * lineHeight + 20); // Altura mínima de la página es 750
+
     // Agregar una nueva página al PDF con ancho de 5.5 cm y altura variable
-    const pageHeight = 750; // Altura variable
     const page = pdfDoc.addPage([5.5, pageHeight]);
 
     // Establecer el tamaño y la posición del texto
     const textSize = 7;
     const textX = 20;
-    const textY = 750; // Posición Y inicial
-
-    // Obtener la lista de compra formateada para PDF
-    const formattedListForPDF = formatShoppingListForPDF();
+    let textY = pageHeight - 20; // Comenzar desde la parte superior de la página
 
     // Agregar texto a la página utilizando la fuente predeterminada
-    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+    lines.forEach(line => {
+      page.drawText(line, { x: textX, y: textY, size: textSize });
+      textY -= lineHeight; // Ajustar la posición Y para la siguiente línea
+    });
 
     // Guardar el PDF como un blob
     const pdfBytes = await pdfDoc.save();
