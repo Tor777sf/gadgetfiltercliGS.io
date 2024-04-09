@@ -664,6 +664,7 @@ function formatShoppingListForPDF() {
       
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
+// Descargar PDF al hacer clic en el botón "Descargar PDF"
 $('#downloadPDFButton').on('click', async function () {
   try {
     // Crear el objeto PDF en blanco
@@ -675,34 +676,44 @@ $('#downloadPDFButton').on('click', async function () {
     // Dividir el texto en líneas
     const lines = formattedListForPDF.split('\n');
 
-    // Calcular la altura de la página en función del número de líneas
-    const pageHeight = lines.length * 0.5 + 2; // 0.5 cm por línea, más espacio adicional
+    // Calcular la altura de la página en función del número de líneas y el tamaño del ticket
+    const ticketHeightFactor = 0.5; // Factor para ajustar la altura de la página en función del tamaño del ticket
+    const pageHeight = lines.length * ticketHeightFactor + 2; // 0.5 cm por línea, más espacio adicional
 
     // Agregar una nueva página al PDF con ancho proporcional a 5.5 cm y altura variable
     const page = pdfDoc.addPage([5.5, pageHeight]);
 
-    // Establecer el tamaño y la posición del texto
-    const textSize = pageHeight > 20 ? 10 : pageHeight - 2; // Ajustar el tamaño máximo del texto
-    const textX = 0.5; // Margen izquierdo
-    let textY = pageHeight - 1; // Comenzar desde la parte superior de la página
+    // Calcular el tamaño y la posición del texto principal
+    const mainTextSizeFactor = 0.8; // Factor para ajustar el tamaño del texto principal en función del tamaño del ticket
+    const mainTextSize = pageHeight * mainTextSizeFactor;
+    const mainTextX = 0.5; // Margen izquierdo fijo
+    let mainTextY = pageHeight - 1; // Comenzar desde la parte superior de la página
 
     // Agregar texto a la página utilizando la fuente predeterminada
     lines.forEach(line => {
-      page.drawText(line, { x: textX, y: textY, size: textSize });
-      textY -= 0.5; // Mover hacia arriba para la siguiente línea
+      page.drawText(line, { x: mainTextX, y: mainTextY, size: mainTextSize });
+      mainTextY -= 0.5; // Mover hacia arriba para la siguiente línea
     });
 
-    // Establecer el diseño del encabezado
+    // Calcular el tamaño y la posición del encabezado
+    const headerTextSizeFactor = 0.6; // Factor para ajustar el tamaño del encabezado en función del tamaño del ticket
     const headerY = pageHeight - 1; // Posición en la parte superior de la página
-    const headerTextSize = pageHeight > 20 ? 8 : pageHeight - 4; // Ajustar el tamaño máximo del texto del encabezado
+    const headerTextSize = pageHeight * headerTextSizeFactor;
+    const headerTextX = 2.75; // Ajustar según sea necesario
+
+    // Establecer el diseño del encabezado
     page.drawLine({ start: { x: 0, y: headerY }, end: { x: 5.5, y: headerY }, thickness: 2 });
-    page.drawText('Encabezado', { x: 2.75, y: headerY - 0.5, size: headerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
+    page.drawText('Encabezado', { x: headerTextX, y: headerY - 0.5, size: headerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
+
+    // Calcular el tamaño y la posición del pie de página
+    const footerTextSizeFactor = 0.6; // Factor para ajustar el tamaño del pie de página en función del tamaño del ticket
+    const footerY = 0; // Posición en la parte inferior de la página
+    const footerTextSize = pageHeight * footerTextSizeFactor;
+    const footerTextX = 2.75; // Ajustar según sea necesario
 
     // Establecer el diseño del pie de página
-    const footerY = 0; // Posición en la parte inferior de la página
-    const footerTextSize = pageHeight > 20 ? 8 : pageHeight - 4; // Ajustar el tamaño máximo del texto del pie de página
     page.drawLine({ start: { x: 0, y: footerY }, end: { x: 5.5, y: footerY }, thickness: 2 });
-    page.drawText('Pie de página', { x: 2.75, y: footerY + 0.5, size: footerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
+    page.drawText('Pie de página', { x: footerTextX, y: footerY + 0.5, size: footerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
 
     // Guardar el PDF como un blob
     const pdfBytes = await pdfDoc.save();
