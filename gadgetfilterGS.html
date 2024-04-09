@@ -692,12 +692,14 @@ $('#downloadPDFButton').on('click', async function () {
     });
 
     // Establecer el diseño del encabezado
-    page.drawLine({ start: { x: 0, y: pageHeight - 1 }, end: { x: 5.5, y: pageHeight - 1 }, thickness: 2 });
-    page.drawText('Encabezado', { x: 2.75, y: pageHeight - 0.5, size: 18, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
+    const headerY = pageHeight - 1; // Posición en la parte superior de la página
+    page.drawLine({ start: { x: 0, y: headerY }, end: { x: 5.5, y: headerY }, thickness: 2 });
+    page.drawText('Encabezado', { x: 2.75, y: headerY - 0.5, size: 18, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
 
     // Establecer el diseño del pie de página
-    page.drawLine({ start: { x: 0, y: 0 }, end: { x: 5.5, y: 0 }, thickness: 2 });
-    page.drawText('Pie de página', { x: 2.75, y: 0.5, size: 18, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
+    const footerY = 0; // Posición en la parte inferior de la página
+    page.drawLine({ start: { x: 0, y: footerY }, end: { x: 5.5, y: footerY }, thickness: 2 });
+    page.drawText('Pie de página', { x: 2.75, y: footerY + 0.5, size: 18, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
 
     // Guardar el PDF como un blob
     const pdfBytes = await pdfDoc.save();
@@ -713,7 +715,6 @@ $('#downloadPDFButton').on('click', async function () {
     alert('Error al crear/descargar el PDF: ' + error.message);
   }
 });
-
 
 //ppppppppppppppppppppppppppdddddddddddddddddddddfffffffffffddd
 // Función para compartir en WhatsApp al hacer clic en el botón
