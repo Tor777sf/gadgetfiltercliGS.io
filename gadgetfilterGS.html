@@ -678,7 +678,7 @@ $('#downloadPDFButton').on('click', async function () {
     // Calcular la altura de la página en función del número de líneas y el tamaño del ticket
     const lineHeight = 12; // Altura estimada de una línea de texto
     const minHeight = 7; // Altura mínima de la página
-    const pageHeight = Math.max(minHeight, lines.length * lineHeight + 20); // Ajustar según sea necesario
+    const pageHeight = Math.max(minHeight, lines.length * lineHeight + 2); // Ajustar según sea necesario
 
     // Agregar una nueva página al PDF con ancho de 5.5 cm y altura variable
     const page = pdfDoc.addPage([5.5, pageHeight]);
