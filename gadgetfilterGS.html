@@ -668,47 +668,20 @@ $('#downloadPDFButton').on('click', async function () {
     // Crear el objeto PDF en blanco
     const pdfDoc = await PDFLib.PDFDocument.create();
 
+    // Agregar una nueva página al PDF con ancho de 5.5 cm y altura variable
+    const pageHeight = 750; // Altura variable
+    const page = pdfDoc.addPage([5.5, pageHeight]);
+
+    // Establecer el tamaño y la posición del texto
+    const textSize = 7;
+    const textX = 20;
+    const textY = 750; // Posición Y inicial
+
     // Obtener la lista de compra formateada para PDF
     const formattedListForPDF = formatShoppingListForPDF();
 
-    // Dividir el texto en líneas solo si es necesario
-    const lines = formattedListForPDF.includes('\n') ? formattedListForPDF.split('\n') : [formattedListForPDF];
-
-    // Calcular la altura de la página en función del número de líneas y el tamaño del ticket
-    const ticketHeightFactor = 0.5; // Factor para ajustar la altura de la página en función del tamaño del ticket
-    const pageHeight = lines.length * ticketHeightFactor + 2; // 0.5 cm por línea, más espacio adicional
-
-    // Agregar una nueva página al PDF con ancho proporcional a 5.5 cm y altura variable
-    const page = pdfDoc.addPage([5.5, pageHeight]);
-
-    // Calcular el tamaño y la posición del texto principal
-    const mainTextSize = 10; // Tamaño de la fuente para el texto principal
-    const mainTextX = 0.5; // Margen izquierdo fijo
-    let mainTextY = pageHeight - 1; // Comenzar desde la parte superior de la página
-
     // Agregar texto a la página utilizando la fuente predeterminada
-    lines.forEach(line => {
-      page.drawText(line, { x: mainTextX, y: mainTextY, size: mainTextSize });
-      mainTextY -= mainTextSize * 1.2; // Ajustar el espaciado entre líneas
-    });
-
-    // Calcular el tamaño y la posición del encabezado
-    const headerTextSize = 8; // Tamaño de la fuente para el encabezado
-    const headerY = pageHeight - 1; // Posición en la parte superior de la página
-    const headerTextX = 2.75; // Ajustar según sea necesario
-
-    // Establecer el diseño del encabezado
-    page.drawLine({ start: { x: 0, y: headerY }, end: { x: 5.5, y: headerY }, thickness: 2 });
-    page.drawText('Encabezado', { x: headerTextX, y: headerY - 0.5, size: headerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
-
-    // Calcular el tamaño y la posición del pie de página
-    const footerTextSize = 8; // Tamaño de la fuente para el pie de página
-    const footerY = 0; // Posición en la parte inferior de la página
-    const footerTextX = 2.75; // Ajustar según sea necesario
-
-    // Establecer el diseño del pie de página
-    page.drawLine({ start: { x: 0, y: footerY }, end: { x: 5.5, y: footerY }, thickness: 2 });
-    page.drawText('Pie de página', { x: footerTextX, y: footerY + 0.5, size: footerTextSize, font: await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) });
+    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
 
     // Guardar el PDF como un blob
     const pdfBytes = await pdfDoc.save();
