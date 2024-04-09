@@ -602,54 +602,6 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
  //pppoppppppppppppddddddddddddfffffffffffffff     
 // Función para formatear la lista de compra para el PDF
-///function formatShoppingListForPDF() {
-///  let formattedList = 'Lista de Compra:\n\n';
- /// for (let i = 0; i < shoppingList.length; i++) {
-  ///  const item = shoppingList[i];
-   /// formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n`;
-    //formattedList += '─────────────────────────────\n'; // Línea decorativa
- /// }
- /// formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}`;
-
- /// return formattedList;
-///}
-
-// Descargar PDF al hacer clic en el botón "Descargar PDF"
-///$('#downloadPDFButton').on('click', async function () {
-///  try {
-    // Crear el objeto PDF en blanco
- ///   const pdfDoc = await PDFLib.PDFDocument.create();
-
-    // Agregar una nueva página al PDF
-   /// const page = pdfDoc.addPage();
-
-    // Establecer el tamaño y la posición del texto
-  ///  const textSize = 12;
-  ///  const textX = 20;
-   /// const textY = 750;
-
-    // Obtener la lista de compra formateada para PDF
-  ///  const formattedListForPDF = formatShoppingListForPDF();
-
-    // Agregar texto a la página utilizando la fuente predeterminada
-  ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
-
-    // Guardar el PDF como un blob
-  ///  const pdfBytes = await pdfDoc.save();
-
-    // Crear el enlace de descarga para el PDF
-  ///  const downloadLink = document.createElement('a');
-  ///  downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
-  ///  downloadLink.download = 'Lista_de_Compra.pdf';
-
-    // Simular un clic en el enlace para abrir la ventana de descarga
- ///   downloadLink.click();
-///  } catch (error) {
- ///   alert('Error al crear/descargar el PDF: ' + error.message);
-///  }
-///});
-//pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
-// Función para formatear la lista de compra para el PDF
 function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
   for (let i = 0; i < shoppingList.length; i++) {
@@ -661,38 +613,26 @@ function formatShoppingListForPDF() {
 
   return formattedList;
 }
-      
-// Descargar PDF al hacer clic en el botón "Descargar PDF"
+
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
 $('#downloadPDFButton').on('click', async function () {
   try {
     // Crear el objeto PDF en blanco
     const pdfDoc = await PDFLib.PDFDocument.create();
 
+    // Agregar una nueva página al PDF
+    const page = pdfDoc.addPage();
+
+    // Establecer el tamaño y la posición del texto
+    const textSize = 12;
+    const textX = 20;
+    const textY = 750;
+
     // Obtener la lista de compra formateada para PDF
     const formattedListForPDF = formatShoppingListForPDF();
 
-    // Dividir el texto en líneas
-    const lines = formattedListForPDF.split('\n');
-
-    // Calcular la altura de la página en función del número de líneas y el tamaño del ticket
-    const lineHeight = 12; // Altura estimada de una línea de texto
-    const minHeight = 7; // Altura mínima de la página
-    const pageHeight = Math.max(minHeight, lines.length * lineHeight + 2); // Ajustar según sea necesario
-
-    // Agregar una nueva página al PDF con ancho de 5.5 cm y altura variable
-    const page = pdfDoc.addPage([5.5, pageHeight]);
-
-    // Establecer el tamaño y la posición del texto
-    const textSize = 7;
-    const textX = 20;
-    let textY = pageHeight - 20; // Comenzar desde la parte superior de la página
-
     // Agregar texto a la página utilizando la fuente predeterminada
-    lines.forEach(line => {
-      page.drawText(line, { x: textX, y: textY, size: textSize });
-      textY -= lineHeight; // Ajustar la posición Y para la siguiente línea
-    });
+    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
 
     // Guardar el PDF como un blob
     const pdfBytes = await pdfDoc.save();
@@ -708,7 +648,7 @@ $('#downloadPDFButton').on('click', async function () {
     alert('Error al crear/descargar el PDF: ' + error.message);
   }
 });
-
+//pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 
 
 //ppppppppppppppppppppppppppdddddddddddddddddddddfffffffffffddd
