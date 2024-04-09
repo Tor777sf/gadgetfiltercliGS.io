@@ -572,9 +572,9 @@ $('#myDataTable tbody').on('click', 'tr', function () {
   const clientAddress = $('#clientAddress').val();
   const clientPhone = $('#clientPhone').val();
 // clientName = $('#clientName').val();
- let formattedList = '*📋 Lista de Compra:*\n';
-
-   formattedList += `*Comprobante:* ${selectedOptionText} - N° ${fechaHoraActual}\n`;
+ let formattedList = '* Lista de Compra:*\n';
+ let formattedList = `*${shoppingListHeaderText}:*\n`; // Utiliza el texto obtenido dentro de <h4>
+   formattedList += ` 📋 * ${selectedOptionText} - N° ${fechaHoraActual}\n`;
   // formattedList += `*Comprobante:* ${selectedOptionText}\n`;
    //formattedList += `*Comprobante:* ${documentType}*\n`;
   // formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
