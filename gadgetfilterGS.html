@@ -567,7 +567,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
    const deliveryOption = $('#deliveryOption option:selected').text();  
    // const documentType = $('#documentType').val();
-  const deliveryOption = $('#deliveryOption').val();
+  //const deliveryOption = $('#deliveryOption').val();
   const clientName = $('#clientName').val();
   const clientAddress = $('#clientAddress').val();
   const clientPhone = $('#clientPhone').val();
@@ -593,8 +593,8 @@ $('#myDataTable tbody').on('click', 'tr', function () {
   formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
 
   // Agregar enlace al GIF
-  const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
-  formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
+  //const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
+  //formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
 
   return formattedList;
  }
