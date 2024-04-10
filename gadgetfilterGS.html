@@ -667,7 +667,7 @@ $('#downloadPDFButton').on('click', async function () {
     const margin = 20; // Margen de la página
     const textSize = 6; // Tamaño del texto
     const textX = 20; // Posición X del texto
-    let textY = pageHeight-margin; // Posición Y del texto
+    let textY = margin; // Posición Y del texto
 
     // Obtener la lista de compra formateada para el PDF
     const formattedListForPDF = formatShoppingListForPDF();
@@ -678,7 +678,7 @@ $('#downloadPDFButton').on('click', async function () {
 
     // Calcular la altura total de la página
     pageHeight = margin * 2 + additionalItemsHeight;
-
+    textY=pageHeight-margin;
     // Agregar una nueva página al PDF con las dimensiones calculadas
     const page = pdfDoc.addPage([pageWidth, pageHeight]);
 
