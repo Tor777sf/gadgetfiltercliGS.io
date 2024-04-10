@@ -673,7 +673,7 @@ $('#downloadPDFButton').on('click', async function () {
     const formattedListForPDF = formatShoppingListForPDF();
 
     // Calcular la altura total requerida para la lista de compras
-    const lineHeight = 4; // Altura de línea de texto
+    const lineHeight = 13; // Altura de línea de texto
     const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
 
     // Calcular la altura total de la página
