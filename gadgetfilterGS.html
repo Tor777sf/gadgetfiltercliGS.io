@@ -602,158 +602,58 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
  //pppoppppppppppppddddddddddddfffffffffffffff     
 // Función para formatear la lista de compra para el PDF
-///function formatShoppingListForPDF() {
-///  let formattedList = 'Lista de Compra:\n\n';
-///  for (let i = 0; i < shoppingList.length; i++) {
-///    const item = shoppingList[i];
- ///   formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n`;
-    //formattedList += '─────────────────────────────\n'; // Línea decorativa
- /// }
- /// formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}`;
-
-///  return formattedList;
-///}
-
-// Descargar PDF al hacer clic en el botón "Descargar PDF"
-///$('#downloadPDFButton').on('click', async function () {
-///  try {
-    // Crear el objeto PDF en blanco
-   /// const pdfDoc = await PDFLib.PDFDocument.create();
-   // Establecer el ancho y alto de la página
-   /// const pageWidth = 5.5 * 28.35; // 5.5 cms
-    ///const pageHeight = 15 * 28.35; // 11 centímetros
-    ///const page = pdfDoc.addPage([pageWidth, pageHeight]);
-    ///const yToHeightRatio = 25.454545;
-
-    // Agregar una nueva página al PDF
-    //const page = pdfDoc.addPage();
-
-    // Establecer el tamaño y la posición del texto
-    ///const textSize = 6;
-   /// const textX = 20;
-   /// const textY =(yToHeightRatio *(pageHeight/ 28.35))+((yToHeightRatio/100)*(pageHeight/ 28.35))  ;
-
-    // Obtener la lista de compra formateada para PDF
-   /// const formattedListForPDF = formatShoppingListForPDF();
-
-    // Agregar texto a la página utilizando la fuente predeterminada
-   /// page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
-
-    // Guardar el PDF como un blob
-  ///  const pdfBytes = await pdfDoc.save();
-
-    // Crear el enlace de descarga para el PDF
-///    const downloadLink = document.createElement('a');
-  ///  downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
-   /// downloadLink.download = 'Lista_de_Compra.pdf';
-
-    // Simular un clic en el enlace para abrir la ventana de descarga
- ///   downloadLink.click();
- /// } catch (error) {
-  ///  alert('Error al crear/descargar el PDF: ' + error.message);
- / //}
-///});
-//pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
-// Función para formatear la lista de compra para el PDF
-// Función para formatear la lista de compra para el PDF
 function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n`;
+    //formattedList += '─────────────────────────────\n'; // Línea decorativa
   }
   formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}`;
 
   return formattedList;
 }
 
-async function generatePDF() {
-  // Definir datos de imágenes
-  const imagesData = [
-    { bytes: /* bytes de la primera imagen */, width: /* ancho de la primera imagen */, height: /* alto de la primera imagen */ },
-    { bytes: /* bytes de la segunda imagen */, width: /* ancho de la segunda imagen */, height: /* alto de la segunda imagen */ },
-    // Agregar más objetos de imágenes si es necesario
-  ];
+// Descargar PDF al hacer clic en el botón "Descargar PDF"
+$('#downloadPDFButton').on('click', async function () {
+  try {
+    // Crear el objeto PDF en blanco
+    const pdfDoc = await PDFLib.PDFDocument.create();
+   // Establecer el ancho y alto de la página
+    const pageWidth = 5.5 * 28.35; // 5.5 cms
+    const pageHeight = 15 * 28.35; // 11 centímetros
+    const page = pdfDoc.addPage([pageWidth, pageHeight]);
+    const yToHeightRatio = 25.454545;
 
-  // Definir valores de configuración
-  const margin = 20; // Margen de la página
-  const imageSpacing = 10; // Espacio entre imágenes
-  const textSize = 10; // Tamaño de texto
-  const lineHeight = 15; // Altura de línea de texto
+    // Agregar una nueva página al PDF
+    //const page = pdfDoc.addPage();
 
-  // Calcular la altura necesaria para las imágenes si están presentes
-  let totalImagesHeight = 0;
-  for (const imageData of imagesData) {
-    totalImagesHeight += imageData.height + imageSpacing;
+    // Establecer el tamaño y la posición del texto
+    const textSize = 6;
+    const textX = 20;
+    const textY =(yToHeightRatio *(pageHeight/ 28.35))+((yToHeightRatio/100)*(pageHeight/ 28.35))  ;
+
+    // Obtener la lista de compra formateada para PDF
+    const formattedListForPDF = formatShoppingListForPDF();
+
+    // Agregar texto a la página utilizando la fuente predeterminada
+    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+
+    // Guardar el PDF como un blob
+    const pdfBytes = await pdfDoc.save();
+
+    // Crear el enlace de descarga para el PDF
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
+    downloadLink.download = 'Lista_de_Compra.pdf';
+
+    // Simular un clic en el enlace para abrir la ventana de descarga
+    downloadLink.click();
+  } catch (error) {
+    alert('Error al crear/descargar el PDF: ' + error.message);
   }
-  // Eliminar el espacio adicional para la última imagen
-  totalImagesHeight -= imageSpacing;
-
-  // Obtener la altura necesaria para la lista de compras
-  const formattedListForPDF = formatShoppingListForPDF();
-  const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
-
-  // Calcular la altura total requerida para la página del PDF
-  let totalHeight = additionalItemsHeight + margin * 2 + totalImagesHeight;
-
-  // Establecer el tamaño de la página del PDF para que coincida con la altura total calculada
-  const pageWidth = 5.5 * 28.35; // 5.5 cms
-  const pageHeight = totalHeight;
-
-  // Agregar una nueva página al PDF con las dimensiones calculadas
-  const pdfDoc = await PDFLib.PDFDocument.create();
-  const page = pdfDoc.addPage([pageWidth, pageHeight]);
-
-  // Función para agregar imágenes al PDF
-  async function addImagesToPDF(page, imagesData) {
-    let yOffset = margin; // Inicializar la posición vertical de la primera imagen
-
-    for (const imageData of imagesData) {
-      const { bytes, width, height } = imageData;
-      const image = await pdfDoc.embedPng(bytes);
-
-      // Agregar la imagen a la página
-      page.drawImage(image, {
-        x: margin, // Ajusta la posición de la imagen según tus necesidades
-        y: pageHeight - yOffset - height,
-        width: width,
-        height: height,
-      });
-
-      // Actualizar la posición vertical para la próxima imagen
-      yOffset += height + imageSpacing;
-    }
-  }
-
-  // Verificar si hay imágenes presentes
-  if (imagesData.length > 0) {
-    // Agregar las imágenes al PDF
-    await addImagesToPDF(page, imagesData);
-  }
-
-  // Agregar la lista de compras a la página
-  const textX = 20; // Posición X del texto
-  let textY = pageHeight - margin - totalImagesHeight - lineHeight; // Calcular la posición Y del texto
-
-  for (const line of formattedListForPDF.split('\n')) {
-    page.drawText(line, { x: textX, y: textY, size: textSize });
-    textY -= lineHeight;
-  }
-
-  // Guardar el PDF como un blob
-  const pdfBytes = await pdfDoc.save();
-
-  // Crear el enlace de descarga para el PDF
-  const downloadLink = document.createElement('a');
-  downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
-  downloadLink.download = 'Lista_de_Compra.pdf';
-
-  // Simular un clic en el enlace para abrir la ventana de descarga
-  downloadLink.click();
-}
-
-// Llamar a la función para generar el PDF
-generatePDF().catch(error => console.error('Error al generar el PDF:', error));
+});
+//pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 
 
 //ppppppppppppppppppppppppppdddddddddddddddddddddfffffffffffddd
