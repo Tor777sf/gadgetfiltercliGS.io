@@ -621,7 +621,7 @@ $('#downloadPDFButton').on('click', async function () {
     const pdfDoc = await PDFLib.PDFDocument.create();
    // Establecer el ancho y alto de la página
     const pageWidth = 5.5 * 28.35; // 5.5 cms
-    const pageHeight = 21 * 28.35; // 11 centímetros
+    const pageHeight = 11 * 28.35; // 11 centímetros
     const page = pdfDoc.addPage([pageWidth, pageHeight]);
     const yToHeightRatio = 25.454545;
 
@@ -631,7 +631,7 @@ $('#downloadPDFButton').on('click', async function () {
     // Establecer el tamaño y la posición del texto
     const textSize = 6;
     const textX = 20;
-    const textY =(yToHeightRatio *(pageHeight/ 28.35))-((yToHeightRatio/17)*(pageHeight/ 28.35))  ;
+    const textY =(yToHeightRatio *(pageHeight/ 28.35))+((yToHeightRatio/17)*(pageHeight/ 28.35))  ;
 
     // Obtener la lista de compra formateada para PDF
     const formattedListForPDF = formatShoppingListForPDF();
