@@ -606,7 +606,7 @@ function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
-    formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n`;
+    formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\t`;
     //formattedList += '─────────────────────────────\n'; // Línea decorativa
   }
   formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}\n`;
