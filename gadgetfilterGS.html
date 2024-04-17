@@ -602,17 +602,17 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
  //pppoppppppppppppddddddddddddfffffffffffffff     
 // Función para formatear la lista de compra para el PDF
-function formatShoppingListForPDF() {
-  let formattedList = 'Lista de Compra:\n\n';
-  for (let i = 0; i < shoppingList.length; i++) {
-    const item = shoppingList[i];
-    formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n `;
+///function formatShoppingListForPDF() {
+ /// let formattedList = 'Lista de Compra:\n\n';
+  ///for (let i = 0; i < shoppingList.length; i++) {
+   /// const item = shoppingList[i];
+    ///formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n `;
     //formattedList += '─────────────────────────────\n'; // Línea decorativa
-  }
-  formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}\n`;
+  //)}
+  ///formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}\n`;
 
-  return formattedList;
-}
+  ///return formattedList;
+///}
 
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
 ///$('#downloadPDFButton').on('click', async function () {
@@ -654,7 +654,35 @@ function formatShoppingListForPDF() {
   ///  }
 ///});
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
-$('#downloadPDFButton').on('click', async function () {
+// Función para formatear la lista de compra como una tabla para el PDF
+function formatShoppingListForPDF() {
+  let formattedList = 'Lista de Compra:\n\n';
+  
+  // Encabezados de la tabla
+  formattedList += 'Cantidad | Producto | Total\n';
+  formattedList += '─────────|──────────|───────\n';
+
+  // Agregar cada elemento de la lista como una fila de la tabla
+  for (let i = 0; i < shoppingList.length; i++) {
+    const item = shoppingList[i];
+    // Asegurar que los elementos no excedan el ancho de la página
+    const formattedItem = `${item.cantidad}x | ${item.producto} | $${item.total.toFixed(2)}\n`;
+    formattedList += formattedItem;
+  }
+
+  // Línea decorativa
+  formattedList += '─────────────────────\n';
+
+  // Total de compra
+  formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n`;
+
+  return formattedList;
+}
+
+      
+ // Descargar PDF al hacer clic en el botón "Descargar PDF
+      
+  $('#downloadPDFButton').on('click', async function () {
   try {
     // Crear el documento PDF
     const pdfDoc = await PDFLib.PDFDocument.create();
