@@ -656,6 +656,8 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 // Función para formatear la lista de compra como una tabla para el PDF
 function formatShoppingListForPDF() {
+// Función para formatear la lista de compra como una tabla para el PDF
+function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
   
   // Encabezados de la tabla
@@ -666,8 +668,9 @@ function formatShoppingListForPDF() {
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     // Asegurar que los elementos no excedan el ancho de la página
-    const formattedItem = `${item.cantidad}x | ${item.producto} | $${item.total.toFixed(2)}\n`;
-    formattedList += formattedItem;
+    const totalFormatted = typeof item.total === 'number' ? `$${item.total.toFixed(2)}` : 'No válido';
+    const row = `${item.cantidad}x | ${item.producto} | ${totalFormatted}\n`;
+    formattedList += row;
   }
 
   // Línea decorativa
@@ -678,6 +681,7 @@ function formatShoppingListForPDF() {
 
   return formattedList;
 }
+
 
       
  // Descargar PDF al hacer clic en el botón "Descargar PDF
