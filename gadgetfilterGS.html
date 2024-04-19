@@ -660,19 +660,20 @@ function formatShoppingListForPDF() {
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     const itemLine = `${item.cantidad}x ${item.producto} - Total: $${item.total}`;
-    const words = itemLine.split(' ');
     let line = '';
     let lines = [];
-    words.forEach(word => {
-      const tempLine = line + ' ' + word;
-      const width = PDFLib.PDFDocument.measureText(tempLine).width;
-      if (width < maxWidth) {
-        line = tempLine;
+    let tempWidth = 0;
+    for (const char of itemLine) {
+      const charWidth = PDFLib.PDFDocument.getHelveticaFont().widthOfTextAtSize(char, 10); // Tamaño de la fuente de ejemplo: 10
+      tempWidth += charWidth;
+      if (tempWidth < maxWidth) {
+        line += char;
       } else {
         lines.push(line);
-        line = word;
+        line = char;
+        tempWidth = charWidth;
       }
-    });
+    }
     lines.push(line);
     formattedList += lines.join('\n') + '\n';
   }
