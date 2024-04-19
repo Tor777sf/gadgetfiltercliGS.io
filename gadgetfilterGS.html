@@ -656,24 +656,21 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
-  const maxWidth = 400; // Ancho máximo de la línea en puntos (28.35 puntos = 1 centímetro)
+  const maxWidth = 50; // Ancho máximo de la línea en caracteres
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     const itemLine = `${item.cantidad}x ${item.producto} - Total: $${item.total}`;
+    const words = itemLine.split(' ');
     let line = '';
     let lines = [];
-    let tempWidth = 0;
-    for (const char of itemLine) {
-      const charWidth = PDFLib.PDFDocument.getHelveticaFont().widthOfTextAtSize(char, 10); // Tamaño de la fuente de ejemplo: 10
-      tempWidth += charWidth;
-      if (tempWidth < maxWidth) {
-        line += char;
+    words.forEach(word => {
+      if ((line + ' ' + word).length <= maxWidth) {
+        line += (line ? ' ' : '') + word;
       } else {
         lines.push(line);
-        line = char;
-        tempWidth = charWidth;
+        line = word;
       }
-    }
+    });
     lines.push(line);
     formattedList += lines.join('\n') + '\n';
   }
