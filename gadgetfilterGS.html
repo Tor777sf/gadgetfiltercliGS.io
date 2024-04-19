@@ -656,7 +656,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
-  const maxWidth = 20; // Ancho máximo de la línea en caracteres
+  const maxWidth = 40; // Ancho máximo de la línea en caracteres
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     const itemLine = `${item.cantidad}x ${item.producto} - Total: $${item.total}`;
