@@ -654,18 +654,33 @@ $('#myDataTable tbody').on('click', 'tr', function () {
   ///  }
 ///});
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
-// Función para formatear la lista de compra para el PDF
 function formatShoppingListForPDF() {
   let formattedList = 'Lista de Compra:\n\n';
+  const maxWidth = 400; // Ancho máximo de la línea en puntos (28.35 puntos = 1 centímetro)
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
-    formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n `;
-    //formattedList += '─────────────────────────────\n'; // Línea decorativa
+    const itemLine = `${item.cantidad}x ${item.producto} - Total: $${item.total}`;
+    const words = itemLine.split(' ');
+    let line = '';
+    let lines = [];
+    words.forEach(word => {
+      const tempLine = line + ' ' + word;
+      const width = PDFLib.PDFDocument.measureText(tempLine).width;
+      if (width < maxWidth) {
+        line = tempLine;
+      } else {
+        lines.push(line);
+        line = word;
+      }
+    });
+    lines.push(line);
+    formattedList += lines.join('\n') + '\n';
   }
   formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}\n`;
 
   return formattedList;
 }
+
 
 
       
