@@ -660,9 +660,9 @@ function formatShoppingListForPDF() {
 
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
-    let descripcion = item.producto.length > 23 ? `${item.producto.substring(0, 23)}` : item.producto; // Trunca la descripción si es demasiado larga
+    let descripcion = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto; // Trunca la descripción si es demasiado larga
     const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;// Calcula la longitud del relleno para centrar el texto
-    descripcion = descripcion.padStart(23 + paddingLength).padEnd(23); // Centra la descripción agregando espacios antes y después
+    descripcion = descripcion.padStart(18 + paddingLength).padEnd(18); // Centra la descripción agregando espacios antes y después
     descripcion = descripcion.replace(/\s/g, '-'); // Reemplaza los espacios en blanco por guiones
     const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
     formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
