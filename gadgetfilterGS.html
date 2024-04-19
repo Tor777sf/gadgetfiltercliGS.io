@@ -655,11 +655,12 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 ///});
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 function formatShoppingListForPDF() {
-  let formattedList = 'Lista de Compra:\n\n';
-  const maxWidth = 40; // Ancho máximo de la línea en caracteres
+  let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`;
+  const maxWidth = 50; // Ancho máximo de la línea en caracteres
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
-    const itemLine = `${item.cantidad}x ${item.producto} - Total: $${item.total}`;
+    const descripcion = item.producto.length > 30 ? `${item.producto.substring(0, 30)}\n${item.producto.substring(30)}` : item.producto;
+    const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`;
     const words = itemLine.split(' ');
     let line = '';
     let lines = [];
@@ -674,7 +675,6 @@ function formatShoppingListForPDF() {
     lines.push(line);
     formattedList += lines.join('\n') + '\n';
   }
-  formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}\n`;
 
   return formattedList;
 }
