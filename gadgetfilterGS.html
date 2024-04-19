@@ -656,12 +656,12 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 function formatShoppingListForPDF() {
   let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
-  const maxWidth = 43; // Ancho máximo de la línea en caracteres
+  const maxWidth = 40; // Ancho máximo de la línea en caracteres
 
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     let descripcion = item.producto.length > 23 ? `${item.producto.substring(0, 23)}` : item.producto; // Trunca la descripción si es demasiado larga
-    const paddingLength = (maxWidth - (item.cantidad.toString().length + descripcion.length + item.total.toString().length)) / 2; // Calcula la longitud del relleno para centrar el texto
+    const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;// Calcula la longitud del relleno para centrar el texto
     descripcion = descripcion.padStart(descripcion.length + paddingLength).padEnd(maxWidth); // Centra la descripción agregando espacios antes y después
     descripcion = descripcion.replace(/\s/g, '-'); // Reemplaza los espacios en blanco por guiones
     const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
