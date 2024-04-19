@@ -661,7 +661,7 @@ function formatShoppingListForPDF() {
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     let descripcion = item.producto.length > 20 ? `${item.producto.substring(0, 23)}` : item.producto; // Trunca la descripción si es demasiado larga
-    const paddingLength = (maxWidth - descripcion.length) / 2; // Calcula la longitud del relleno para centrar el texto
+    const paddingLength = (maxWidth - descripcion.length) / 4; // Calcula la longitud del relleno para centrar el texto
     descripcion = descripcion.padStart(descripcion.length + paddingLength).padEnd(maxWidth); // Centra la descripción agregando espacios antes y después
     descripcion = descripcion.replace(/\s/g, '-'); // Reemplaza los espacios en blanco por guiones
     const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
