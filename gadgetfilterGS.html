@@ -656,11 +656,11 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 function formatShoppingListForPDF() {
   let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`;
-  const maxWidth = 45; // Ancho máximo de la línea en caracteres
+  const maxWidth = 40; // Ancho máximo de la línea en caracteres
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
     const descripcion = item.producto.length > 30 ? `${item.producto.substring(0, 30)}` : item.producto;
-    const itemLine = `${item.cantidad}x ${descripcion.padEnd(30)} - Total: $${item.total}`;
+    const itemLine = `${item.cantidad}x ${descripcion.padEnd(23)} - Total: $${item.total}`;
     formattedList += itemLine.substring(0, maxWidth) + '\n';
   }
 
