@@ -708,43 +708,25 @@ function formatShoppingListForPDF() {
     // Agregar texto a la página utilizando la fuente predeterminada
   ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
 //////////???????????????????????????
-  // Crear el documento PDF
-const pdfDoc = await PDFLib.PDFDocument.create();
-const pageWidth = 5.5 * 28.35; // Ancho de página en centímetros
-let pageHeight = 15 * 28.35; // Alto de página en centímetros
-const margin = 20; // Margen de la página
-let textY = pageHeight - margin; // Posición Y del texto
-const textSize = 6; // Tamaño del texto
+// Crear el documento PDF
+const doc = new jsPDF();
 
-// Crear una tabla para la lista de compras
-const table = pdfDoc.getTable();
+// Definir las columnas y filas de la tabla
+const columns = ["Cantidad", "Descripción", "Total"];
+const data = shoppingList.map(item => [`${item.cantidad}x`, item.producto.substring(0, 23).replace(/\s/g, '-'), `$${item.total.toFixed(2)}`]);
 
-// Agregar columnas a la tabla
-table.addColumn(50); // Para la cantidad
-table.addColumn(200); // Para la descripción
-table.addColumn(100); // Para el total
+// Configurar opciones de la tabla
+const tableOptions = {
+    startY: 20, // Posición Y donde comenzará la tabla
+    margin: { top: 20 }, // Margen superior de la tabla
+    styles: { halign: 'center' }, // Alineación horizontal del texto en todas las celdas
+    headStyles: { fillColor: [100, 100, 100] }, // Estilos para las celdas de la fila de encabezado
+    columnStyles: { 0: { halign: 'right' }, 2: { halign: 'right' } } // Alineación de las celdas de las columnas Cantidad y Total
+};
+// Agregar la tabla al documento
+doc.autoTable(columns, data, tableOptions);
 
-// Iterar sobre cada artículo de la lista de compras y agregarlo a la tabla
-for (let i = 0; i < shoppingList.length; i++) {
-    const item = shoppingList[i];
-    const cantidadCell = table.getCell(i, 0);
-    const descripcionCell = table.getCell(i, 1);
-    const totalCell = table.getCell(i, 2);
-
-    cantidadCell.setText(`${item.cantidad}x`);
-    descripcionCell.setText(item.producto.substring(0, 23).replace(/\s/g, '-')); // Trunca y reemplaza espacios
-    totalCell.setText(`$${item.total.toFixed(2)}`);
-}
-
-// Colocar la tabla en la página PDF
-const tableWidth = 350; // Ancho de la tabla en puntos (1 cm = 28.35 puntos)
-const tableHeight = shoppingList.length * 20; // Altura de la tabla en puntos (cada fila tiene 20 puntos de altura)
-const tableX = margin; // Posición X de la tabla
-const tableY = pageHeight - margin - tableHeight; // Posición Y de la tabla
-const tableArea = { x: tableX, y: tableY, width: tableWidth, height: tableHeight };
-
-table.drawOn(page, tableArea);
-
+    
 // Guardar y descargar el PDF...
 ////????????????????? 
     // Guardar el PDF como un blob
