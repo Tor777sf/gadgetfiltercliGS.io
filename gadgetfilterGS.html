@@ -680,34 +680,73 @@ function formatShoppingListForPDF() {
   $('#downloadPDFButton').on('click', async function () {
   try {
     // Crear el documento PDF
-    const pdfDoc = await PDFLib.PDFDocument.create();
+    ///const pdfDoc = await PDFLib.PDFDocument.create();
 
     // Definir el ancho de la página
-    const pageWidth = 5.5 * 28.35; // Ancho de página en centímetros
+    ///const pageWidth = 5.5 * 28.35; // Ancho de página en centímetros
 
     // Definir el tamaño inicial de la página y la posición del texto
-    let pageHeight = 15 * 28.35; // Alto de página en centímetros
-    const margin = 20; // Margen de la página
-    const textSize = 6; // Tamaño del texto
-    const textX = 20; // Posición X del texto
-    let textY = margin; // Posición Y del texto
+   /// let pageHeight = 15 * 28.35; // Alto de página en centímetros
+   /// const margin = 20; // Margen de la página
+  ///  const textSize = 6; // Tamaño del texto
+   /// const textX = 20; // Posición X del texto
+   /// let textY = margin; // Posición Y del texto
 
     // Obtener la lista de compra formateada para el PDF
-    const formattedListForPDF = formatShoppingListForPDF();
+   /// const formattedListForPDF = formatShoppingListForPDF();
 
     // Calcular la altura total requerida para la lista de compras
-    const lineHeight = 20; // Altura de línea de texto
-    const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
+   /// const lineHeight = 20; // Altura de línea de texto
+  ///  const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
 
     // Calcular la altura total de la página
-    pageHeight = margin * 2 + additionalItemsHeight;
-    textY=pageHeight-margin;
+  ///  pageHeight = margin * 2 + additionalItemsHeight;
+  ///  textY=pageHeight-margin;
     // Agregar una nueva página al PDF con las dimensiones calculadas
-    const page = pdfDoc.addPage([pageWidth, pageHeight]);
+   /// const page = pdfDoc.addPage([pageWidth, pageHeight]);
 
     // Agregar texto a la página utilizando la fuente predeterminada
-    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+  ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+//////////???????????????????????????
+  // Crear el documento PDF
+const pdfDoc = await PDFLib.PDFDocument.create();
+const pageWidth = 5.5 * 28.35; // Ancho de página en centímetros
+let pageHeight = 15 * 28.35; // Alto de página en centímetros
+const margin = 20; // Margen de la página
+let textY = pageHeight - margin; // Posición Y del texto
+const textSize = 6; // Tamaño del texto
 
+// Crear una tabla para la lista de compras
+const table = pdfDoc.getTable();
+
+// Agregar columnas a la tabla
+table.addColumn(50); // Para la cantidad
+table.addColumn(200); // Para la descripción
+table.addColumn(100); // Para el total
+
+// Iterar sobre cada artículo de la lista de compras y agregarlo a la tabla
+for (let i = 0; i < shoppingList.length; i++) {
+    const item = shoppingList[i];
+    const cantidadCell = table.getCell(i, 0);
+    const descripcionCell = table.getCell(i, 1);
+    const totalCell = table.getCell(i, 2);
+
+    cantidadCell.setText(`${item.cantidad}x`);
+    descripcionCell.setText(item.producto.substring(0, 23).replace(/\s/g, '-')); // Trunca y reemplaza espacios
+    totalCell.setText(`$${item.total.toFixed(2)}`);
+}
+
+// Colocar la tabla en la página PDF
+const tableWidth = 350; // Ancho de la tabla en puntos (1 cm = 28.35 puntos)
+const tableHeight = shoppingList.length * 20; // Altura de la tabla en puntos (cada fila tiene 20 puntos de altura)
+const tableX = margin; // Posición X de la tabla
+const tableY = pageHeight - margin - tableHeight; // Posición Y de la tabla
+const tableArea = { x: tableX, y: tableY, width: tableWidth, height: tableHeight };
+
+table.drawOn(page, tableArea);
+
+// Guardar y descargar el PDF...
+////????????????????? 
     // Guardar el PDF como un blob
     const pdfBytes = await pdfDoc.save();
 
