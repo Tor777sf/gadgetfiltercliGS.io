@@ -657,6 +657,48 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 ///});
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 function formatShoppingListForPDF() {
+  // Suponiendo que ya tienes un objeto PDF creado y configurado como "pdf"
+
+// Asigna los valores correspondientes dentro de la Parte 2
+const selectedOptionText = 'Tipo de Documento Seleccionado'; // Asigna el valor correspondiente aquí
+const fechaHoraActual = 'Fecha y Hora Actual'; // Asigna el valor correspondiente aquí
+const shoppingListHeaderText = 'Texto de Encabezado'; // Asigna el valor correspondiente aquí
+const deliveryOption = 'Opción de Entrega Seleccionada'; // Asigna el valor correspondiente aquí
+const clientName = 'Nombre del Cliente'; // Asigna el valor correspondiente aquí
+const clientAddress = 'Dirección del Cliente'; // Asigna el valor correspondiente aquí
+const clientPhone = 'Número de Teléfono del Cliente'; // Asigna el valor correspondiente aquí
+
+// Agrega los elementos al PDF con formato de negrita
+pdf.setFont('Helvetica-Bold');
+pdf.writeText(100, 100, 'Cliente: ');
+pdf.setFont('Helvetica');
+pdf.writeText(150, 100, clientName);
+
+pdf.setFont('Helvetica-Bold');
+pdf.writeText(100, 120, 'Fecha y Hora: ');
+pdf.setFont('Helvetica');
+pdf.writeText(180, 120, fechaHoraActual);
+
+pdf.setFont('Helvetica-Bold');
+pdf.writeText(100, 140, 'Tipo de Documento: ');
+pdf.setFont('Helvetica');
+pdf.writeText(200, 140, selectedOptionText);
+
+pdf.setFont('Helvetica-Bold');
+pdf.writeText(100, 160, 'Opción de Entrega: ');
+pdf.setFont('Helvetica');
+pdf.writeText(200, 160, deliveryOption);
+
+pdf.setFont('Helvetica-Bold');
+pdf.writeText(100, 180, 'Dirección del Cliente: ');
+pdf.setFont('Helvetica');
+pdf.writeText(220, 180, clientAddress);
+
+pdf.setFont('Helvetica-Bold');
+pdf.writeText(100, 200, 'Teléfono del Cliente: ');
+pdf.setFont('Helvetica');
+pdf.writeText(220, 200, clientPhone);
+
   let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
   const maxWidth = 35; // Ancho máximo de la línea en caracteres
 
