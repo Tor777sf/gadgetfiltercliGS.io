@@ -656,30 +656,63 @@ $('#myDataTable tbody').on('click', 'tr', function () {
   ///  }
 ///});
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
-function formatShoppingListForPDF() {
+///function formatShoppingListForPDF() {
  // const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
  //let formattedList = `${shoppingListHeaderText}:\n`; // Utiliza el texto obtenido dentro de <h4>
  //let formattedList = $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
-  let formattedList = '';
-  const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
-  formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
+///  let formattedList = '';
+///  const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
+ /// formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
 
-  let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
-  const maxWidth = 35; // Ancho máximo de la línea en caracteres
+///  let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
+///  const maxWidth = 35; // Ancho máximo de la línea en caracteres
+
+ /// for (let i = 0; i < shoppingList.length; i++) {
+///    const item = shoppingList[i];
+ ///   let descripcion = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto; // Trunca la descripción si es demasiado larga
+ ///   const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;// Calcula la longitud del relleno para centrar el texto
+  ///  descripcion = descripcion.padStart(18 + paddingLength).padEnd(18); // Centra la descripción agregando espacios antes y después
+  ///  descripcion = descripcion.replace(/\s/g, '-'); // Reemplaza los espacios en blanco por guiones
+ ///   const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
+  ///  formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
+ /// }
+
+ /// return formattedList; // Devuelve la lista de compras formateada
+///}
+
+function formatShoppingListForPDF() {
+  let formattedList = '';
+
+  // Agregar encabezado de la lista de compra
+  const shoppingListHeaderText = $('#shoppingList h4').text();
+  formattedList += `${shoppingListHeaderText}:\n`;
+
+  // Agregar tipo de documento seleccionado
+  const documentType = $('#documentType').val();
+  formattedList += `Tipo de Documento: ${documentType}\n`;
+
+  // Agregar opción de entrega seleccionada
+  const deliveryOption = $('#deliveryOption').val();
+  formattedList += `Opción de Entrega: ${deliveryOption}\n`;
+
+  // Agregar total de la compra al principio (suponiendo que 'totalPurchase' está definido)
+  const totalPurchase = calculateTotalPurchase(); // Suponiendo que tienes una función para calcular el total de la compra
+  formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n`;
+
+  const maxWidth = 35;
 
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
-    let descripcion = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto; // Trunca la descripción si es demasiado larga
-    const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;// Calcula la longitud del relleno para centrar el texto
-    descripcion = descripcion.padStart(18 + paddingLength).padEnd(18); // Centra la descripción agregando espacios antes y después
-    descripcion = descripcion.replace(/\s/g, '-'); // Reemplaza los espacios en blanco por guiones
-    const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
-    formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
+    let descripcion = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto;
+    const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;
+    descripcion = descripcion.padStart(18 + paddingLength).padEnd(18);
+    descripcion = descripcion.replace(/\s/g, '-');
+    const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`;
+    formattedList += itemLine + '\n';
   }
 
-  return formattedList; // Devuelve la lista de compras formateada
+  return formattedList;
 }
-
 
 
 
