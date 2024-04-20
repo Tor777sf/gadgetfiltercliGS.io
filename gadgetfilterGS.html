@@ -661,11 +661,11 @@ function formatShoppingListForPDF() {
  //let formattedList = `${shoppingListHeaderText}:\n`; // Utiliza el texto obtenido dentro de <h4>
  //let formattedList = $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
 ///  let formattedList = '';
-///  const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
- /// formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
 
   let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
-  formattedList += $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
+ // formattedList += $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
+  const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
+  formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
 
  const maxWidth = 35; // Ancho máximo de la línea en caracteres
 
