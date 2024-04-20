@@ -678,8 +678,10 @@ function formatShoppingListForPDF() {
       
  // Descargar PDF al hacer clic en el botón "Descargar PDF
       
-  $('#downloadPDFButton').on('click', async function () {
-  try {
+  //$('#downloadPDFButton').on('click', async function () {
+ 
+   document.getElementById('downloadPDFButton').addEventListener('click', async function () {
+ try {
     // Crear el documento PDF
     ///const pdfDoc = await PDFLib.PDFDocument.create();
 
