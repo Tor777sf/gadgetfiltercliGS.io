@@ -34,10 +34,10 @@
 
  <!-- jsPDF JS -->
 <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"</script-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"</script-->
 
 <!-- PDFLib JS -->
-<!-- script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"</script -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
 
 
   <style>
@@ -684,51 +684,51 @@ function formatShoppingListForPDF() {
    document.getElementById('downloadPDFButton').addEventListener('click', async function () {
  try {
     // Crear el documento PDF
-    ///const pdfDoc = await PDFLib.PDFDocument.create();
+    const pdfDoc = await PDFLib.PDFDocument.create();
 
     // Definir el ancho de la página
-    ///const pageWidth = 5.5 * 28.35; // Ancho de página en centímetros
+    const pageWidth = 5.5 * 28.35; // Ancho de página en centímetros
 
     // Definir el tamaño inicial de la página y la posición del texto
-   /// let pageHeight = 15 * 28.35; // Alto de página en centímetros
-   /// const margin = 20; // Margen de la página
-  ///  const textSize = 6; // Tamaño del texto
-   /// const textX = 20; // Posición X del texto
-   /// let textY = margin; // Posición Y del texto
+    let pageHeight = 15 * 28.35; // Alto de página en centímetros
+    const margin = 20; // Margen de la página
+    const textSize = 6; // Tamaño del texto
+    const textX = 20; // Posición X del texto
+    let textY = margin; // Posición Y del texto
 
     // Obtener la lista de compra formateada para el PDF
-   /// const formattedListForPDF = formatShoppingListForPDF();
+    const formattedListForPDF = formatShoppingListForPDF();
 
     // Calcular la altura total requerida para la lista de compras
-   /// const lineHeight = 20; // Altura de línea de texto
-  ///  const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
+    const lineHeight = 20; // Altura de línea de texto
+    const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
 
     // Calcular la altura total de la página
-  ///  pageHeight = margin * 2 + additionalItemsHeight;
-  ///  textY=pageHeight-margin;
+    pageHeight = margin * 2 + additionalItemsHeight;
+    textY=pageHeight-margin;
     // Agregar una nueva página al PDF con las dimensiones calculadas
-   /// const page = pdfDoc.addPage([pageWidth, pageHeight]);
+    const page = pdfDoc.addPage([pageWidth, pageHeight]);
 
     // Agregar texto a la página utilizando la fuente predeterminada
-  ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
 //////////???????????????????????????
 // Crear el documento PDF
-const doc = new jsPDF();
+///const doc = new jsPDF();
 
 // Definir las columnas y filas de la tabla
-const columns = ["Cantidad", "Descripción", "Total"];
-const data = shoppingList.map(item => [`${item.cantidad}x`, item.producto.substring(0, 23).replace(/\s/g, '-'), `$${item.total.toFixed(2)}`]);
+///const columns = ["Cantidad", "Descripción", "Total"];
+///const data = shoppingList.map(item => [`${item.cantidad}x`, item.producto.substring(0, 23).replace(/\s/g, '-'), `$${item.total.toFixed(2)}`]);
 
 // Configurar opciones de la tabla
-const tableOptions = {
-    startY: 20, // Posición Y donde comenzará la tabla
-    margin: { top: 20 }, // Margen superior de la tabla
-    styles: { halign: 'center' }, // Alineación horizontal del texto en todas las celdas
-    headStyles: { fillColor: [100, 100, 100] }, // Estilos para las celdas de la fila de encabezado
-    columnStyles: { 0: { halign: 'right' }, 2: { halign: 'right' } } // Alineación de las celdas de las columnas Cantidad y Total
-};
+///const tableOptions = {
+   /// startY: 20, // Posición Y donde comenzará la tabla
+   /// margin: { top: 20 }, // Margen superior de la tabla
+   /// styles: { halign: 'center' }, // Alineación horizontal del texto en todas las celdas
+   /// headStyles: { fillColor: [100, 100, 100] }, // Estilos para las celdas de la fila de encabezado
+  ///  columnStyles: { 0: { halign: 'right' }, 2: { halign: 'right' } } // Alineación de las celdas de las columnas Cantidad y Total
+///};
 // Agregar la tabla al documento
-doc.autoTable(columns, data, tableOptions);
+///doc.autoTable(columns, data, tableOptions);
 
     
 // Guardar y descargar el PDF...
