@@ -658,7 +658,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 function formatShoppingListForPDF() {
   const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
- let formattedList = `*${shoppingListHeaderText}:*\n`; // Utiliza el texto obtenido dentro de <h4>
+ let formattedList = `${shoppingListHeaderText}:\n`; // Utiliza el texto obtenido dentro de <h4>
 
   let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
   const maxWidth = 35; // Ancho máximo de la línea en caracteres
