@@ -696,9 +696,9 @@ function formatShoppingListForPDF() {
   formattedList += `Opción de Entrega: ${deliveryOption}\n`;
 
   // Agregar total de la compra al principio (suponiendo que 'totalPurchase' está definido)
-  const totalPurchase = calculateTotalPurchase(); // Suponiendo que tienes una función para calcular el total de la compra
-  formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n`;
+  const totalPurchase = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
 
+  formattedList += totalPurchase;
   const maxWidth = 35;
 
   for (let i = 0; i < shoppingList.length; i++) {
