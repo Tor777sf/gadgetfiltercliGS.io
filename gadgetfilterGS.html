@@ -674,8 +674,12 @@ function formatShoppingListForPDF() {
  // formattedList += $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
     formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
     formattedList += `  ${selectedOptionText} - N° ${fechaHoraActual}   \n`;
-
- const maxWidth = 35; // Ancho máximo de la línea en caracteres
+    formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
+    formattedList += `*Nombre del Cliente:* ${clientName}\n`;
+    formattedList += `*Dirección:* ${clientAddress}\n`;
+    formattedList += `*Celular:* ${clientPhone}\n\n\n`;
+ 
+  const maxWidth = 35; // Ancho máximo de la línea en caracteres
 
   for (let i = 0; i < shoppingList.length; i++) {
     const item = shoppingList[i];
