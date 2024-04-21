@@ -661,11 +661,19 @@ function formatShoppingListForPDF() {
  //let formattedList = `${shoppingListHeaderText}:\n`; // Utiliza el texto obtenido dentro de <h4>
  //let formattedList = $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
 ///  let formattedList = '';
+  const selectedOptionText = $('#documentType option:selected').text();
+  const fechaHoraActual = new Date().toLocaleString(); // Obtiene la fecha y hora actual en formato local
+  const deliveryOption = $('#deliveryOption option:selected').text();  
+  const clientName = $('#clientName').val();
+  const clientAddress = $('#clientAddress').val();
+  const clientPhone = $('#clientPhone').val();
+  const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
 
+  
   let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
  // formattedList += $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
-  const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
-  formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
+    formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
+    formattedList += `  *${selectedOptionText}* - N° ${fechaHoraActual}  📋 \n`;
 
  const maxWidth = 35; // Ancho máximo de la línea en caracteres
 
