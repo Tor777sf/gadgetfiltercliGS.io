@@ -690,7 +690,7 @@ function formatShoppingListForPDF() {
     const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
     formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
   }
-   formattedList+ = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
+   formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
 
   return formattedList; // Devuelve la lista de compras formateada
 }
