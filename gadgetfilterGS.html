@@ -678,7 +678,7 @@ function formatShoppingListForPDF() {
     formattedList += `*Nombre del Cliente:* ${clientName}\n`;
     formattedList += `*Dirección:* ${clientAddress}\n`;
     formattedList += `*Celular:* ${clientPhone}\n`;
-    formattedList += `-------------------------------\n`;
+    formattedList += `-----------------------------------------------\n`;
   
   const maxWidth = 35; // Ancho máximo de la línea en caracteres
 
@@ -690,8 +690,8 @@ function formatShoppingListForPDF() {
     descripcion = descripcion.replace(/\s/g, '-'); // Reemplaza los espacios en blanco por guiones
     const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
     formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
-    formattedList += `-------------------------------\n`;
- 
+    formattedList += `-----------------------------------------------\n`;
+   
   }
    formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
 
