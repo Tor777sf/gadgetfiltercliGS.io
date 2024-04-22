@@ -670,14 +670,14 @@ function formatShoppingListForPDF() {
   const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
 
   
-  let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
+  //let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
  // formattedList += $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
-    formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
+    let formattedList = `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
     formattedList += `  ${selectedOptionText} - N° ${fechaHoraActual}   \n`;
     formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
     formattedList += `*Nombre del Cliente:* ${clientName}\n`;
     formattedList += `*Dirección:* ${clientAddress}\n`;
-    formattedList += `*Celular:* ${clientPhone}\n\n\n`;
+    formattedList += `*Celular:* ${clientPhone}\n\n`;
  
   const maxWidth = 35; // Ancho máximo de la línea en caracteres
 
@@ -690,6 +690,7 @@ function formatShoppingListForPDF() {
     const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
     formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
   }
+   formattedList+ = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
 
   return formattedList; // Devuelve la lista de compras formateada
 }
