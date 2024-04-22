@@ -754,9 +754,9 @@ function formatShoppingListForPDF() {
     // Calcular la altura total requerida para la lista de compras
     const lineHeight = 20; // Altura de línea de texto
     const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
-
+    const cuadrar = additionalItemsHeight / 2
     // Calcular la altura total de la página
-    pageHeight = margin * 2 + additionalItemsHeight + additionalItemsHeight /  4;
+    pageHeight = margin * 2 + additionalItemsHeight + cuadrar;
     textY=pageHeight-margin;
     // Agregar una nueva página al PDF con las dimensiones calculadas
     const page = pdfDoc.addPage([pageWidth, pageHeight]);
