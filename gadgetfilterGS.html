@@ -678,7 +678,7 @@ function formatShoppingListForPDF() {
     formattedList += `*Nombre del Cliente:* ${clientName}\n`;
     formattedList += `*Dirección:* ${clientAddress}\n`;
     formattedList += `*Celular:* ${clientPhone}\n`;
-    formattedList += `-----------------------------------------------\n`;
+    formattedList += `---------------------------------------------------------------------\n`;
   
   const maxWidth = 35; // Ancho máximo de la línea en caracteres
 
@@ -690,10 +690,10 @@ function formatShoppingListForPDF() {
     descripcion = descripcion.replace(/\s/g, '-'); // Reemplaza los espacios en blanco por guiones
     const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; // Formatea la línea del artículo
     formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
-    formattedList += `-----------------------------------------------\n`;
+    formattedList += `---------------------------------------------------------------------\n`;
    
   }
-   formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
+   formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`; // Agrega el total de la compra al principio
 
   return formattedList; // Devuelve la lista de compras formateada
 }
@@ -756,7 +756,7 @@ function formatShoppingListForPDF() {
     const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
 
     // Calcular la altura total de la página
-    pageHeight = margin * 2 + additionalItemsHeight;
+    pageHeight = margin * 3 + additionalItemsHeight;
     textY=pageHeight-margin;
     // Agregar una nueva página al PDF con las dimensiones calculadas
     const page = pdfDoc.addPage([pageWidth, pageHeight]);
