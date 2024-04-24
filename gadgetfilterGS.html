@@ -677,9 +677,9 @@ function formatShoppingListForPDF() {
 
     // Aplicar estilo negrita solo al encabezado
        page.drawText(formattedList, { 
-       x: 50;//textX, 
-       y: 700;// textY, 
-      // size: textSize, 
+       x: 50,//textX, 
+       y: 700,// textY, 
+       size: 10,  //textSize, 
        font: pdfDoc.getHelveticaBold(), // Establece la fuente en negrita
        color: rgb(0, 0, 0) // Establece el color del texto en negro
       });
