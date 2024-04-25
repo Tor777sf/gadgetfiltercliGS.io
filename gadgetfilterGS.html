@@ -643,24 +643,24 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 //////////???????????????????????????
 // Crear el documento PDF
 
-          const doc = new jsPDF();
+          ///const doc = new jsPDF();
 
       // Agregar texto al documento
-      doc.text("Hello world!", 10, 10);
+      ///doc.text("Hello world!", 10, 10);
 
       
 // Guardar y descargar el PDF...
 ////????????????????? 
     // Guardar el PDF como un blob
-    const pdfBytes = await pdfDoc.save();
+   /// const pdfBytes = await pdfDoc.save();
 
     // Crear el enlace de descarga para el PDF
-    const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
-    downloadLink.download = 'Lista_de_Compra.pdf';
+   /// const downloadLink = document.createElement('a');
+    ///downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
+    ///downloadLink.download = 'Lista_de_Compra.pdf';
 
     // Simular un clic en el enlace para abrir la ventana de descarga
-    downloadLink.click();
+   /// downloadLink.click();
  /// } catch (error) {
 ///    alert('Error al crear/descargar el PDF: ' + error.message);
  /// }
