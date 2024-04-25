@@ -701,9 +701,20 @@ $('#myDataTable tbody').on('click', 'tr', function () {
     textY=pageHeight-margin;
     // Agregar una nueva página al PDF con las dimensiones calculadas
     const page = pdfDoc.addPage([pageWidth, pageHeight]);
+    const lines = formattedListForPDF.split('\n'); 
 
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      let textSize = 7; 
+      if (i === 0) {
+        textSize = 9; 
+      } else if (i === 1) {
+        textSize = 8; 
+      }
     // Agregar texto a la página utilizando la fuente predeterminada
     page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+            textY -= lineHeight;
+    }
 //////////???????????????????????????
 // Crear el documento PDF
 
