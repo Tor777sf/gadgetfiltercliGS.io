@@ -608,7 +608,7 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
-$('#downloadPDFButton').on('click', async function () {
+$('#downloadPDFButton').on('click', function () {
   try {
     // Crear un nuevo documento
     const pdfDoc = new jsPDF();
