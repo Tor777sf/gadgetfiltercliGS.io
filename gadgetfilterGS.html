@@ -604,43 +604,19 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
  //pppoppppppppppppddddddddddddfffffffffffffff     
 // Función para formatear la lista de compra para el PDF
-///function formatShoppingListForPDF() {
- /// let formattedList = 'Lista de Compra:\n\n';
-  ///for (let i = 0; i < shoppingList.length; i++) {
-   /// const item = shoppingList[i];
-    ///formattedList += `${item.cantidad}x ${item.producto} - Total: $${item.total}\n `;
-    //formattedList += '─────────────────────────────\n'; // Línea decorativa
-  //)}
-  ///formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}\n`;
-
-  ///return formattedList;
-///}
 
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
 ///$('#downloadPDFButton').on('click', async function () {
   ///try {
     // Crear el objeto PDF en blanco
     ///const pdfDoc = await PDFLib.PDFDocument.create();
-   // Establecer el ancho y alto de la página
-    ///const pageWidth = 5.5 * 28.35; // 5.5 cms
-  ///  const pageHeight = 15 * 28.35; // 11 centímetros
-  ///  const page = pdfDoc.addPage([pageWidth, pageHeight]);
-  ///  const yToHeightRatio = 25.454545;
+
 
     // Agregar una nueva página al PDF
     //const page = pdfDoc.addPage();
 
     // Establecer el tamaño y la posición del texto
-   /// const textSize = 6;
-   /// const textX = 20;
-   /// const textY =(yToHeightRatio *(pageHeight/ 28.35))+((yToHeightRatio/100)*(pageHeight/ 28.35))  ;
-
-    // Obtener la lista de compra formateada para PDF
-   /// const formattedListForPDF = formatShoppingListForPDF();
-
-    // Agregar texto a la página utilizando la fuente predeterminada
-    ///page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
-
+   
     // Guardar el PDF como un blob
     ///const pdfBytes = await pdfDoc.save();
 
@@ -656,11 +632,10 @@ $('#myDataTable tbody').on('click', 'tr', function () {
   ///  }
 ///});
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
-function formatShoppingListForPDF() {
- // const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
- //let formattedList = `${shoppingListHeaderText}:\n`; // Utiliza el texto obtenido dentro de <h4>
- //let formattedList = $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
-///  let formattedList = '';
+// Función para formatear la lista de compra para el PDF
+
+ function formatShoppingListForPDF() {
+
   const selectedOptionText = $('#documentType option:selected').text();
   const fechaHoraActual = new Date().toLocaleString(); // Obtiene la fecha y hora actual en formato local
   const deliveryOption = $('#deliveryOption option:selected').text();  
@@ -670,19 +645,9 @@ function formatShoppingListForPDF() {
   const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
 
   
-  //let formattedList = `Total de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al principio
- // formattedList += $('#shoppingList h4').text()\n; // Obtiene el texto dentro de <h4>
-    let formattedList = `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
-   //let formattedList = `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
-
+      let formattedList = `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
+   
     // Aplicar estilo negrita solo al encabezado
-      /// page.drawText(formattedList, { 
-     ///  x: 50,//textX, 
-    ///   y: 700,// textY, 
-    ///   size: 10,  //textSize, 
-    ///   font: pdfDoc.getHelveticaBold(), // Establece la fuente en negrita
-   ///   color: rgb(0, 0, 0) // Establece el color del texto en negro
-    ///  });
 
     formattedList += `  ${selectedOptionText} - N° ${fechaHoraActual}   \n`;
     formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
@@ -709,41 +674,12 @@ function formatShoppingListForPDF() {
   return formattedList; // Devuelve la lista de compras formateada
 }
 
-////function formatShoppingListForPDF() {
- //// let formattedList = ''; // Inicializa la lista formateada
-////  const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
-  ////formattedList += `${shoppingListHeaderText}:\n`; // Agrega el encabezado de la lista
-
- //// let totalPurchase = 0; // Inicializa el total de la compra
-
- //// const maxWidth = 35; // Ancho máximo de la línea en caracteres
-
- //// for (let i = 0; i < shoppingList.length; i++) {
-    ////const item = shoppingList[i];
- ////   let description = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto; // Trunca la descripción si es demasiado larga
-  ////  const quantityWidth = item.cantidad.toString().length;
-  ////  const totalWidth = item.total.toString().length;
-  ////  const paddingLength = maxWidth - (quantityWidth + description.length + totalWidth + 12); // Calcula la longitud del relleno para centrar el texto
- ////   description = description.padEnd(description.length + paddingLength, '-'); // Agrega guiones para centrar la descripción
-
-  ////  totalPurchase += item.total; // Suma el total del artículo al total de la compra
-
-   //// const itemLine = `${item.cantidad}x ${description} - Total: $${item.total}`; // Formatea la línea del artículo
-////    formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
-////  }
-
-  ////formattedList += `\nTotal de Compra: $${totalPurchase.toFixed(2)}\n`; // Agrega el total de la compra al final
-
-  ////return formattedList; // Devuelve la lista de compras formateada
-////}
-
 
 
       
  // Descargar PDF al hacer clic en el botón "Descargar PDF
       
-  //$('#downloadPDFButton').on('click', async function () {
- 
+   
    document.getElementById('downloadPDFButton').addEventListener('click', async function () {
  try {
     // Crear el documento PDF
@@ -776,28 +712,9 @@ function formatShoppingListForPDF() {
     page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
 //////////???????????????????????????
 // Crear el documento PDF
-///const doc = new jsPDF();
 
-// Definir las columnas y filas de la tabla
-///const columns = ["Cantidad", "Descripción", "Total"];
-///const data = shoppingList.map(item => [`${item.cantidad}x`, item.producto.substring(0, 23).replace(/\s/g, '-'), `$${item.total.toFixed(2)}`]);
-
-// Configurar opciones de la tabla
-///const tableOptions = {
-   /// startY: 20, // Posición Y donde comenzará la tabla
-   /// margin: { top: 20 }, // Margen superior de la tabla
-   /// styles: { halign: 'center' }, // Alineación horizontal del texto en todas las celdas
-   /// headStyles: { fillColor: [100, 100, 100] }, // Estilos para las celdas de la fila de encabezado
-  ///  columnStyles: { 0: { halign: 'right' }, 2: { halign: 'right' } } // Alineación de las celdas de las columnas Cantidad y Total
-///};
-// Agregar la tabla al documento
-///doc.autoTable(columns, data, tableOptions);
-
-    
 // Guardar y descargar el PDF...
-////????????????????? 
-    // Guardar el PDF como un blob
-    const pdfBytes = await pdfDoc.save();
+   const pdfBytes = await pdfDoc.save();
 
     // Crear el enlace de descarga para el PDF
     const downloadLink = document.createElement('a');
