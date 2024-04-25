@@ -607,42 +607,22 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 // Función para formatear la lista de compra para el PDF
 
 // Descargar PDF al hacer clic en el botón "Descargar PDF"
+// Descargar PDF al hacer clic en el botón "Descargar PDF"
 $('#downloadPDFButton').on('click', async function () {
   try {
-    // Crear el objeto PDF en blanco
-   /// const pdfDoc = await PDFLib.PDFDocument.create();
-      // Crear un nuevo documento
-      const pdfDoc = new jsPDF();
-      // Agregar texto al documento
-      doc.text("Hello world!", 10, 10);
+    // Crear un nuevo documento
+    const pdfDoc = new jsPDF();
 
-    /////////////////////////////////////
+    // Agregar texto al documento
+    pdfDoc.text("Hello world!", 10, 10);
 
-
-      // Guardar el documento como PDF
-      
-    
-/////////////////////////////////////
-
-    // Agregar una nueva página al PDF
-    //const page = pdfDoc.addPage();
-
-    // Establecer el tamaño y la posición del texto
-   
-    // Guardar el PDF como un blob
-   /// const pdfBytes = await pdfDoc.save();
-     const pdfBytes = await pdfDoc.save();
-    // Crear el enlace de descarga para el PDF
-    const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
-    downloadLink.download = 'Lista_de_Compra.pdf';
-
-    // Simular un clic en el enlace para abrir la ventana de descarga
-    downloadLink.click();
+    // Guardar el documento como PDF
+    pdfDoc.save('Lista_de_Compra.pdf');
   } catch (error) {
     alert('Error al crear/descargar el PDF: ' + error.message);
-    }
+  }
 });
+
 //pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
 
  // Función para formatear la lista de compra para el PDF
