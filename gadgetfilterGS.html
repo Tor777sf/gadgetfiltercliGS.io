@@ -607,26 +607,19 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 // Función para formatear la lista de compra para el PDF
 
 function formatShoppingListForPDF(lineTexts, lineSizes) {
-  const selectedOptionText = $('#documentType option:selected').text();
-  const fechaHoraActual = new Date().toLocaleString(); 
-  const deliveryOption = $('#deliveryOption option:selected').text();  
-  const clientName = $('#clientName').val();
-  const clientAddress = $('#clientAddress').val();
-  const clientPhone = $('#clientPhone').val();
-  const shoppingListHeaderText = $('#shoppingList h4').text(); 
-
+function formatShoppingListForPDF(cliente, tipoDocumento, fechaHoraActual, deliveryOption, clientName, clientAddress, clientPhone, shoppingListHeaderText, lineTexts, lineSizes) {
   let formattedList = `${shoppingListHeaderText}:\n`; 
-  formattedList += `  ${selectedOptionText} - N° ${fechaHoraActual}   \n`;
-  formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
-  formattedList += `*Nombre del Cliente:* ${clientName}\n`;
-  formattedList += `*Dirección:* ${clientAddress}\n`;
-  formattedList += `*Celular:* ${clientPhone}\n`;
+  formattedList += `Cliente: ${cliente}\n`;
+  formattedList += `Tipo de Documento: ${tipoDocumento}\n`;
+  formattedList += `Fecha y Hora Actual: ${fechaHoraActual}\n`;
+  formattedList += `Opción de Entrega: ${deliveryOption}\n`;
+  formattedList += `Nombre del Cliente: ${clientName}\n`;
+  formattedList += `Dirección: ${clientAddress}\n`;
+  formattedList += `Celular: ${clientPhone}\n`;
   formattedList += `---------------------------------------------------------------------\n`;
 
-  const maxWidth = 35; 
-
   for (let i = 0; i < lineTexts.length; i++) {
-    const textSize = lineSizes[i] || 7; // Si no se especifica un tamaño de texto, se usa 7 como predeterminado
+    const textSize = lineSizes[i] || 7; 
     const itemLine = lineTexts[i];
     formattedList += `{size:${textSize}}${itemLine}\n`; 
     formattedList += `---------------------------------------------------------------------\n`;
@@ -636,6 +629,7 @@ function formatShoppingListForPDF(lineTexts, lineSizes) {
 
   return formattedList; 
 }
+
 
    document.getElementById('downloadPDFButton').addEventListener('click', async function () {
 
