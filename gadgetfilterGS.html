@@ -607,33 +607,105 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 // Función para formatear la lista de compra para el PDF
 
 //function formatShoppingListForPDF(lineTexts, lineSizes) {
-function formatShoppingListForPDF(cliente, tipoDocumento, fechaHoraActual, deliveryOption, clientName, clientAddress, clientPhone, shoppingListHeaderText, lineTexts, lineSizes) {
+////function formatShoppingListForPDF(cliente, tipoDocumento, fechaHoraActual, deliveryOption, clientName, clientAddress, clientPhone, shoppingListHeaderText, lineTexts, lineSizes) {
+////  let formattedList = `${shoppingListHeaderText}:\n`; 
+  ////formattedList += `Cliente: ${cliente}\n`;
+////  formattedList += `Tipo de Documento: ${tipoDocumento}\n`;
+////  formattedList += `Fecha y Hora Actual: ${fechaHoraActual}\n`;
+////  formattedList += `Opción de Entrega: ${deliveryOption}\n`;
+////  formattedList += `Nombre del Cliente: ${clientName}\n`;
+////  formattedList += `Dirección: ${clientAddress}\n`;
+////  formattedList += `Celular: ${clientPhone}\n`;
+////  formattedList += `---------------------------------------------------------------------\n`;
+
+////  for (let i = 0; i < lineTexts.length; i++) {
+  ////  const textSize = lineSizes[i] || 7; 
+  ////  const itemLine = lineTexts[i];
+ ////   formattedList += `{size:${textSize}}${itemLine}\n`; 
+  ////  formattedList += `---------------------------------------------------------------------\n`;
+////  }
+   
+////  formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`; 
+
+////  return formattedList; 
+////}
+
+
+  //// document.getElementById('downloadPDFButton').addEventListener('click', async function () {
+
+   ////try {
+ ////   const pdfDoc = await PDFLib.PDFDocument.create();
+////    const pageWidth = 5.5 * 28.35;
+ ////   let pageHeight = 15 * 28.35;
+ ////   const margin = 20;
+  ////  const textSize = 9;
+////    const textX = 20;
+////    let textY = margin;
+
+ ////   const formattedListForPDF = formatShoppingListForPDF();
+  ////  const lineHeight = 20;
+ ////   const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
+   //// const cuadrar = additionalItemsHeight / 6;
+
+   //// pageHeight = margin * 2 + additionalItemsHeight + cuadrar;
+   //// textY = pageHeight - margin;
+
+   //// const page = pdfDoc.addPage([pageWidth, pageHeight]);
+ ////   page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+
+  ////  const pdfBytes = await pdfDoc.save();
+
+  ////  const downloadLink = document.createElement('a');
+////    downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
+////    downloadLink.download = 'Lista_de_Compra.pdf';
+  ////  downloadLink.click();
+////  } catch (error) {
+ ////   alert('Error al crear/descargar el PDF: ' + error.message);
+////  }
+////});
+
+
+//pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
+
+ // Función para formatear la lista de compra para el PDF
+
+ function formatShoppingListForPDF() {
+  const selectedOptionText = $('#documentType option:selected').text();
+  const fechaHoraActual = new Date().toLocaleString(); 
+  const deliveryOption = $('#deliveryOption option:selected').text();  
+  const clientName = $('#clientName').val();
+  const clientAddress = $('#clientAddress').val();
+  const clientPhone = $('#clientPhone').val();
+  const shoppingListHeaderText = $('#shoppingList h4').text(); 
+
   let formattedList = `${shoppingListHeaderText}:\n`; 
-  formattedList += `Cliente: ${cliente}\n`;
-  formattedList += `Tipo de Documento: ${tipoDocumento}\n`;
-  formattedList += `Fecha y Hora Actual: ${fechaHoraActual}\n`;
-  formattedList += `Opción de Entrega: ${deliveryOption}\n`;
-  formattedList += `Nombre del Cliente: ${clientName}\n`;
-  formattedList += `Dirección: ${clientAddress}\n`;
-  formattedList += `Celular: ${clientPhone}\n`;
+  formattedList += `  ${selectedOptionText} - N° ${fechaHoraActual}   \n`;
+  formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
+  formattedList += `*Nombre del Cliente:* ${clientName}\n`;
+  formattedList += `*Dirección:* ${clientAddress}\n`;
+  formattedList += `*Celular:* ${clientPhone}\n`;
   formattedList += `---------------------------------------------------------------------\n`;
 
-  for (let i = 0; i < lineTexts.length; i++) {
-    const textSize = lineSizes[i] || 7; 
-    const itemLine = lineTexts[i];
-    formattedList += `{size:${textSize}}${itemLine}\n`; 
-    formattedList += `---------------------------------------------------------------------\n`;
-  }
-   
-  formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`; 
+  const maxWidth = 35; 
 
-  return formattedList; 
+  for (let i = 0; i < shoppingList.length; i++) {
+    const item = shoppingList[i];
+    let descripcion = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto; 
+    const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;
+    descripcion = descripcion.padStart(18 + paddingLength).padEnd(18); 
+    descripcion = descripcion.replace(/\s/g, '-'); 
+    const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; 
+    formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
+    formattedList += `---------------------------------------------------------------------\n`;
+   
+  }
+   formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`; // Agrega el total de la compra al principio
+
+  return formattedList; // Devuelve la lista de compras formateada
 }
 
-
-   document.getElementById('downloadPDFButton').addEventListener('click', async function () {
-
-   try {
+document.getElementById('downloadPDFButton').addEventListener('click', async function () {
+  try {
     const pdfDoc = await PDFLib.PDFDocument.create();
     const pageWidth = 5.5 * 28.35;
     let pageHeight = 15 * 28.35;
@@ -663,78 +735,6 @@ function formatShoppingListForPDF(cliente, tipoDocumento, fechaHoraActual, deliv
     alert('Error al crear/descargar el PDF: ' + error.message);
   }
 });
-
-
-//pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
-
- // Función para formatear la lista de compra para el PDF
-
-/// function formatShoppingListForPDF() {
-  ///const selectedOptionText = $('#documentType option:selected').text();
- /// const fechaHoraActual = new Date().toLocaleString(); 
-///  const deliveryOption = $('#deliveryOption option:selected').text();  
-///  const clientName = $('#clientName').val();
-///  const clientAddress = $('#clientAddress').val();
-///  const clientPhone = $('#clientPhone').val();
-///  const shoppingListHeaderText = $('#shoppingList h4').text(); 
-
- /// let formattedList = `${shoppingListHeaderText}:\n`; 
-///  formattedList += `  ${selectedOptionText} - N° ${fechaHoraActual}   \n`;
-///  formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
- /// formattedList += `*Nombre del Cliente:* ${clientName}\n`;
- /// formattedList += `*Dirección:* ${clientAddress}\n`;
-///  formattedList += `*Celular:* ${clientPhone}\n`;
-///  formattedList += `---------------------------------------------------------------------\n`;
-
- /// const maxWidth = 35; 
-
- /// for (let i = 0; i < shoppingList.length; i++) {
-   /// const item = shoppingList[i];
-   /// let descripcion = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto; 
-  ///  const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;
-///    descripcion = descripcion.padStart(18 + paddingLength).padEnd(18); 
-  ///  descripcion = descripcion.replace(/\s/g, '-'); 
- ///   const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; 
-   /// formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
-  ///  formattedList += `---------------------------------------------------------------------\n`;
-   
- /// }
-///   formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`; // Agrega el total de la compra al principio
-
-///  return formattedList; // Devuelve la lista de compras formateada
-///}
-
-///document.getElementById('downloadPDFButton').addEventListener('click', async function () {
- /// try {
-  ///  const pdfDoc = await PDFLib.PDFDocument.create();
- ///   const pageWidth = 5.5 * 28.35;
-  ///  let pageHeight = 15 * 28.35;
-  ///  const margin = 20;
- ///   const textSize = 9;
-///    const textX = 20;
-   /// let textY = margin;
-
-  ///  const formattedListForPDF = formatShoppingListForPDF();
- ///   const lineHeight = 20;
-   /// const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
- ///   const cuadrar = additionalItemsHeight / 6;
-
- ///   pageHeight = margin * 2 + additionalItemsHeight + cuadrar;
- ///   textY = pageHeight - margin;
-
- ///   const page = pdfDoc.addPage([pageWidth, pageHeight]);
-  ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
-
-  ///  const pdfBytes = await pdfDoc.save();
-
-  ///  const downloadLink = document.createElement('a');
- ///   downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
- ///   downloadLink.download = 'Lista_de_Compra.pdf';
- ///   downloadLink.click();
- /// } catch (error) {
- ///   alert('Error al crear/descargar el PDF: ' + error.message);
- /// }
-///});
 
 
 //ppppppppppppppppppppppppppdddddddddddddddddddddfffffffffffddd
