@@ -242,6 +242,9 @@
     </table>
     </div>
 
+<!-- Enlaces -->
+<a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=promoc" class="external-link filter-link">Enlace con Filtro</a>
+<a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html" class="external-link">Enlace Normal</a>
 
 
 
@@ -995,6 +998,32 @@ $('#saveChangesBtn').on('click', function() {
       }
     });
   });
+  //______________________________________ 
+  // Función para capturar el clic en el enlace
+    document.querySelectorAll('.external-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            // Evita el comportamiento predeterminado del enlace
+            event.preventDefault();
+
+            // Obtiene el URL del sitio web externo desde el atributo "href" del enlace
+            const externalURL = this.getAttribute('href');
+
+            // Verifica si el enlace que se está clicando es diferente al enlace que proporcionaste
+            if (externalURL !== 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html') {
+                // Obtiene la frase a buscar en la DataTable del URL
+                const searchPhrase = externalURL.split('?buscar=')[1];
+
+                // Aplica un filtro en la DataTable utilizando la frase obtenida
+                dataTable.column(0).search(searchPhrase).draw();
+            }
+
+            // Redirige al usuario al sitio web externo después de un breve retraso
+            setTimeout(function() {
+                window.location.href = externalURL;
+            }, 500); // Tiempo de espera de 500 milisegundos (ajusta según sea necesario)
+        });
+    });
+ //_________________________________________ 
 </script>
 <!-- Modal -->
 <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
