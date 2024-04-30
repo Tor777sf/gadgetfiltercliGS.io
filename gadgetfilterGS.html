@@ -999,27 +999,33 @@ $('#saveChangesBtn').on('click', function() {
     });
   });
   //______________________________________ 
-      // Función para capturar el clic en el enlace
-    $('.external-link').click(function(event) {
-        // Evita el comportamiento predeterminado del enlace
-        event.preventDefault();
+// Función para capturar el clic en el enlace
+$('.external-link').click(function(event) {
+    // Evita el comportamiento predeterminado del enlace
+    event.preventDefault();
 
-        // Obtiene el URL del sitio web externo desde el atributo "href" del enlace
-        const externalURL = $(this).attr('href');
+    // Obtiene el URL del sitio web externo desde el atributo "href" del enlace
+    const externalURL = $(this).attr('href');
 
-        // Verifica si el enlace que se está clicando es diferente al enlace que proporcionaste
-        if (externalURL !== 'https://tor77sf.github.io/gadgetfiltercli.io/gadgetfilterGS.html') {
-            // Obtiene la frase a buscar en la DataTable del URL
-            const searchPhrase = externalURL.split('?buscar=')[1];
+    // Obtiene el URL del enlace que proporcionaste
+    const providedURL = 'https://tor77sf.github.io/gadgetfiltercli.io/gadgetfilterGS.html';
 
-            // Aplica un filtro en la DataTable utilizando la frase obtenida
-            $('#MyDataTabla').DataTable().column(0).search(searchPhrase).draw();
-        }
-        // Redirige al usuario al sitio web externo después de un breve retraso
-        setTimeout(function() {
-            window.location.href = externalURL;
-        }, 500); // Tiempo de espera de 500 milisegundos (ajusta según sea necesario)
-    });
+    // Verifica si el enlace que se está clicando es diferente al enlace que proporcionaste
+    if (externalURL !== providedURL) {
+        // Obtiene la frase a buscar en la DataTable del URL
+        const searchParams = new URLSearchParams(new URL(externalURL).search);
+        const searchPhrase = searchParams.get('buscar');
+
+        // Aplica un filtro en la DataTable utilizando la frase obtenida
+        $('#miDaraTabla').DataTable().column(1).search(searchPhrase).draw();
+    }
+
+    // Redirige al usuario al sitio web externo después de un breve retraso
+    setTimeout(function() {
+        window.location.href = externalURL;
+    }, 500); // Tiempo de espera de 500 milisegundos (ajusta según sea necesario)
+});
+
  //_________________________________________ 
 </script>
 <!-- Modal -->
