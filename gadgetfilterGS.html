@@ -1030,25 +1030,29 @@ $('#saveChangesBtn').on('click', function() {
      //   window.location.href = externalURL;
   //  }, 500); // Tiempo de espera de 500 milisegundos (ajusta según sea necesario)
 ///});
-    window.addEventListener('DOMContentLoaded', (event) => {
+    
         const urlParams = new URLSearchParams(window.location.search);
         const searchParam = urlParams.get('buscar');
 
         if (searchParam) {
             // Si hay un parámetro de búsqueda en la URL
-            const myDataTable = document.getElementById('myDataTable');
+            const externalURL = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=' + searchParam;
+            $('.external-link.filter-link').attr('href', externalURL);
+
             // Aplicar el filtro en la DataTable usando la frase obtenida
-            myDataTable.DataTable().search(searchParam).draw();
+            const myDataTable = $('#myDataTable').DataTable();
+            myDataTable.search(searchParam).draw();
+
             // Establecer la palabra clave en el recuadro de búsqueda de la DataTable
-            const searchInput = document.querySelector('#myDataTable_wrapper input[type="search"]');
+            const searchInput = $('#myDataTable_wrapper input[type="search"]');
             if (searchInput) {
-                searchInput.value = searchParam;
+                searchInput.val(searchParam);
             }
         } else {
             // Si no hay parámetro de búsqueda, simplemente mostrar el sitio web
             window.location.href = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
         }
-    });
+
 
 
  //_________________________________________ 
