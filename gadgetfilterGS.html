@@ -243,8 +243,8 @@
     </div>
 
 <!-- Enlaces -->
-<a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=pieza" class="external-link filter-link">Enlace con Filtro</a>
-<a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html" class="external-link">Enlace Normal</a>
+<!-- a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=pieza" class="external-link filter-link">Enlace con Filtro</a -->
+<!-- a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html" class="external-link">Enlace Normal</a -->
 
 
 
@@ -1000,36 +1000,56 @@ $('#saveChangesBtn').on('click', function() {
   });//funtion ready
   //______________________________________ 
 // Función para capturar el clic en el enlace
-$('.external-link').click(function(event) {
+///$('.external-link').click(function(event) {
     // Evita el comportamiento predeterminado del enlace
-    event.preventDefault();
+   /// event.preventDefault();
 
     // Obtiene el URL del sitio web externo desde el atributo "href" del enlace
-    const externalURL = $(this).attr('href');
+    ///const externalURL = $(this).attr('href');
 
     // Obtiene el URL del enlace que proporcionaste
-    const providedURL = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
+   /// const providedURL = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
 
     // Verifica si el enlace que se está clicando es diferente al enlace que proporcionaste
-    if (externalURL !== providedURL) {
+  ///  if (externalURL !== providedURL) {
         // Obtiene la frase a buscar en la DataTable del URL
-        const searchParams = new URLSearchParams(new URL(externalURL).search);
-        const searchPhrase = searchParams.get('buscar');
+      ///  const searchParams = new URLSearchParams(new URL(externalURL).search);
+     ///   const searchPhrase = searchParams.get('buscar');
 
         // Aplica un filtro en la DataTable utilizando la frase obtenida
-        $('#myDataTable').DataTable().search(searchPhrase).draw();
+   ///     $('#myDataTable').DataTable().search(searchPhrase).draw();
 
         // Establece la palabra clave en el recuadro de búsqueda de la DataTable
-        $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
-        } else {
-        $('#myDataTable').DataTable().search('').draw(); // Limpiar el filtro
-  }
+   ///     $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
+      ///  } else {
+      ///  $('#myDataTable').DataTable().search('').draw(); // Limpiar el filtro
+ /// }
 
     // Redirige al usuario al sitio web externo después de un breve retraso
     //setTimeout(function() {
      //   window.location.href = externalURL;
   //  }, 500); // Tiempo de espera de 500 milisegundos (ajusta según sea necesario)
-});
+///});
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('buscar');
+
+        if (searchParam) {
+            // Si hay un parámetro de búsqueda en la URL
+            const myDataTable = document.getElementById('myDataTable');
+            // Aplicar el filtro en la DataTable usando la frase obtenida
+            myDataTable.DataTable().search(searchParam).draw();
+            // Establecer la palabra clave en el recuadro de búsqueda de la DataTable
+            const searchInput = document.querySelector('#myDataTable_wrapper input[type="search"]');
+            if (searchInput) {
+                searchInput.value = searchParam;
+            }
+        } else {
+            // Si no hay parámetro de búsqueda, simplemente mostrar el sitio web
+            window.location.href = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
+        }
+    });
+
 
  //_________________________________________ 
 </script>
