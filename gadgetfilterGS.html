@@ -1020,7 +1020,7 @@ $('.external-link').click(function(event) {
         $('#myDataTable').DataTable().search(searchPhrase).draw();
 
         // Establece la palabra clave en el recuadro de búsqueda de la DataTable
-        $('#myDataTable_filter input').val(searchPhrase);
+        $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
     }
 
     // Redirige al usuario al sitio web externo después de un breve retraso
