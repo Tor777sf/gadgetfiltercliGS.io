@@ -1021,7 +1021,9 @@ $('.external-link').click(function(event) {
 
         // Establece la palabra clave en el recuadro de búsqueda de la DataTable
         $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
-    }
+        } else {
+        $('#myDataTable').DataTable().search('').draw(); // Limpiar el filtro
+  }
 
     // Redirige al usuario al sitio web externo después de un breve retraso
     //setTimeout(function() {
