@@ -1017,7 +1017,10 @@ $('.external-link').click(function(event) {
         const searchPhrase = searchParams.get('buscar');
 
         // Aplica un filtro en la DataTable utilizando la frase obtenida
-        $('#myDataTable').DataTable().column(1).search(searchPhrase).draw();
+        $('#myDataTable').DataTable().search(searchPhrase).draw();
+
+        // Establece la palabra clave en el recuadro de búsqueda de la DataTable
+        $('#myDataTable_filter input').val(searchPhrase);
     }
 
     // Redirige al usuario al sitio web externo después de un breve retraso
