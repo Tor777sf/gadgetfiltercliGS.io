@@ -990,27 +990,27 @@ $('#saveChangesBtn').on('click', function() {
 
 //'''''''''''''''''''''''''''''''''''''
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchParam = urlParams.get('buscar');
+      ////  const urlParams = new URLSearchParams(window.location.search);
+     ////   const searchParam = urlParams.get('buscar');
 
-        if (searchParam) {
+      ////  if (searchParam) {
             // Si hay un parámetro de búsqueda en la URL
-            const externalURL = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=' + searchParam;
-            $('.external-link.filter-link').attr('href', externalURL);
+         ////   const externalURL = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=' + searchParam;
+          ////  $('.external-link.filter-link').attr('href', externalURL);
 
             // Aplicar el filtro en la DataTable usando la frase obtenida
-            const myDataTable = $('#myDataTable').DataTable();
-            myDataTable.search(searchParam).draw();
+      ////      const myDataTable = $('#myDataTable').DataTable();
+         ////   myDataTable.search(searchParam).draw();
 
             // Establecer la palabra clave en el recuadro de búsqueda de la DataTable
-            const searchInput = $('#myDataTable_wrapper input[type="search"]');
-            if (searchInput) {
-                searchInput.val(searchParam);
-            }
-        } else {
+         ////   const searchInput = $('#myDataTable_wrapper input[type="search"]');
+         ////   if (searchInput) {
+         ////       searchInput.val(searchParam);
+        ////    }
+      ////  } else {
             // Si no hay parámetro de búsqueda, simplemente mostrar el sitio web
-            window.location.href = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
-        }
+        ////    window.location.href = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
+    ////    }
 
 
 
