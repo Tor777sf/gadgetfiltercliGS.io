@@ -1017,7 +1017,18 @@ $('#saveChangesBtn').on('click', function() {
   
 //'''''''''''''''''''''''''::'''''''''''
     
+  // Obtiene la URL actual
+    const currentURL = window.location.href;
 
+    // Obtiene los parámetros de la URL
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchPhrase = searchParams.get('buscar');
+
+    // Si hay una frase de búsqueda en la URL, escribe en el recuadro de búsqueda de la DataTable
+    if (searchPhrase) {
+        $('#myDataTable').DataTable().search(searchPhrase).draw();
+        $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
+    }
 
   
 
@@ -1058,18 +1069,7 @@ $('#saveChangesBtn').on('click', function() {
   //  }, 500); // Tiempo de espera de 500 milisegundos (ajusta según sea necesario)
 ///});
     
-    // Obtiene la URL actual
-    const currentURL = window.location.href;
-
-    // Obtiene los parámetros de la URL
-    const searchParams = new URLSearchParams(window.location.search);
-    const searchPhrase = searchParams.get('buscar');
-
-    // Si hay una frase de búsqueda en la URL, escribe en el recuadro de búsqueda de la DataTable
-    if (searchPhrase) {
-        $('#myDataTable').DataTable().search(searchPhrase).draw();
-        $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
-    }
+  
 
  //_________________________________________ 
 </script>
