@@ -1029,8 +1029,38 @@ $('#saveChangesBtn').on('click', function() {
         $('#myDataTable').DataTable().search(searchPhrase).draw();
         $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
     }
-
+//........................
+      
   
+            // Cuando se pierda el foco del cuadro de búsqueda
+            $('#myDataTable_wrapper input[type="search"]').on('blur', function () {
+                // Obtiene el valor del cuadro de búsqueda
+                var searchValue = $(this).val().trim();
+
+                // Actualiza el parámetro 'buscar' en la URL si el cuadro de búsqueda no está vacío
+                if (searchValue !== '') {
+                    updateURL(searchValue);
+                } else {
+                    // Si el cuadro de búsqueda está vacío, elimina el parámetro 'buscar' de la URL
+                    removeSearchParam();
+                }
+            });
+
+            // Función para actualizar el parámetro 'buscar' en la URL
+            function updateURL(searchValue) {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('buscar', searchValue);
+                window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+            }
+
+            // Función para eliminar el parámetro 'buscar' de la URL
+            function removeSearchParam() {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.delete('buscar');
+                window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+            }
+        
+
 
 //::::::::::::;;;;fin codigo modal edicion:::::::::::
       }//complete funtion results
