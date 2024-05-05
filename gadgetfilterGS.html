@@ -444,7 +444,15 @@ function convertirPrecio(precio) {
 $('#myDataTable tbody').on('click', 'tr', function () {
     try {
         var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
-
+        //+++++++++++++++++++++++ 
+        // Limpiar la URL de parámetros
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        // Agregar un parámetro "id" con la descripción del ítem cliqueado
+        var descripcionId = encodeURIComponent(data.DESCRIPCION); // Codificar la descripción para asegurar que sea una URL válida
+        var newUrl = window.location.pathname + '?id=' + descripcionId;
+        window.history.pushState({}, document.title, newUrl);
+        //++++++++++++++++++
         // Verificar si la descripción del producto está definida
         if (data && data.DESCRIPCION) {
             // Mostrar el formulario modal
