@@ -1026,21 +1026,79 @@ $('#saveChangesBtn').on('click', function() {
 //'''''''''''''''''''''''''::'''''''''''
     
   // Obtiene la URL actual
-    const currentURL = window.location.href;
+  ///  const currentURL = window.location.href;
 
     // Obtiene los parámetros de la URL
-    const searchParams = new URLSearchParams(window.location.search);
-    const searchPhrase = searchParams.get('buscar');
+    ///const searchParams = new URLSearchParams(window.location.search);
+    ///const searchPhrase = searchParams.get('buscar');
 
     // Si hay una frase de búsqueda en la URL, escribe en el recuadro de búsqueda de la DataTable
-    if (searchPhrase) {
-        $('#myDataTable').DataTable().search(searchPhrase).draw();
-        $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
-    }
+   /// if (searchPhrase) {
+     ///   $('#myDataTable').DataTable().search(searchPhrase).draw();
+     ///   $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
+    ///}
 //........................
       
   
             // Cuando se pierda el foco del cuadro de búsqueda
+          ///  $('#myDataTable_wrapper input[type="search"]').on('blur', function () {
+                // Obtiene el valor del cuadro de búsqueda
+             ///   var searchValue = $(this).val().trim();
+
+                // Actualiza el parámetro 'buscar' en la URL si el cuadro de búsqueda no está vacío
+             ///   if (searchValue !== '') {
+              ///      updateURL(searchValue);
+              ///  } else {
+                    // Si el cuadro de búsqueda está vacío, elimina el parámetro 'buscar' de la URL
+                 ///   removeSearchParam();
+             ///   }
+          ///  });
+
+            // Función para actualizar el parámetro 'buscar' en la URL
+           /// function updateURL(searchValue) {
+             ///   const urlParams = new URLSearchParams(window.location.search);
+             ///   urlParams.set('buscar', searchValue);
+            ///    window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+           /// }
+
+            // Función para eliminar el parámetro 'buscar' de la URL
+         ///   function removeSearchParam() {
+            ///    const urlParams = new URLSearchParams(window.location.search);
+            ///    urlParams.delete('buscar');
+           ///     window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+          ///  }
+        
+//(((((((((((((((((((((((((((
+
+     
+    const currentURL = window.location.href;
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Si no hay parámetros en la URL, muestra el sitio web
+    if (!urlParams.has('buscar') && !urlParams.has('id')) {
+        // Aquí puedes agregar el código para mostrar el sitio web
+        // Por ejemplo:
+        // $('#myWebsite').show();
+    }
+    
+    // Si hay un parámetro 'buscar' en la URL, realiza la búsqueda
+    if (urlParams.has('buscar')) {
+        const searchPhrase = urlParams.get('buscar');
+        $('#myDataTable').DataTable().search(searchPhrase).draw();
+        $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
+    }
+    
+    // Si hay un parámetro 'id' en la URL, cargar el formulario modal
+    if (urlParams.has('id')) {
+        const id = urlParams.get('id');
+        // Aquí puedes agregar el código para cargar el formulario modal
+        // Por ejemplo:
+        // cargarFormularioModal(id);
+    }
+    
+    // Resto del código...
+
+             // Cuando se pierda el foco del cuadro de búsqueda
             $('#myDataTable_wrapper input[type="search"]').on('blur', function () {
                 // Obtiene el valor del cuadro de búsqueda
                 var searchValue = $(this).val().trim();
@@ -1068,7 +1126,7 @@ $('#saveChangesBtn').on('click', function() {
                 window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
             }
         
-
+//)))))))))))))))))))))))))))
 
 //::::::::::::;;;;fin codigo modal edicion:::::::::::
       }//complete funtion results
