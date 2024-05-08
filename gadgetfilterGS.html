@@ -1090,7 +1090,25 @@ $('#saveChangesBtn').on('click', function() {
     
     // Si hay un parámetro 'id' en la URL, cargar el formulario modal
     if (urlParams.has('id')) {
-        const id = urlParams.get('id');
+    const id = urlParams.get('id');
+    const rowData = buscarFilaPorId(id);
+    if (rowData) {
+        $('#descriptionInput').val(rowData.DESCRIPCION);
+        $('#priceInput').val(rowData.Total === 0 ? '0.00' : rowData.Total.toFixed(2));
+        const imageLink = rowData.ENLACES;
+        if (imageLink) {
+            $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+        } else {
+            $('#imageContainer').html('Imagen no disponible');
+        }
+        $('#quantityModal').modal('show');
+      }
+      previousPrice = $('#priceInput').val();
+             
+       nuevoProducto="no";
+      
+   }
+
         // Aquí puedes agregar el código para cargar el formulario modal
         // Por ejemplo:
         // cargarFormularioModal(id);
@@ -1125,7 +1143,21 @@ $('#saveChangesBtn').on('click', function() {
                 urlParams.delete('buscar');
                 window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
             }
-        
+
+        // Función para buscar una fila por ID
+        function buscarFilaPorId(id) {
+        var rowData;
+        $('#myDataTable').DataTable().rows().every(function() {
+        var data = this.data();
+        if (data.DESCRIPCION === id) {
+            rowData = data;
+            return false; // Salir del bucle
+        }
+        return true; // Continuar con la siguiente fila
+       });
+       return rowData;
+     }
+      
 //)))))))))))))))))))))))))))
 
 //::::::::::::;;;;fin codigo modal edicion:::::::::::
