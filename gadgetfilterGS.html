@@ -647,7 +647,7 @@ document.getElementById('downloadPDFButton').addEventListener('click', async fun
     try {
         var doc = new jsPDF();
         doc.text('HELLO WORLD', 10, 10);
-        doc.html($('#tabla').get(0), 15, 15);
+      ///  doc.html($('#tabla').get(0), 15, 15);
 
         // Guardar el PDF y crear el enlace de descarga
         const pdfBytes = doc.output('arraybuffer'); // Obtener los bytes del PDF
@@ -661,7 +661,7 @@ document.getElementById('downloadPDFButton').addEventListener('click', async fun
         downloadLink.click();
 
         // Liberar la URL del objeto Blob
-        URL.revokeObjectURL(url);
+        //URL.revokeObjectURL(url);
     } catch (error) {
         alert('Error al crear/descargar el PDF: ' + error.message);
     }
