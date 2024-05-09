@@ -650,8 +650,10 @@ document.getElementById('downloadPDFButton').addEventListener('click', async fun
       ///  doc.html($('#tabla').get(0), 15, 15);
 
         // Guardar el PDF y crear el enlace de descarga
-        const pdfBytes = doc.output('arraybuffer'); // Obtener los bytes del PDF
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' }); // Crear un objeto Blob con los bytes del PDF
+        
+       /// const pdfBytes = doc.output('arraybuffer'); // Obtener los bytes del PDF
+       /// const blob = new Blob([pdfBytes], { type: 'application/pdf' }); // Crear un objeto Blob con los bytes del PDF
+        const blob = doc.output('blob'); // Obtener el PDF como un objeto Blob
         const url = URL.createObjectURL(blob); // Crear una URL que apunta al objeto Blob
 
         // Crear un enlace de descarga y simular un clic para iniciar la descarga
