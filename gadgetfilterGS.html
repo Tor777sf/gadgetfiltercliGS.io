@@ -716,6 +716,8 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 }
 
 document.getElementById('downloadPDFButton').addEventListener('click', async function () {
+  window.jsPDF = window.jspdf.jsPDF;
+
   try {
    /// const pdfDoc = await PDFLib.PDFDocument.create();
    /// const pageWidth = 5.5 * 28.35;
@@ -736,6 +738,10 @@ document.getElementById('downloadPDFButton').addEventListener('click', async fun
   ///  const page = pdfDoc.addPage([pageWidth, pageHeight]);
   ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
 //(---------------
+            var doc = new jsPDF();
+            doc.text('HELLO WORLD',10,10);
+            doc.html($('#tabla').get(0),15,15);
+           // doc.save('reporte.pdf');
 
 //)-----+++++++-----
     const pdfBytes = await pdfDoc.save();
