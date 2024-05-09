@@ -35,7 +35,7 @@
  <!-- jsPDF JS -->
 <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"</script-->
 <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"</script-->
-<!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"</script-->
+<!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script-->
   
 <!-- PDFLib JS -->
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
@@ -717,25 +717,27 @@ $('#myDataTable tbody').on('click', 'tr', function () {
 
 document.getElementById('downloadPDFButton').addEventListener('click', async function () {
   try {
-    const pdfDoc = await PDFLib.PDFDocument.create();
-    const pageWidth = 5.5 * 28.35;
-    let pageHeight = 15 * 28.35;
-    const margin = 20;
-    const textSize = 8;
-    const textX = 20;
-    let textY = margin;
+   /// const pdfDoc = await PDFLib.PDFDocument.create();
+   /// const pageWidth = 5.5 * 28.35;
+   /// let pageHeight = 15 * 28.35;
+   /// const margin = 20;
+   /// const textSize = 8;
+   /// const textX = 20;
+  ///  let textY = margin;
 
-    const formattedListForPDF = formatShoppingListForPDF();
-    const lineHeight = 20;
-    const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
-    const cuadrar = additionalItemsHeight / 6;
+ ///   const formattedListForPDF = formatShoppingListForPDF();
+  ///  const lineHeight = 20;
+   /// const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
+ ///   const cuadrar = additionalItemsHeight / 6;
 
-    pageHeight = margin * 2 + additionalItemsHeight + cuadrar;
-    textY = pageHeight - margin;
+  ///  pageHeight = margin * 2 + additionalItemsHeight + cuadrar;
+   /// textY = pageHeight - margin;
 
-    const page = pdfDoc.addPage([pageWidth, pageHeight]);
-    page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+  ///  const page = pdfDoc.addPage([pageWidth, pageHeight]);
+  ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+//(---------------
 
+//)-----+++++++-----
     const pdfBytes = await pdfDoc.save();
 
     const downloadLink = document.createElement('a');
