@@ -1,0 +1,1284 @@
+<!--- segundo nivel 2.8.--->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sheet CSV</title>
+<!-- Bulma CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+<!-- WhatsApp Click to Chat JS -->
+<script src="https://cdn.jsdelivr.net/npm/whatsapp-click-to-chat/dist/index.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+<!-- PapaParse JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+  <!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+ <!-- jsPDF JS -->
+<!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"</script-->
+<!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"</script-->
+<!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script-->
+  
+<!-- PDFLib JS -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+
+
+  <style>
+    /* Coloca aquí el bloque de estilos CSS */
+    .shopping-item {
+      font-size: 16px;
+      list-style-type: none;
+      padding: 8px 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .item-quantity {
+      display: inline-block;
+      width: 10%;
+    }
+
+    .item-description {
+      display: inline-block;
+      width: 50%;
+    }
+
+    .item-total {
+      display: inline-block;
+      width: 30%;
+      text-align: right;
+    }
+    /* _--------------------------------*/
+        /* Personalización de la tabla DataTable */
+    .dataTables_wrapper {
+      background-color: #ffffff; /* Fondo dorado para el contenedor de la tabla */
+      padding: 20px;
+    }
+
+    #myDataTable th {
+      color: #000080; /* Color azul marino para los encabezados de columna */
+      font-weight: bold; /* Texto en negrita */
+    }
+
+    
+    #myDataTable td:nth-child(1) {
+      color: #000080; /* Color Azul marino para el texto de la columna de precio */
+    }
+    
+/* Estilos para la parte interior de la tabla DataTable */
+.dataTables_wrapper .dataTables_empty {
+  background-color: #40e0d0; /* Color de fondo para la parte interior */
+  color: #333; /* Color del texto */
+  font-size: 18px; /* Tamaño del texto */
+  text-align: center; /* Centrar el texto */
+  padding: 20px; /* Espaciado interno */
+}
+
+/* Estilos para las filas de la tabla DataTable */
+#myDataTable tbody tr {
+  background: linear-gradient(to bottom, #000000 0%, #000080 100%); /* Efecto de esfumado vertical */
+}
+
+
+  /* Estilos alternados para filas de la tabla DataTable */
+   #myDataTable tbody tr:nth-child(odd) {
+     background-color: #66cdaa; /* Color de fondo para las filas impares */
+   }
+
+   #myDataTable tbody tr:nth-child(even) {
+     background-color: #ffffff; /* Color de fondo para las filas pares */
+   }
+
+    /* Estilos para las filas de la tabla DataTable */
+  #myDataTable tbody tr {
+  animation: fadeInRow 0.5s ease; /* Agregar animación de desvanecimiento */
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeInRow {
+  from {
+    opacity: 0; /* Comienza con opacidad cero (invisible) */
+  }
+  to {
+    opacity: 1; /* Termina con opacidad completa (visible) */
+  }
+}
+    
+    #myDataTable tbody td:nth-child(3) {
+    width: auto; /* Ancho automático */
+    height: auto; /* Alto automático */
+    padding: 5px; /* Ajustar el relleno según sea necesario */
+}
+
+    #myDataTable tbody td:nth-child(2) {
+    width: auto; /* Ancho automático */
+    height: auto; /* Alto automático */
+    padding: 5px; /* Ajustar el relleno según sea necesario */
+    color: red; /* Color rojo para el texto de la columna de precio */
+
+}
+    #myDataTable tbody td {
+    border-radius: 0%; /* Establecer el radio para crear un borde circular */
+    overflow: hidden; /* Ocultar cualquier contenido que sobresalga del borde circular */
+}
+
+
+.lista-de-compra {
+    position: fixed;
+    /*bottom: 0;*/
+    width: 100%;
+    max-height: 80%;
+    overflow-y: auto;
+    background-image: url('https://i.postimg.cc/jjvZJL1V/JPG-LOGO-DISTRIBUCIONESDIAZ.jpg');
+    background-size: 120px; /* Tamaño deseado para la imagen */
+    background-position: right top; /* Ajusta la posición de la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+
+
+
+
+
+/* Estilos para la sección de shoppingItems */
+.shopping-items {
+    display: none; /* Ocultar la lista de ítems por defecto */
+}
+
+/* Estilos para mostrar la sección de shoppingItems al deslizar hacia arriba */
+.shopping-items.mostrar {
+    display: block; /* Mostrar la lista de ítems */
+}
+#container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+  </style>
+
+</head>
+<body>
+
+<div id="container">
+    
+    <div style="height: 100px;"></div>
+
+    <!-- Nueva sección para la lista de compra -->
+    <div id="shoppingList" class="lista-de-compra">
+        <h4>Distribuciones Diaz E.I.R.L.</h4>
+
+
+        <div id="documentOptions">
+            <!-- Opciones de documento: Nota de Venta, Cotización, Nota de Pedido, Lista de Compra -->
+            <label for="documentType">Tipo de Documento>:</label>
+            <select id="documentType" name="documentType">
+                <option value="notaPedido">Nota de Pedido</option>
+                <option value="notaVenta">Nota de Venta</option>
+                <option value="cotizacion">Cotización</option>
+                <option value="listaCompra">Lista de Compra</option>
+            </select>
+        </div>
+
+        <!-- Opciones de entrega: Delivery, Recojo en tienda -->
+        <div id="deliveryOptions">
+            <label for="deliveryOption">Opciones de entrega:</label>
+            <select id="deliveryOption" name="deliveryOption">
+                <option value="delivery">Delivery</option>
+                <option value="pickup">Recojo en tienda</option>
+            </select>
+        </div>
+
+        <!-- Enlace para mostrar/ocultar ítems -->
+        <a href="#" id="toggleItemsLink">Mostrar ítems</a>
+        <ul id="shoppingItems" class="shopping-items">
+            <!-- Campos de entrada para cliente, dirección y celular -->
+            <li>
+                <label for="clientName">Cliente👥:</label>
+                <input type="text" id="clientName" name="clientName">
+            </li>
+            <li>
+                <label for="clientAddress">Dirección:</label>
+                <input type="text" id="clientAddress" name="clientAddress">
+            </li>
+            <li>
+                <label for="clientPhone">Celular📱</label>
+                <input type="text" id="clientPhone" name="clientPhone">
+            </li>
+
+            <!-- Los ítems de la lista de compra se agregarán aquí dinámicamente -->
+        </ul>
+        <p>Total de Compra: <span id="totalPurchase">$0.00</span></p>
+        <button id="whatsappButton">Compartir por WhatsApp</button>
+        <button id="downloadPDFButton">Descargar PDF</button>
+    </div>
+</div>
+
+  
+   <div style="height: 60px;"></div>
+   <table id="myDataTable" class="display">
+        <!-- DataTable content will be dynamically generated here -->
+    </table>
+    </div>
+
+<!-- Enlaces -->
+<!-- a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=pieza" class="external-link filter-link">Enlace con Filtro</a -->
+<!-- a href="https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html" class="external-link">Enlace Normal</a -->
+
+
+
+
+<script>
+  // Capturar errores de JavaScript y mostrarlos en una alerta
+window.onerror = function(message, source, lineno, colno, error) {
+    alert("Error: " + message + "\n" + "File: " + source + "\n" + "Line: " + lineno);
+    return true; // Evitar que el navegador muestre su propio mensaje de error en la consola
+};
+
+
+// Obtener la sección de shoppingItems
+var shoppingItems = document.getElementById("shoppingItems");
+
+// Obtener el enlace de mostrar/ocultar ítems
+var toggleItemsLink = document.getElementById("toggleItemsLink");
+
+// Agregar un evento de clic al enlace
+toggleItemsLink.addEventListener("click", function(event) {
+    // Evita que el enlace ejecute su comportamiento predeterminado
+    event.preventDefault();
+    
+    // Alternar la clase "mostrar" en la lista de compras
+    shoppingItems.classList.toggle("mostrar");
+    
+    // Cambiar el texto del enlace según el estado de la lista de compras
+    if (shoppingItems.classList.contains("mostrar")) {
+        toggleItemsLink.textContent = "Ocultar ítems";
+    } else {
+        toggleItemsLink.textContent = "Mostrar ítems";
+    }
+});
+
+
+
+  
+  $(document).ready(function () {
+   // Descargar y parsear el archivo CSV
+    Papa.parse('https://docs.google.com/spreadsheets/d/1X0WN5st8Bl6G6_QPtC9gS6vY4PyFR5dAjXxWU7UiOYE/export?format=csv&gid=0', {
+      download: true,
+      header: true,
+      dynamicTyping: true,
+  //###############################################
+    complete: function (results) {
+      //?????????????????????????....????????
+        // Agregar el precio a la descripción
+     
+      ///results.data.forEach(function(row) {
+      ///  row.DESCRIPCION = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
+        //row.DESCRIPCION = row.DESCRIPCION + '<br>Precio: $' + row.Total;
+       /// });
+      //????????????????????????????????
+              // Copiar la descripción original antes de modificarla
+                results.data.forEach(function(row) {
+            // Agregar precio a la descripción original
+            row.DESCRIPCION_CON_PRECIO = row.DESCRIPCION + '<br><span style="font-weight: bold; color: red;">Precio: S/' + row.Total + '</span>';
+        });
+      //????????????????????????.......???????????
+    // Crear DataTable
+     var dataTable = $('#myDataTable').DataTable({
+          data: results.data,
+          columns: [
+              { data: 'DESCRIPCION_CON_PRECIO', title: 'DESCRIPCION' }, // Columna 1: DESCRIPCION
+              //{ data: 'Total', title: 'PRECIO' }, // Columna 9: PRECIO
+              { data: 'ENLACES', title: 'IMAGENES' } // Columna 10: IMAGENES
+          ],
+          columnDefs: [
+              {
+                  targets: [1], // Índice de la columna 10
+                  render: function (data, type, row) {
+                    // Personalizar renderizado para la columna 10 con enlaces no vacíos
+                    return data && data !== "" ? '<img src="' + data + '" alt="Ver Foto" style="height: auto; width: 500px;" />' : "";
+                }
+            }
+        ]
+    });
+
+
+      
+  //################################################    
+      
+    ///  complete: function (results) {
+        // Crear DataTable
+     ///   var dataTable = $('#myDataTable').DataTable({
+      ///    data: results.data,
+     ///     columns: Object.keys(results.data[0]).map(function(key) {
+      ///      return { data: key, title: key };
+      ///    }),
+     ///     columnDefs: [
+       ///     {
+      ///        targets: 10,
+     ///         render: function (data, type, row) {
+                // Personalizar renderizado para la columna con enlaces no vacíos
+        ///      return data && data !== "" ? '<img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" />' : "";
+
+              //  return data && data !== "" ? '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Ver Foto" style="height: 100px; width: auto;" /></a>' : "";
+       ///       }
+      ///      }
+     ///     ]
+    ///    });
+//######################################################
+ 
+
+        // Nueva lista de compra
+        var shoppingList = [];
+        var totalPurchase = 0;
+
+// ...
+
+        
+$('#priceInput').click(function() {
+    // Seleccionar todo el texto dentro del campo de entrada
+    $(this).select();
+    // Eliminar la propiedad 'readonly'
+    $(this).removeAttr('readonly');
+});
+
+// Validar que solo se ingresen números durante la edición del precio
+$('#priceInput').on('input', function() {
+    var sanitized = $(this).val().replace(/[^0-9.]/g, '');
+    $(this).val(sanitized);
+});
+
+// Capturar el valor del precio antes de la edición
+var previousPrice;
+var nuevoProducto;
+        
+//$('#priceInput').focus(function() {
+  //  previousPrice = $(this).val();
+//});
+
+// Al perder el enfoque del campo de precio, verificar y ajustar la cantidad si es necesario
+$('#priceInput').change(function() {
+    // Verificar el valor de nuevoProducto
+    if (nuevoProducto === "si") {
+          //si nuevoProducto es "si"
+         previousPrice = $('#priceInput').val();
+
+        return;
+    } else if (nuevoProducto === "no") {
+        var newPrice = parseFloat($(this).val());
+
+        // Verificar si el nuevo precio es menor o igual que el precio anterior
+        if (newPrice <= parseFloat(previousPrice)) {
+            var quantity = parseFloat($('#quantityInput').val()); // Obtener la cantidad ingresada
+            if (!isNaN(quantity) && quantity > 0) {
+                // Calcular la nueva cantidad
+                var newQuantity = (quantity / parseFloat(previousPrice)) * newPrice;
+
+                $('#quantityInput').val(newQuantity.toFixed(2)); // Actualizar el campo de cantidad
+            }
+        } else {
+            // Si el nuevo precio es mayor o igual que el precio anterior
+            // Establecer la cantidad como el nuevo precio dividido por el precio anterior
+            $('#quantityInput').val((newPrice / parseFloat(previousPrice)).toFixed(2));
+        }
+    }
+
+    // Volver a establecer el campo de precio como de solo lectura
+    //$(this).attr('readonly', true);
+});
+
+// Al cambiar el valor de cantidad
+$('#quantityInput').change(function() {
+    // Verificar si el producto es "no" y si la cantidad ha sido editada
+    if (nuevoProducto === "no") {
+        // Establecer el valor del campo de precio como previousPrice
+        $('#priceInput').val(previousPrice);
+    }
+});
+
+    
+// Convertir precio a número con punto decimal
+function convertirPrecio(precio) {
+    // Verificar si el precio es un número
+    if (!isNaN(precio)) {
+        // Si el precio es un número válido, simplemente devolverlo
+        return parseFloat(precio);
+    } else if (precio.trim() !== '') {
+        // Si el precio no es un número y no está vacío, intentar limpiar y convertirlo
+        // Eliminar cualquier carácter que no sea dígito o punto
+        precio = precio.replace(/[^\d,.]/g, '');
+
+           //precio = precio.replace(/[^\d,.]/g, '');
+      //Reemplasa coma por punto  
+       precio = precio.replace(',', '.');
+        // Convertir el string limpio a número
+        return parseFloat(precio);
+    } else {
+        // Si el precio está vacío, nulo o es 0, devolver 0
+        return 0;
+    }
+}
+
+// Capturar el evento clic al seleccionar un ítem en la tabla
+$('#myDataTable tbody').on('click', 'tr', function () {
+    try {
+        var data = dataTable.row(this).data(); // Obtener datos de la fila clicada
+        //+++++++++++++++++++++++ 
+        // Limpiar la URL de parámetros
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        // Agregar un parámetro "id" con la descripción del ítem cliqueado
+        var descripcionId = encodeURIComponent(data.DESCRIPCION); // Codificar la descripción para asegurar que sea una URL válida
+        var newUrl = window.location.pathname + '?id=' + descripcionId;
+        window.history.pushState({}, document.title, newUrl);
+        //++++++++++++++++++
+        // Verificar si la descripción del producto está definida
+        if (data && data.DESCRIPCION) {
+            // Mostrar el formulario modal
+            $('#quantityModal').modal('show');
+
+            // Verificar si la descripción del producto es "xp" (sin diferenciar mayúsculas y minúsculas)
+            var descripcion = data.DESCRIPCION.toLowerCase(); // Convertir la descripción a minúsculas
+            var precio = convertirPrecio(data.Total); // Convertir el precio a número con punto decimal
+            var imageLink = ""; // Enlace de la imagen por defecto
+
+            if (descripcion === "xp") {
+                // Si la descripción es "xp", establecer la descripción, el precio y la imagen como vacíos
+                $('#descriptionInput').val("");
+                $('#priceInput').val("0.00");
+                $('#imageContainer').html(""); // Limpiar el contenedor de imagen
+                previousPrice = 0;
+                nuevoProducto="si";
+
+            } else {
+                // Si la descripción no es "xp", establecer la descripción y el precio según los datos de la fila
+                 // var descripcion = $('<div>').html(data.DESCRIPCION).text(); // Obtener la descripción sin HTML
+                //$('#descriptionInput').val(descripcion.trim()); // Establecer la descripción en el textarea
+
+                $('#descriptionInput').val(data.DESCRIPCION);
+                // Verificar si el precio es 0, mostrar "0.00", de lo contrario, mostrar el precio formateado con dos decimales
+                $('#priceInput').val(precio === 0 ? '0.00' : precio.toFixed(2));
+                imageLink = data.ENLACES; // Obtener el enlace de la imagen directamente de la columna "ENLACES"
+                previousPrice = $('#priceInput').val();
+                nuevoProducto="no";
+            }
+
+            if (imageLink) {
+                // Mostrar la imagen en el modal
+                $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+            } else {
+                $('#imageContainer').html('Imagen no disponible');
+            }
+
+            // Capturar el evento clic del botón "Agregar" en el formulario modal
+            $('#addQuantityBtn').off('click').on('click', function () {
+                try {
+                    var quantity = $('#quantityInput').val(); // Obtener la cantidad ingresada
+                    var price = $('#priceInput').val(); // Obtener el precio
+                    if (!quantity || isNaN(quantity) || quantity <= 0 || !price || isNaN(price) || price <= 0) {
+                        alert('La cantidad y el precio deben ser números positivos.');
+                        return;
+                    }
+
+                    // La cantidad y el precio son válidos, procede con el proceso de agregar a la lista de compra
+                    var totalItem = parseFloat(price) * parseFloat(quantity);
+                    totalPurchase += totalItem;
+
+                    shoppingList.push({
+                    producto: $('#descriptionInput').val(), // Obtener el valor del campo de descripción
+                    cantidad: quantity,
+                    precio: previousPrice, // Agregar el precio modificado a la lista de compras
+                    total: totalItem.toFixed(2),
+                    });
+
+
+                    updateShoppingList();
+
+                    $('#quantityModal').modal('hide'); // Ocultar el formulario modal
+                } catch (error) {
+                    alert('Error al agregar la cantidad: ' + error.message);
+                }
+            });
+        } else {
+            alert('Descripción del producto no definida. Intente de nuevo.');
+        }
+    } catch (error) {
+        alert('Error al procesar el clic en la tabla: ' + error.message);
+    }
+});
+
+
+//:: fin Agregar evento clic para generar lista de compra
+        
+// .
+
+// ...
+//   inicio botones Whatsapp y pdf
+
+// Función para formatear la lista de compra para WhatsApp
+//wwewwwwwwwwwwwwwwww
+// Función para formatear la lista de compra para WhatsApp
+// Función para formatear la lista de compra para WhatsApp
+///function formatShoppingListForWhatsApp() {
+  // Obtener los valores de los campos del formulario
+
+ /// const documentType = $('#documentType').val();
+ /// const deliveryOption = $('#deliveryOption').val();
+  ///const clientName = $('#clientName').val();
+  ///const clientAddress = $('#clientAddress').val();
+ /// const clientPhone = $('#clientPhone').val();
+
+  
+///  let formattedList = '*📋 Lista de Compra:*\n\n';
+///  for (let i = 0; i < shoppingList.length; i++) {
+   /// const item = shoppingList[i];
+   /// formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
+  ///  formattedList += '─────────────────────────────\n'; // Línea decorativa
+ /// }
+  ///formattedList += `\n💰 *Total de Compra:* _$${totalPurchase.toFixed(2)}_`;
+
+  // Agregar información del cliente y opciones de entrega
+  ///formattedList += `\n\n*Información del Cliente:*\nNombre: ${clientName}\nDirección: ${clientAddress}\nTeléfono: ${clientPhone}\nTipo de Documento: ${documentType}\nOpción de Entrega: ${deliveryOption}`;
+
+  // Agregar enlace al GIF
+///  const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
+ /// formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
+
+
+///}
+
+
+
+
+//wwwwwwwwwwwwwwwwwewwwww
+   
+   
+ function formatShoppingListForWhatsApp() {
+
+   const selectedOptionText = $('#documentType option:selected').text();
+   const fechaHoraActual = new Date().toLocaleString(); // Obtiene la fecha y hora actual en formato local
+   const shoppingListHeaderText = $('#shoppingList h4').text(); // Obtiene el texto dentro de <h4>
+   const deliveryOption = $('#deliveryOption option:selected').text();  
+   // const documentType = $('#documentType').val();
+  //const deliveryOption = $('#deliveryOption').val();
+  const clientName = $('#clientName').val();
+  const clientAddress = $('#clientAddress').val();
+  const clientPhone = $('#clientPhone').val();
+// clientName = $('#clientName').val();
+ //let formattedList = '* Lista de Compra:*\n';
+ let formattedList = `*${shoppingListHeaderText}:*\n`; // Utiliza el texto obtenido dentro de <h4>
+   formattedList += `  *${selectedOptionText}* - N° ${fechaHoraActual}  📋 \n`;
+  // formattedList += `*Comprobante:* ${selectedOptionText}\n`;
+   //formattedList += `*Comprobante:* ${documentType}*\n`;
+  // formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
+  formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
+   //formattedList += `*Opcion de entrega:* ${deliveryOption}*\n`;
+   formattedList += `*Nombre del Cliente:* ${clientName}\n`;
+   formattedList += `*Dirección:* ${clientAddress}\n`;
+   formattedList += `*Celular:* ${clientPhone}\n\n\n`;
+   for (let i = 0; i < shoppingList.length; i++) {
+    const item = shoppingList[i];
+    //formattedList += `🛒 *${item.cantidad}x ${item.producto}* - _Total: _$${item.total}_\n`;
+    formattedList += `🛒 *${item.cantidad}-* *${item.producto}* - Precio: _S/${item.precio}_ - _Total: _S/${item.total}_\n`;
+
+    formattedList += '───────────────────────────────────────\n'; // Línea decorativa
+  }
+  formattedList += `\n💰 *Total de Compra:* _S/${totalPurchase.toFixed(2)}_`;
+
+  // Agregar enlace al GIF
+  //const gifURL = 'https://media2.giphy.com/media/3o72Fj8mcEJC5InEFa/200w.webp?cid=ecf05e47iogotsnrkib2qj85yqifajv7o5c4j9e7bws0e8f2&ep=v1_gifs_related&rid=200w.webp&ct=g'; // URL directa al GIF
+  //formattedList += `\n\n¡Mira este GIF increíble!\n${gifURL}\n\n`;
+
+  return formattedList;
+ }
+//wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+
+ //pppoppppppppppppddddddddddddfffffffffffffff     
+// Función para formatear la lista de compra para el PDF
+
+//function formatShoppingListForPDF(lineTexts, lineSizes) {
+////function formatShoppingListForPDF(cliente, tipoDocumento, fechaHoraActual, deliveryOption, clientName, clientAddress, clientPhone, shoppingListHeaderText, lineTexts, lineSizes) {
+////  let formattedList = `${shoppingListHeaderText}:\n`; 
+  ////formattedList += `Cliente: ${cliente}\n`;
+////  formattedList += `Tipo de Documento: ${tipoDocumento}\n`;
+////  formattedList += `Fecha y Hora Actual: ${fechaHoraActual}\n`;
+////  formattedList += `Opción de Entrega: ${deliveryOption}\n`;
+////  formattedList += `Nombre del Cliente: ${clientName}\n`;
+////  formattedList += `Dirección: ${clientAddress}\n`;
+////  formattedList += `Celular: ${clientPhone}\n`;
+////  formattedList += `---------------------------------------------------------------------\n`;
+
+////  for (let i = 0; i < lineTexts.length; i++) {
+  ////  const textSize = lineSizes[i] || 7; 
+  ////  const itemLine = lineTexts[i];
+ ////   formattedList += `{size:${textSize}}${itemLine}\n`; 
+  ////  formattedList += `---------------------------------------------------------------------\n`;
+////  }
+   
+////  formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`; 
+
+////  return formattedList; 
+////}
+
+
+document.getElementById('downloadPDFButton').addEventListener('click', async function () {
+    window.jsPDF = window.jspdf.jsPDF;
+    try {
+        var doc = new jsPDF();
+        doc.text('HELLO WORLD', 10, 10);
+      ///  doc.html($('#tabla').get(0), 15, 15);
+
+        // Guardar el PDF y crear el enlace de descarga
+        
+       /// const pdfBytes = doc.output('arraybuffer'); // Obtener los bytes del PDF
+       /// const blob = new Blob([pdfBytes], { type: 'application/pdf' }); // Crear un objeto Blob con los bytes del PDF
+        const blob = doc.output('blob'); // Obtener el PDF como un objeto Blob
+        const url = URL.createObjectURL(blob); // Crear una URL que apunta al objeto Blob
+
+        // Crear un enlace de descarga y simular un clic para iniciar la descarga
+        const downloadLink = document.createElement('a');
+        downloadLink.href = url;
+        downloadLink.download = 'reporte.pdf';
+        downloadLink.click();
+
+        // Liberar la URL del objeto Blob
+        //URL.revokeObjectURL(url);
+    } catch (error) {
+        alert('Error al crear/descargar el PDF: ' + error.message);
+    }
+});
+
+
+
+//pppppppppppppdddddddddddddddddddddddddddddddfffffffffffff
+
+ // Función para formatear la lista de compra para el PDF
+
+/// function formatShoppingListForPDF() {
+///  const selectedOptionText = $('#documentType option:selected').text();
+ /// const fechaHoraActual = new Date().toLocaleString(); 
+///  const deliveryOption = $('#deliveryOption option:selected').text();  
+///  const clientName = $('#clientName').val();
+///  const clientAddress = $('#clientAddress').val();
+ /// const clientPhone = $('#clientPhone').val();
+///  const shoppingListHeaderText = $('#shoppingList h4').text(); 
+
+ /// let formattedList = `${shoppingListHeaderText}:\n`; 
+///  formattedList += `  ${selectedOptionText} - N° ${fechaHoraActual}   \n`;
+  ///formattedList += `*Opción de entrega:* ${deliveryOption}\n`;
+///  formattedList += `*Nombre del Cliente:* ${clientName}\n`;
+///  formattedList += `*Dirección:* ${clientAddress}\n`;
+///  formattedList += `*Celular:* ${clientPhone}\n`;
+ /// formattedList += `---------------------------------------------------------------------\n`;
+///  const maxWidth = 35; 
+
+ /// for (let i = 0; i < shoppingList.length; i++) {
+ ///   const item = shoppingList[i];
+  ///  let descripcion = item.producto.length > 18 ? `${item.producto.substring(0, 18)}` : item.producto; 
+   /// const paddingLength = (maxWidth - (item.cantidad.toString().length + 23 + item.total.toString().length + 7)) / 2;
+  ///  descripcion = descripcion.padStart(18 + paddingLength).padEnd(18); 
+  ///  descripcion = descripcion.replace(/\s/g, '-'); 
+ ///   const itemLine = `${item.cantidad}x ${descripcion} - Total: $${item.total}`; 
+  ///  formattedList += itemLine + '\n'; // Agrega la línea formateada a la lista
+   /// formattedList += `---------------------------------------------------------------------\n`;
+   
+///  }
+  /// formattedList += `Total de Compra: $${totalPurchase.toFixed(2)}\n\n`; // Agrega el total de la compra al principio
+
+///  return formattedList; // Devuelve la lista de compras formateada
+///}
+
+///document.getElementById('downloadPDFButton').addEventListener('click', async function () {
+  
+
+  ///try {
+   /// const pdfDoc = await PDFLib.PDFDocument.create();
+   /// const pageWidth = 5.5 * 28.35;
+   /// let pageHeight = 15 * 28.35;
+   /// const margin = 20;
+   /// const textSize = 8;
+   /// const textX = 20;
+  ///  let textY = margin;
+
+ ///   const formattedListForPDF = formatShoppingListForPDF();
+  ///  const lineHeight = 20;
+   /// const additionalItemsHeight = formattedListForPDF.split('\n').length * lineHeight;
+ ///   const cuadrar = additionalItemsHeight / 6;
+
+  ///  pageHeight = margin * 2 + additionalItemsHeight + cuadrar;
+   /// textY = pageHeight - margin;
+
+  ///  const page = pdfDoc.addPage([pageWidth, pageHeight]);
+  ///  page.drawText(formattedListForPDF, { x: textX, y: textY, size: textSize });
+
+   /// const pdfBytes = await pdfDoc.save();
+
+   /// const downloadLink = document.createElement('a');
+ ///   downloadLink.href = URL.createObjectURL(new Blob([pdfBytes], { type: 'application/pdf' }));
+  ///  downloadLink.download = 'Lista_de_Compra.pdf';
+ ///   downloadLink.click();
+ /// } catch (error) {
+ ///   alert('Error al crear/descargar el PDF: ' + error.message); 
+  ///}
+///});
+
+
+//ppppppppppppppppppppppppppdddddddddddddddddddddfffffffffffddd
+// Función para compartir en WhatsApp al hacer clic en el botón
+$('#whatsappButton').on('click', function () {
+  try {
+    // Obtener la lista de compra formateada para WhatsApp
+    const formattedListForWhatsApp = formatShoppingListForWhatsApp();
+
+    // Abrir WhatsApp con el mensaje
+    const whatsappLink = 'whatsapp://send?text=' + encodeURIComponent(formattedListForWhatsApp);
+
+    // Redirigir a la aplicación de WhatsApp o abrir en una nueva ventana
+    window.open(whatsappLink, '_blank');
+  } catch (error) {
+    alert('Error al compartir en WhatsApp: ' + error.message);
+  }
+});
+// fin botones Whatsapp y pdf
+
+
+          // Agregar evento cuando el modal se muestre
+            $('#quantityModal').on('shown.bs.modal', function () {
+            // Establecer el valor predeterminado en 1
+            $('#quantityInput').val('1');
+            
+            // Seleccionar todo el texto en el campo de cantidad
+            $('#quantityInput').select();
+        });
+        // fin agregar evento modal
+
+  //9999999999999999999999999999999999999999
+        
+        // Función para actualizar la lista de compra en la interfaz
+      ///  function updateShoppingList() {
+        ///  var shoppingItems = $('#shoppingItems');
+         /// var totalPurchaseElement = $('#totalPurchase');
+
+          // Limpiar lista de compra
+        ///  shoppingItems.empty();
+
+          // Construir y agregar nuevos elementos a la lista de compra
+       ///   for (var i = 0; i < shoppingList.length; i++) {
+          ///  var item = shoppingList[i];
+            ///var listItem = '<li class="shopping-item">' +
+           ///    '<span class="item-quantity">' + item.cantidad + 'x</span>' +
+            ///   '<span class="item-description">' + item.producto + '</span>' +
+            ///   '<span class="item-price">Precio: $' + item.precio + '</span>' +
+           ///    '<span class="item-total">Total: $' + item.total + '</span>' +
+              /// '</li>';
+
+
+         ///   shoppingItems.append(listItem);
+       ///   }//fin for
+
+          // Actualizar el total de la compra global
+      ///    totalPurchaseElement.text('$' + totalPurchase.toFixed(2));
+     ///   }
+
+
+        
+        //fin actualizar la lista compras
+
+  //99999999999999999999999999999999999999
+
+   // Función para actualizar la lista de compra en la interfaz
+function updateShoppingList() {
+    var shoppingItems = $('#shoppingItems');
+    var totalPurchaseElement = $('#totalPurchase');
+
+    // Limpiar lista de compra
+    //shoppingItems.empty();
+    $('.shopping-item').remove();
+
+  
+    // Construir y agregar nuevos elementos a la lista de compra
+    for (var i = 0; i < shoppingList.length; i++) {
+        var item = shoppingList[i];
+        var listItem = '<li class="shopping-item">' +
+            '<span class="item-quantity">' + item.cantidad + 'x</span>' +
+            '<span class="item-description">' + item.producto + '</span>' +
+            '<span class="item-price">Precio: S/' + item.precio + '</span>' +
+            '<span class="item-total">Total: S/' + item.total + '</span>' +
+            '</li>';
+
+        shoppingItems.append(listItem);
+    }//fin for
+
+// Actualizar el total de la compra global
+var totalPurchase = 0;
+for (var i = 0; i < shoppingList.length; i++) {
+    // Obtener el total del elemento actual en la lista de compras
+    var totalItem = parseFloat(shoppingList[i].total.replace('S/', '')); // Eliminar el signo '$' antes de convertir a flotante
+    totalPurchase += totalItem;
+}
+totalPurchaseElement.text('S/' + totalPurchase.toFixed(2)); // Agregar el signo '$' al total de la compra global
+}   
+        
+  //99999999999999999999999999999999000000
+        
+//:::;;;;;;;;;;;;codigo modal edicion::::::::::':::    
+       
+
+        
+    // Agregar controlador de eventos blur al campo de cantidad
+    $('#editQuantity').on('blur', function() {
+        // Obtener los valores actuales de cantidad y precio
+        var cantidad = parseFloat($(this).val());
+        var precio = parseFloat($('#editPrice').val());
+
+        // Verificar si ambos valores son numéricos
+        if (!isNaN(cantidad) && !isNaN(precio)) {
+            // Calcular el total y actualizar el campo correspondiente
+            $('#editTotal').val((cantidad * precio).toFixed(2));
+        }
+    });
+
+    // Agregar controlador de eventos blur al campo de precio
+    $('#editPrice').on('blur', function() {
+        // Obtener los valores actuales de cantidad y precio
+        var cantidad = parseFloat($('#editQuantity').val());
+        var precio = parseFloat($(this).val());
+
+        // Verificar si ambos valores son numéricos
+        if (!isNaN(cantidad) && !isNaN(precio)) {
+            // Calcular el total y actualizar el campo correspondiente
+            $('#editTotal').val((cantidad * precio).toFixed(2));
+        }
+    });
+                          
+
+    
+    
+    // Agregar controlador de eventos input al campo de cantidad
+    $('#editQuantity').on('input', function() {
+        // Obtener el valor actual del campo de cantidad
+        var value = $(this).val();
+
+        // Filtrar caracteres no numéricos y más de un punto decimal
+        value = value.replace(/[^\d.]/g, ''); // Mantener solo dígitos y puntos decimales
+        value = value.replace(/^(\d*\.\d*)\..*$/, '$1'); // Mantener solo un punto decimal
+
+        // Actualizar el valor del campo de cantidad con la entrada filtrada
+        $(this).val(value);
+    });
+
+    // Agregar controlador de eventos input al campo de precio
+    $('#editPrice').on('input', function() {
+        // Obtener el valor actual del campo de precio
+        var value = $(this).val();
+
+        // Filtrar caracteres no numéricos y más de un punto decimal
+        value = value.replace(/[^\d.]/g, ''); // Mantener solo dígitos y puntos decimales
+        value = value.replace(/^(\d*\.\d*)\..*$/, '$1'); // Mantener solo un punto decimal
+
+        // Actualizar el valor del campo de precio con la entrada filtrada
+        $(this).val(value);
+    });
+
+    // Agregar controlador de eventos input al campo de total
+    $('#editTotal').on('input', function() {
+        // Obtener el valor actual del campo de total
+        var value = $(this).val();
+
+        // Filtrar caracteres no numéricos y más de un punto decimal
+        value = value.replace(/[^\d.]/g, ''); // Mantener solo dígitos y puntos decimales
+        value = value.replace(/^(\d*\.\d*)\..*$/, '$1'); // Mantener solo un punto decimal
+
+        // Actualizar el valor del campo de total con la entrada filtrada
+        $(this).val(value);
+    });
+      
+
+ 
+
+                                 
+
+    // Agregar controlador de eventos clic al contenedor de la lista de compras
+    $('#shoppingItems').on('click', '.shopping-item', function() {
+        // Remover la clase 'active' de todos los elementos de la lista de compras
+        $('.shopping-item').removeClass('active');
+        
+        // Agregar la clase 'active' al elemento clicado para resaltarlo visualmente
+        $(this).addClass('active');
+
+        // Obtener los datos del elemento clicado
+        var cantidad = $(this).find('.item-quantity').text().trim().replace('x', ''); // Eliminar 'x' y espacios
+        var descripcion = $(this).find('.item-description').text().trim();
+        var precio = $(this).find('.item-price').text().trim().replace('Precio: S/', ''); // Eliminar 'Precio: $'
+        var total = $(this).find('.item-total').text().trim().replace('Total: S/', ''); // Eliminar 'Total: $'
+
+        // Llenar el modal con los datos del elemento clicado
+        $('#editItemModal').modal('show'); // Mostrar el modal
+        $('#editDescription').val(descripcion);
+        $('#editQuantity').val(cantidad);
+        $('#editPrice').val(precio);
+        $('#editTotal').val(total);
+    });
+
+        // Agregar controlador de eventos clic al botón "Guardar Cambios" del modal
+$('#saveChangesBtn').on('click', function() {
+    // Obtener el índice del elemento activo en la lista de compras
+    var index = $('.shopping-item').index($('.shopping-item.active'));
+    
+    // Verificar si se ha seleccionado un elemento
+    if (index >= 0) {
+        // Actualizar los datos del elemento correspondiente en shoppingList
+        shoppingList[index].cantidad = $('#editQuantity').val();
+        shoppingList[index].producto = $('#editDescription').val();
+        shoppingList[index].precio = $('#editPrice').val();
+        shoppingList[index].total = $('#editTotal').val();
+
+        // Actualizar la lista de compras en la interfaz
+        updateShoppingList();
+
+        // Ocultar el modal después de guardar los cambios
+        $('#editItemModal').modal('hide');
+    } else {
+        // Mostrar mensaje de error si no se seleccionó ningún elemento
+        alert('Por favor, selecciona un elemento de la lista de compras.');
+    }
+});
+
+
+
+        
+        // Agregar controlador de eventos clic al botón "Borrar" del modal
+    $('#deleteItemBtn').on('click', function() {
+    // Obtener el elemento activo de la lista de compras
+    var shoppingItem = $('.shopping-item.active');
+    
+    // Verificar si se ha seleccionado un elemento
+    if (shoppingItem.length > 0) {
+        // Obtener el índice del elemento en shoppingList
+        var index = $('.shopping-item').index(shoppingItem);
+
+        // Eliminar el elemento de shoppingList
+        shoppingList.splice(index, 1);
+
+        // Actualizar la lista de compras en la interfaz
+        updateShoppingList();
+
+        // Ocultar el modal después de borrar el elemento
+        $('#editItemModal').modal('hide');
+    } else {
+        // Mostrar mensaje de error si no se seleccionó ningún elemento
+        alert('Por favor, selecciona un elemento de la lista de compras.');
+    }
+});
+
+//'''''''''''''''''''''''''''''''''''''
+
+      ////  const urlParams = new URLSearchParams(window.location.search);
+     ////   const searchParam = urlParams.get('buscar');
+
+      ////  if (searchParam) {
+            // Si hay un parámetro de búsqueda en la URL
+         ////   const externalURL = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html?buscar=' + searchParam;
+          ////  $('.external-link.filter-link').attr('href', externalURL);
+
+            // Aplicar el filtro en la DataTable usando la frase obtenida
+      ////      const myDataTable = $('#myDataTable').DataTable();
+         ////   myDataTable.search(searchParam).draw();
+
+            // Establecer la palabra clave en el recuadro de búsqueda de la DataTable
+         ////   const searchInput = $('#myDataTable_wrapper input[type="search"]');
+         ////   if (searchInput) {
+         ////       searchInput.val(searchParam);
+        ////    }
+      ////  } else {
+            // Si no hay parámetro de búsqueda, simplemente mostrar el sitio web
+        ////    window.location.href = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
+    ////    }
+
+
+
+  
+//'''''''''''''''''''''''''::'''''''''''
+    
+  // Obtiene la URL actual
+  ///  const currentURL = window.location.href;
+
+    // Obtiene los parámetros de la URL
+    ///const searchParams = new URLSearchParams(window.location.search);
+    ///const searchPhrase = searchParams.get('buscar');
+
+    // Si hay una frase de búsqueda en la URL, escribe en el recuadro de búsqueda de la DataTable
+   /// if (searchPhrase) {
+     ///   $('#myDataTable').DataTable().search(searchPhrase).draw();
+     ///   $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
+    ///}
+//........................
+      
+  
+            // Cuando se pierda el foco del cuadro de búsqueda
+          ///  $('#myDataTable_wrapper input[type="search"]').on('blur', function () {
+                // Obtiene el valor del cuadro de búsqueda
+             ///   var searchValue = $(this).val().trim();
+
+                // Actualiza el parámetro 'buscar' en la URL si el cuadro de búsqueda no está vacío
+             ///   if (searchValue !== '') {
+              ///      updateURL(searchValue);
+              ///  } else {
+                    // Si el cuadro de búsqueda está vacío, elimina el parámetro 'buscar' de la URL
+                 ///   removeSearchParam();
+             ///   }
+          ///  });
+
+            // Función para actualizar el parámetro 'buscar' en la URL
+           /// function updateURL(searchValue) {
+             ///   const urlParams = new URLSearchParams(window.location.search);
+             ///   urlParams.set('buscar', searchValue);
+            ///    window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+           /// }
+
+            // Función para eliminar el parámetro 'buscar' de la URL
+         ///   function removeSearchParam() {
+            ///    const urlParams = new URLSearchParams(window.location.search);
+            ///    urlParams.delete('buscar');
+           ///     window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+          ///  }
+        
+//(((((((((((((((((((((((((((
+
+     
+    const currentURL = window.location.href;
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Si no hay parámetros en la URL, muestra el sitio web
+    if (!urlParams.has('buscar') && !urlParams.has('id')) {
+        // Aquí puedes agregar el código para mostrar el sitio web
+        // Por ejemplo:
+        // $('#myWebsite').show();
+    }
+    
+    // Si hay un parámetro 'buscar' en la URL, realiza la búsqueda
+    if (urlParams.has('buscar')) {
+        const searchPhrase = urlParams.get('buscar');
+        $('#myDataTable').DataTable().search(searchPhrase).draw();
+        $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
+    }
+    
+    // Si hay un parámetro 'id' en la URL, cargar el formulario modal
+    if (urlParams.has('id')) {
+    const id = urlParams.get('id');
+    const rowData = buscarFilaPorId(id);
+    if (rowData) {
+        $('#descriptionInput').val(rowData.DESCRIPCION);
+        $('#priceInput').val(rowData.Total === 0 ? '0.00' : rowData.Total.toFixed(2));
+        const imageLink = rowData.ENLACES;
+        if (imageLink) {
+            $('#imageContainer').html('<img src="' + imageLink + '" alt="Imagen del producto">');
+        } else {
+            $('#imageContainer').html('Imagen no disponible');
+        }//fin if
+        $('#quantityModal').modal('show');
+      
+      previousPrice = $('#priceInput').val();
+             
+       nuevoProducto="no";
+      
+   }
+
+        // Aquí puedes agregar el código para cargar el formulario modal
+        // Por ejemplo:
+        // cargarFormularioModal(id);
+    }
+    
+    // Resto del código...
+
+             // Cuando se pierda el foco del cuadro de búsqueda
+            $('#myDataTable_wrapper input[type="search"]').on('blur', function () {
+                // Obtiene el valor del cuadro de búsqueda
+                var searchValue = $(this).val().trim();
+
+                // Actualiza el parámetro 'buscar' en la URL si el cuadro de búsqueda no está vacío
+                if (searchValue !== '') {
+                    updateURL(searchValue);
+                } else {
+                    // Si el cuadro de búsqueda está vacío, elimina el parámetro 'buscar' de la URL
+                    removeSearchParam();
+                }
+            });
+
+            // Función para actualizar el parámetro 'buscar' en la URL
+            function updateURL(searchValue) {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('buscar', searchValue);
+                window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+            }
+
+            // Función para eliminar el parámetro 'buscar' de la URL
+            function removeSearchParam() {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.delete('buscar');
+                window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+            }
+
+        // Función para buscar una fila por ID
+        function buscarFilaPorId(id) {
+        var rowData;
+        $('#myDataTable').DataTable().rows().every(function() {
+        var data = this.data();
+        if (data.DESCRIPCION === id) {
+            rowData = data;
+            return false; // Salir del bucle
+        }
+        return true; // Continuar con la siguiente fila
+       });
+       return rowData;
+     }
+      
+//)))))))))))))))))))))))))))
+
+//::::::::::::;;;;fin codigo modal edicion:::::::::::
+      }//complete funtion results
+    });//papaparse
+  });//funtion ready
+  //______________________________________ 
+// Función para capturar el clic en el enlace
+///$('.external-link').click(function(event) {
+    // Evita el comportamiento predeterminado del enlace
+   /// event.preventDefault();
+
+    // Obtiene el URL del sitio web externo desde el atributo "href" del enlace
+    ///const externalURL = $(this).attr('href');
+
+    // Obtiene el URL del enlace que proporcionaste
+   /// const providedURL = 'https://tor777sf.github.io/gadgetfiltercliGS.io/gadgetfilterGS.html';
+
+    // Verifica si el enlace que se está clicando es diferente al enlace que proporcionaste
+  ///  if (externalURL !== providedURL) {
+        // Obtiene la frase a buscar en la DataTable del URL
+      ///  const searchParams = new URLSearchParams(new URL(externalURL).search);
+     ///   const searchPhrase = searchParams.get('buscar');
+
+        // Aplica un filtro en la DataTable utilizando la frase obtenida
+   ///     $('#myDataTable').DataTable().search(searchPhrase).draw();
+
+        // Establece la palabra clave en el recuadro de búsqueda de la DataTable
+   ///     $('#myDataTable_wrapper input[type="search"]').val(searchPhrase);
+      ///  } else {
+      ///  $('#myDataTable').DataTable().search('').draw(); // Limpiar el filtro
+ /// }
+
+    // Redirige al usuario al sitio web externo después de un breve retraso
+    //setTimeout(function() {
+     //   window.location.href = externalURL;
+  //  }, 500); // Tiempo de espera de 500 milisegundos (ajusta según sea necesario)
+///});
+    
+  
+
+ //_________________________________________ 
+</script>
+<!-- Modal -->
+<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="quantityModalLabel">Detalles del Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="quantityForm">
+          <div class="form-group">
+            <label for="descriptionInput">Descripción:</label>
+            <textarea class="form-control" id="descriptionInput" rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="quantityInput">Cantidad:</label>
+              <input type="number" class="form-control" id="quantityInput" value="1">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="priceInput">Precio:</label>
+              <input type="text" class="form-control" id="priceInput">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="imageInput">Imagen:</label>
+            <div id="imageContainer"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" id="addQuantityBtn">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal fin -->
+
+<!-- Nuevo Modal para Edición de Elementos -->
+<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editItemModalLabel">Editar Elemento de Lista de Compras</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulario de Edición de Elemento -->
+        <form id="editItemForm">
+          <div class="form-group">
+            <label for="editDescription">Descripción:</label>
+            <textarea class="form-control" id="editDescription" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="editQuantity">Cantidad:</label>
+            <input type="text" class="form-control" id="editQuantity">
+          </div>
+          <div class="form-group">
+            <label for="editPrice">Precio:</label>
+            <input type="text" class="form-control" id="editPrice">
+          </div>
+          <div class="form-group">
+            <label for="editTotal">Total:</label>
+            <input type="text" class="form-control" id="editTotal">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="deleteItemBtn">Borrar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="saveChangesBtn">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal edicion fin -->
+
+  
+</body>
+</html>
